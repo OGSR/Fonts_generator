@@ -1,4 +1,4 @@
-%22Microsoft%20YaHei%22
+%22Arial%20Black%22
 %0A%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20Welcome%20to%20use%20the%20STALKER%20language%20package%20generator%0A%0A%0A%20%20%20%20%20%20%20If%20you%20have%20any%20questions%2C%20suggestions%20or%20recommendations%2C%20welcome%20to%20the%20Baidu%20Tieba%20Qianxingzhe%20bar%2C%20I%27m%20here%20waiting%20for%20you.%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Copyright%20MicroAleX%20at%20Qianxingzhe%20bar%0A%20%20%20%20%20%20Do%20not%20modify%20or%20delete%20any%20files%20in%20the%20tool%20without%20authorization.%0A%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Version%3A%20V1.1%0A%0A%0APlease%20put%20all%20XML%20files%20into%20xmlfiles%20folder%2C%0AThen%20press%20any%20key%20to%20start%20the%20generation...
 Before%20running%20this%20tool%2C%20you%20need%20to%20put%20XML%20files%20into%20xmlfiles%20folder.
 Microsoft%20YaHei%20font%20is%20not%20found%2C%20please%20install%20the%20font%20and%20try%20again.
