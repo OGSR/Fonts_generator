@@ -32,6 +32,11 @@ set FONTGEN_ARGB=1xxx
 set FONTGEN_BPP=8
 set NVDXT_FORMAT=-8 A8
 set CONFIGS=%OUTDIR%\configs
+) else if /i "%GAME%" EQU "OGSR" (
+set FONTGEN_ARGB=xxxx
+set FONTGEN_BPP=32
+set NVDXT_FORMAT=-32 u8888
+set CONFIGS=%OUTDIR%\config
 ) else set CFGERR=y
 if DEFINED CFGERR (
 cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 28
@@ -49,11 +54,7 @@ cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 3
 pause
 exit
 )
-if not exist "%windir%\fonts\%FontFile%" (
-cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 4
-pause
-exit
-)
+
 if exist "%OUTDIR%" (
 cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 5
 pause
