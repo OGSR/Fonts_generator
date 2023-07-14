@@ -43,8 +43,12 @@ cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 28
 pause
 exit
 )
+if NOT DEFINED FONT_NAME (
 for /f "tokens=*" %%i in ('cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 1') do set FontName=%%i
-set FontFile=msyh.ttf
+)
+else (
+set FontName="%FONT_NAME%"
+)
 cls
 cscript /nologo /E:JScript "%MYDATA%\strings.js" "%STRTXT%" 2
 pause>nul
