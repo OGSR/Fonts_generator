@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FireflyCore_VS2010", "FireflyCore\FireflyCore_VS2010.vbproj", "{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CharAdder_VS2010", "CharAdder\CharAdder_VS2010.vbproj", "{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "FontGen_VS2010", "FontGen\FontGen_VS2010.vbproj", "{3454EF17-816D-4192-91C2-E92CFF566A35}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseWithoutKey|Any CPU = ReleaseWithoutKey|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}.ReleaseWithoutKey|Any CPU.ActiveCfg = Release|Any CPU
+		{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}.ReleaseWithoutKey|Any CPU.Build.0 = Release|Any CPU
+		{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}.ReleaseWithoutKey|Any CPU.ActiveCfg = ReleaseWithoutKey|Any CPU
+		{DD0EA5B7-D86B-445C-9A8E-79E5B9A45CBC}.ReleaseWithoutKey|Any CPU.Build.0 = ReleaseWithoutKey|Any CPU
+		{3454EF17-816D-4192-91C2-E92CFF566A35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3454EF17-816D-4192-91C2-E92CFF566A35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3454EF17-816D-4192-91C2-E92CFF566A35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3454EF17-816D-4192-91C2-E92CFF566A35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3454EF17-816D-4192-91C2-E92CFF566A35}.ReleaseWithoutKey|Any CPU.ActiveCfg = Release|Any CPU
+		{3454EF17-816D-4192-91C2-E92CFF566A35}.ReleaseWithoutKey|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08140D90-00E2-4F5B-9C73-F132A20A9FFD}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AFC14E74-E97E-0AD1-0580-7BCFDA46C6B4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Firefly</RootNamespace>
+    <AssemblyName>Firefly.Core</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(FLTKey)</AssemblyOriginatorKeyFile>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(ProjectDir)**\*.vb</DefaultItemExcludes>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" Exists('$(FLTKey)') ">
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DocumentationFile>..\..\Bin\Firefly.Core.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRules>-Microsoft.Maintainability#CA1502;-Microsoft.Maintainability#CA1500;-Microsoft.Portability#CA1903;-Microsoft.Naming#CA1702;-Microsoft.Naming#CA1712;-Microsoft.Naming#CA1713;-Microsoft.Naming#CA1714;-Microsoft.Naming#CA1709;-Microsoft.Naming#CA1704;-Microsoft.Naming#CA1715;-Microsoft.Naming#CA1710;-Microsoft.Naming#CA1720;-Microsoft.Naming#CA1707;-Microsoft.Naming#CA1722;-Microsoft.Naming#CA1711;-Microsoft.Naming#CA1716;-Microsoft.Naming#CA1717;-Microsoft.Naming#CA1725;-Microsoft.Naming#CA1719;-Microsoft.Naming#CA1721;-Microsoft.Naming#CA1701;-Microsoft.Naming#CA1703;-Microsoft.Naming#CA1724;-Microsoft.Naming#CA1726;-Microsoft.Globalization#CA1304;-Microsoft.Globalization#CA1305;-Microsoft.Globalization#CA1307;-Microsoft.Design#CA1012;-Microsoft.Design#CA1005;-Microsoft.Design#CA1020;-Microsoft.Design#CA1021;-Microsoft.Design#CA1026;-Microsoft.Design#CA1031;-Microsoft.Design#CA1000;-Microsoft.Design#CA1051;-Microsoft.Design#CA1002;-Microsoft.Design#CA1006;-Microsoft.Design#CA1045;-Microsoft.Design#CA1065;-Microsoft.Design#CA1004;-Microsoft.Design#CA1014;-Microsoft.Design#CA1017;-Microsoft.Design#CA1034;-Microsoft.Design#CA1044;-Microsoft.Design#CA1001;-Microsoft.Design#CA1043;-Microsoft.Design#CA1024;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1815;-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1819;-Microsoft.Usage#CA2208;-Microsoft.Usage#CA2211;-Microsoft.Usage#CA2233;-Microsoft.Usage#CA2225</CodeAnalysisRules>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DocumentationFile>..\..\Bin\Firefly.Core.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="My Project\MyNamespace.Static.1.Designer.cs" />
+    <Compile Include="My Project\MyNamespace.Static.2.Designer.cs" />
+    <Compile Include="My Project\MyNamespace.Static.3.Designer.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Compressing\CompressorSelector.cs" />
+    <Compile Include="Compressing\LZ77.cs" />
+    <Compile Include="Compressing\LZ77Reversed.cs" />
+    <Compile Include="Compressing\Pointer.cs" />
+    <Compile Include="Compressing\RLE.cs" />
+    <Compile Include="Core\BitStream.cs" />
+    <Compile Include="Core\CommandLine.cs" />
+    <Compile Include="Core\Counter.cs" />
+    <Compile Include="Core\ListPartStringEx.cs" />
+    <Compile Include="Core\ListPart.cs" />
+    <Compile Include="Core\Enumerators.cs" />
+    <Compile Include="Core\StringEx.cs" />
+    <Compile Include="Core\ArrayOperations.cs" />
+    <Compile Include="Core\BitOperations.cs" />
+    <Compile Include="Core\ExceptionHandler.cs" />
+    <Compile Include="Core\NumericOperations.cs" />
+    <Compile Include="Core\StreamExPasser.cs" />
+    <Compile Include="Core\StringDescape.cs" />
+    <Compile Include="Core\ArrayStream.cs" />
+    <Compile Include="Core\ByteArrayStream.cs" />
+    <Compile Include="Core\ListStringEx.cs" />
+    <Compile Include="Glyphing\FdGlyphDescriptionFile.cs" />
+    <Compile Include="Glyphing\Glyph.cs" />
+    <Compile Include="Glyphing\GlyphArranger.cs" />
+    <Compile Include="Glyphing\GlyphGenerator.cs" />
+    <Compile Include="Glyphing\Glyphing.cs" />
+    <Compile Include="Imaging\BitmapEx.cs" />
+    <Compile Include="Imaging\ImageInterface.cs" />
+    <Compile Include="Imaging\Quantizer.cs" />
+    <Compile Include="Packaging\PackageFixed.cs" />
+    <Compile Include="Packaging\PackageFixedAddress.cs" />
+    <Compile Include="Packaging\PackageContinuous.cs" />
+    <Compile Include="Packaging\PackageDiscrete.cs" />
+    <Compile Include="Setting\Xml.cs" />
+    <Compile Include="TextEncoding\CharCode.cs" />
+    <Compile Include="TextEncoding\ControlChars.cs" />
+    <Compile Include="TextEncoding\Encoding.cs" />
+    <Compile Include="TextEncoding\EncodingString.cs" />
+    <Compile Include="Imaging\Bmp.cs" />
+    <Compile Include="Imaging\ColorSpace.cs" />
+    <Compile Include="Core\CRC32.cs" />
+    <Compile Include="Core\DirectIntConvert.cs" />
+    <Compile Include="Core\Indexer.cs" />
+    <Compile Include="Core\FileLengthUtility.cs" />
+    <Compile Include="Core\FileNameHandling.cs" />
+    <Compile Include="Imaging\Gif.cs" />
+    <Compile Include="Setting\INI.cs" />
+    <Compile Include="Packaging\ISO.cs" />
+    <Compile Include="Packaging\PackageBase.cs" />
+    <Compile Include="Core\PartialStreamEx.cs" />
+    <Compile Include="Packaging\PCK.cs" />
+    <Compile Include="Core\StreamEx.cs" />
+    <Compile Include="TextEncoding\MultiByteEncoding.cs" />
+    <Compile Include="TextEncoding\TblCharMappingFile.cs" />
+    <Compile Include="TextEncoding\Char32.cs" />
+    <Compile Include="TextEncoding\StringCode.cs" />
+    <Compile Include="Core\Tokenizer.cs" />
+    <Compile Include="Texting\Agemo.cs" />
+    <Compile Include="Texting\ByteTextSearch.cs" />
+    <Compile Include="Texting\HanziConverter.cs" />
+    <Compile Include="Texting\HanziVariantTableGen.cs" />
+    <Compile Include="Texting\LOC.cs" />
+    <Compile Include="Texting\Plain.cs" />
+    <Compile Include="Texting\UniHanDatabase.cs" />
+    <Compile Include="Texting\WQSG.cs" />
+    <Compile Include="Texting\Txt.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="My Project\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

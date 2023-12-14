@@ -94,8 +94,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FireflyCore\FireflyCore_VS2010.vbproj">
-      <Project>{1DE5CF1F-2526-4520-87D8-B1B1B8D1F214}</Project>
+    <ProjectReference Include="..\FireflyCore\FireflyCore_VS2010.csproj">
+      <Project>{AFC14E74-E97E-0AD1-0580-7BCFDA46C6B4}</Project>
       <Name>FireflyCore</Name>
     </ProjectReference>
   </ItemGroup>
