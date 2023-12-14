@@ -1,0 +1,13 @@
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\FontGen.exe.config
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\FontGen.exe
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\FontGen.pdb
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\FontGen.xml
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen_VS2010.vbproj.AssemblyReference.cache
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.FontGen.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.Resources.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen_VS2010.vbproj.GenerateResource.cache
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen_VS2010.vbproj.CoreCompileInputs.cache
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen_VS2010.vbproj.CopyComplete
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.exe
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.xml
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.pdb

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,8 +11,9 @@
     <AssemblyName>Firefly.Core</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <OptionExplicit>On</OptionExplicit>
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>Off</OptionStrict>
@@ -31,8 +32,9 @@
     <OutputPath>..\..\Bin\</OutputPath>
     <DocumentationFile>Firefly.Core.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRules>-Microsoft.Maintainability#CA1502;-Microsoft.Maintainability#CA1500;-Microsoft.Portability#CA1903;-Microsoft.Naming#CA1702;-Microsoft.Naming#CA1712;-Microsoft.Naming#CA1713;-Microsoft.Naming#CA1714;-Microsoft.Naming#CA1709;-Microsoft.Naming#CA1704;-Microsoft.Naming#CA1715;-Microsoft.Naming#CA1710;-Microsoft.Naming#CA1720;-Microsoft.Naming#CA1707;-Microsoft.Naming#CA1722;-Microsoft.Naming#CA1711;-Microsoft.Naming#CA1716;-Microsoft.Naming#CA1717;-Microsoft.Naming#CA1725;-Microsoft.Naming#CA1719;-Microsoft.Naming#CA1721;-Microsoft.Naming#CA1701;-Microsoft.Naming#CA1703;-Microsoft.Naming#CA1724;-Microsoft.Naming#CA1726;-Microsoft.Globalization#CA1304;-Microsoft.Globalization#CA1305;-Microsoft.Globalization#CA1307;-Microsoft.Design#CA1012;-Microsoft.Design#CA1005;-Microsoft.Design#CA1020;-Microsoft.Design#CA1021;-Microsoft.Design#CA1026;-Microsoft.Design#CA1031;-Microsoft.Design#CA1000;-Microsoft.Design#CA1051;-Microsoft.Design#CA1002;-Microsoft.Design#CA1006;-Microsoft.Design#CA1045;-Microsoft.Design#CA1065;-Microsoft.Design#CA1004;-Microsoft.Design#CA1014;-Microsoft.Design#CA1017;-Microsoft.Design#CA1034;-Microsoft.Design#CA1044;-Microsoft.Design#CA1001;-Microsoft.Design#CA1043;-Microsoft.Design#CA1024;-Microsoft.Performance#CA1805;-Microsoft.Performance#CA1815;-Microsoft.Performance#CA1814;-Microsoft.Performance#CA1819;-Microsoft.Usage#CA2208;-Microsoft.Usage#CA2211;-Microsoft.Usage#CA2233;-Microsoft.Usage#CA2225</CodeAnalysisRules>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,6 +44,7 @@
     <OutputPath>..\..\Bin\</OutputPath>
     <DocumentationFile>Firefly.Core.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -74,8 +77,8 @@
     <Compile Include="Core\ByteArrayStream.vb" />
     <Compile Include="Core\ListStringEx.vb" />
     <Compile Include="Glyphing\FdGlyphDescriptionFile.vb" />
-    <Compile Include="Glyphing\GlyphSet.vb" />
     <Compile Include="Glyphing\Glyph.vb" />
+    <Compile Include="Glyphing\GlyphArranger.vb" />
     <Compile Include="Glyphing\GlyphGenerator.vb" />
     <Compile Include="Glyphing\Glyphing.vb" />
     <Compile Include="Imaging\BitmapEx.vb" />
@@ -123,7 +126,7 @@
     <Folder Include="My Project\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>

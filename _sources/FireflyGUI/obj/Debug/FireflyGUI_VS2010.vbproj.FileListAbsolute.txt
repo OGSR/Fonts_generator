@@ -1,0 +1,16 @@
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\FireflyGUI_VS2010.vbproj.AssemblyReference.cache
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.FilePicker.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.FileSelectBox.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.ProgressDialog.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.ScrollablePictureBox.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.PackageManager.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.Resources.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\FireflyGUI_VS2010.vbproj.GenerateResource.cache
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\FireflyGUI_VS2010.vbproj.CoreCompileInputs.cache
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\Firefly.GUI.dll
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\Firefly.GUI.pdb
+F:\games\Salt2022_OGSR\_work\Fonts_generator\Bin\Firefly.GUI.xml
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\FireflyGUI_VS2010.vbproj.CopyComplete
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.dll
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.xml
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FireflyGUI\obj\Debug\Firefly.GUI.pdb
