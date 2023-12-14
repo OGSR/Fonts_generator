@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 using Microsoft.VisualBasic;
 
 namespace Firefly
@@ -27,24 +28,24 @@ namespace Firefly
 
         public static void PopInfo(string s)
         {
-            Interaction.MsgBox(s, MsgBoxStyle.Information | MsgBoxStyle.OkOnly, My.MyProject.Application.Info.Description);
+            Interaction.MsgBox(s, MsgBoxStyle.Information | MsgBoxStyle.OkOnly, "FontGen");
         }
         public static void PopupException(Exception ex)
         {
             string Info = GetExceptionInfo(ex, new StackTrace(2, true));
-            var r = Interaction.MsgBox(DebugTip + Environment.NewLine + Environment.NewLine + Info, MsgBoxStyle.Critical | MsgBoxStyle.YesNo, My.MyProject.Application.Info.ProductName);
+            var r = Interaction.MsgBox(DebugTip + Environment.NewLine + Environment.NewLine + Info, MsgBoxStyle.Critical | MsgBoxStyle.YesNo, "FontGen");
             if (r == MsgBoxResult.Yes)
             {
-                My.MyProject.Computer.Clipboard.SetText(Info);
+                Clipboard.SetText(Info);
             }
         }
         public static void PopupException(Exception ex, StackTrace ParentTrace)
         {
             string Info = GetExceptionInfo(ex, ParentTrace);
-            var r = Interaction.MsgBox(DebugTip + Environment.NewLine + Environment.NewLine + Info, MsgBoxStyle.Critical | MsgBoxStyle.YesNo, My.MyProject.Application.Info.ProductName);
+            var r = Interaction.MsgBox(DebugTip + Environment.NewLine + Environment.NewLine + Info, MsgBoxStyle.Critical | MsgBoxStyle.YesNo, "FontGen");
             if (r == MsgBoxResult.Yes)
             {
-                My.MyProject.Computer.Clipboard.SetText(Info);
+                Clipboard.SetText(Info);
             }
         }
         public static void PopupException(Exception ex, string DebugTip, string Title)
@@ -53,7 +54,7 @@ namespace Firefly
             var r = Interaction.MsgBox(DebugTip + Environment.NewLine + Environment.NewLine + Info, MsgBoxStyle.Critical | MsgBoxStyle.YesNo, Title);
             if (r == MsgBoxResult.Yes)
             {
-                My.MyProject.Computer.Clipboard.SetText(Info);
+                Clipboard.SetText(Info);
             }
         }
         public static void PopupException(Exception ex, StackTrace ParentTrace, string DebugTip, string Title)
@@ -62,7 +63,7 @@ namespace Firefly
             var r = Interaction.MsgBox(DebugTip + Environment.NewLine + Environment.NewLine + Info, MsgBoxStyle.Critical | MsgBoxStyle.YesNo, Title);
             if (r == MsgBoxResult.Yes)
             {
-                My.MyProject.Computer.Clipboard.SetText(Info);
+                Clipboard.SetText(Info);
             }
         }
         private static void GetExceptionInfoWithoutParent(Exception ex, StringBuilder msg, int Level)
@@ -140,7 +141,7 @@ namespace Firefly
         }
 
         public static string DebugTip = "程序出现错误" + Environment.NewLine + "是否将错误信息复制到剪贴板？";
-        public static string LogPath = My.MyProject.Application.Info.AssemblyName + ".log";
+        public static string LogPath = AppDomain.CurrentDomain.FriendlyName + ".log";
         public static string CurrentFilePath = "";
         public static string CurrentSection = "";
         private static TextWriter sw;

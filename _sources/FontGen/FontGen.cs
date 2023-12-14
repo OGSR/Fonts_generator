@@ -818,7 +818,7 @@ namespace FontGen
                                                     select Esc(p)).ToArray()));
             Options.Add("/save:" + Esc(FileNameHandling.ChangeExtension(FileNameHandling.GetFileName(FileSelectBox_File.Path), "fd")));
             string Cmd = FormatEsc("FontGen " + string.Join(" ", Options.ToArray()));
-            My.MyProject.Computer.Clipboard.SetText(Cmd);
+            Clipboard.SetText(Cmd);
             MessageBox.Show(Cmd, Text);
         }
 
