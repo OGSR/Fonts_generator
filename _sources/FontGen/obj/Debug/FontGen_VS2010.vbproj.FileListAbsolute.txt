@@ -11,3 +11,5 @@ F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen_
 F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.exe
 F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.xml
 F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.pdb
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.FilePicker.resources
+F:\games\Salt2022_OGSR\_work\Fonts_generator\_sources\FontGen\obj\Debug\FontGen.FileSelectBox.resources

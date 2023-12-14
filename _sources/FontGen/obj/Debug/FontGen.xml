@@ -22,5 +22,80 @@ FontGen
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="P:FontGen.FileDialogEx.SafeFileName">
+ <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+</member>
+<member name="P:FontGen.FileDialogEx.SafeFileNames">
+ <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+</member>
+<member name="P:FontGen.FileDialogEx.ReadOnlyChecked">
+ <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+</member>
+<member name="P:FontGen.FileDialogEx.ShowReadOnly">
+ <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+</member>
+<member name="P:FontGen.FileDialogEx.CreatePrompt">
+ <summary>仅当作为SaveFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+</member>
+<member name="P:FontGen.FileDialogEx.OverwritePrompt">
+ <summary>仅当作为SaveFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+</member>
+<member name="T:FontGen.FilePicker">
+ <summary>文件选取对话框，用于统一打开和保存单个和多个文件和文件夹，可替代OpenFileDialog、SaveFileDialog、FolderBrowserDialog三个对话框。</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.Icon">
+ <summary>get icon</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.DisplayName">
+ <summary>get display name</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.TypeName">
+ <summary>get type name</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.Attributes">
+ <summary>get attributes</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.IconLocation">
+ <summary>get icon location</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.ExeType">
+ <summary>return exe type</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.SysIconIndex">
+ <summary>get system icon index</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.LinkOverlay">
+ <summary>put a link overlay on icon</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.Selected">
+ <summary>show icon in selected state</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.Attr_Specified">
+ <summary>get only specified attributes</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.LargeIcon">
+ <summary>get large icon</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.SmallIcon">
+ <summary>get small icon</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.OpenIcon">
+ <summary>get open icon</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.ShellIconize">
+ <summary>get shell size icon</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.PIDL">
+ <summary>pszPath is a pidl</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.UseFileAttributes">
+ <summary>use passed dwFileAttribute</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.AddOverlays">
+ <summary>apply the appropriate overlays</summary>
+</member>
+<member name="F:FontGen.FilePickerInterop.SHGFI.OverlayIndex">
+ <summary>Get the index of the overlay in the upper 8 bits of the iIcon</summary>
+</member>
 </members>
 </doc>
