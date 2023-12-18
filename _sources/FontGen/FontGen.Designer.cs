@@ -31,6 +31,7 @@ namespace FontGen
         [System.Diagnostics.DebuggerStepThrough()]
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label label1;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGen));
             this.Label_FontName = new System.Windows.Forms.Label();
             this.ComboBox_FontName = new System.Windows.Forms.ComboBox();
@@ -64,6 +65,9 @@ namespace FontGen
             this.FileSelectBox_File = new FileSelectBox();
             this.Button_CmdToClipboard = new System.Windows.Forms.Button();
             this.CheckBox_AnchorLeft = new System.Windows.Forms.CheckBox();
+            this.ddlBPP = new System.Windows.Forms.ComboBox();
+            this.chkDrawAlpha = new System.Windows.Forms.CheckBox();
+            label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).BeginInit();
@@ -81,6 +85,15 @@ namespace FontGen
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaHeight)).BeginInit();
             this.SuspendLayout();
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(13, 346);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(57, 13);
+            label1.TabIndex = 10;
+            label1.Text = "BitPerPixel";
+            // 
             // Label_FontName
             // 
             this.Label_FontName.AutoSize = true;
@@ -92,12 +105,12 @@ namespace FontGen
             // 
             // ComboBox_FontName
             // 
+            this.ComboBox_FontName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBox_FontName.FormattingEnabled = true;
             this.ComboBox_FontName.Location = new System.Drawing.Point(15, 31);
             this.ComboBox_FontName.Name = "ComboBox_FontName";
-            this.ComboBox_FontName.Size = new System.Drawing.Size(120, 21);
+            this.ComboBox_FontName.Size = new System.Drawing.Size(198, 21);
             this.ComboBox_FontName.TabIndex = 1;
-            this.ComboBox_FontName.Text = "Song style";
             this.ComboBox_FontName.TextChanged += new System.EventHandler(this.ComboBox_FontName_TextChanged);
             // 
             // CheckBox_Bold
@@ -464,9 +477,9 @@ namespace FontGen
             // 
             // Button_Generate
             // 
-            this.Button_Generate.Location = new System.Drawing.Point(15, 374);
+            this.Button_Generate.Location = new System.Drawing.Point(12, 450);
             this.Button_Generate.Name = "Button_Generate";
-            this.Button_Generate.Size = new System.Drawing.Size(157, 25);
+            this.Button_Generate.Size = new System.Drawing.Size(202, 25);
             this.Button_Generate.TabIndex = 7;
             this.Button_Generate.Text = "Generate";
             this.Button_Generate.UseVisualStyleBackColor = true;
@@ -482,14 +495,14 @@ namespace FontGen
             this.FileSelectBox_File.Name = "FileSelectBox_File";
             this.FileSelectBox_File.Path = "";
             this.FileSelectBox_File.Size = new System.Drawing.Size(614, 29);
-            this.FileSelectBox_File.SplitterDistance = 100;
+            this.FileSelectBox_File.SplitterDistance = 200;
             this.FileSelectBox_File.TabIndex = 6;
             // 
             // Button_CmdToClipboard
             // 
-            this.Button_CmdToClipboard.Location = new System.Drawing.Point(15, 342);
+            this.Button_CmdToClipboard.Location = new System.Drawing.Point(12, 418);
             this.Button_CmdToClipboard.Name = "Button_CmdToClipboard";
-            this.Button_CmdToClipboard.Size = new System.Drawing.Size(156, 25);
+            this.Button_CmdToClipboard.Size = new System.Drawing.Size(201, 25);
             this.Button_CmdToClipboard.TabIndex = 8;
             this.Button_CmdToClipboard.Text = "Pass the command line to the clipboard";
             this.Button_CmdToClipboard.UseVisualStyleBackColor = true;
@@ -506,11 +519,36 @@ namespace FontGen
             this.CheckBox_AnchorLeft.UseVisualStyleBackColor = true;
             this.CheckBox_AnchorLeft.CheckedChanged += new System.EventHandler(this.CheckBox_DoubleSample_CheckedChanged);
             // 
+            // ddlBPP
+            // 
+            this.ddlBPP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ddlBPP.FormattingEnabled = true;
+            this.ddlBPP.Items.AddRange(new object[] {
+            "8",
+            "32"});
+            this.ddlBPP.Location = new System.Drawing.Point(16, 362);
+            this.ddlBPP.Name = "ddlBPP";
+            this.ddlBPP.Size = new System.Drawing.Size(58, 21);
+            this.ddlBPP.TabIndex = 11;
+            // 
+            // chkDrawAlpha
+            // 
+            this.chkDrawAlpha.AutoSize = true;
+            this.chkDrawAlpha.Location = new System.Drawing.Point(103, 362);
+            this.chkDrawAlpha.Name = "chkDrawAlpha";
+            this.chkDrawAlpha.Size = new System.Drawing.Size(107, 17);
+            this.chkDrawAlpha.TabIndex = 12;
+            this.chkDrawAlpha.Text = "DrawAlpha (CoP)";
+            this.chkDrawAlpha.UseVisualStyleBackColor = true;
+            // 
             // FontGen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(847, 483);
+            this.Controls.Add(this.chkDrawAlpha);
+            this.Controls.Add(this.ddlBPP);
+            this.Controls.Add(label1);
             this.Controls.Add(this.Button_CmdToClipboard);
             this.Controls.Add(this.Button_Generate);
             this.Controls.Add(this.FileSelectBox_File);
@@ -545,6 +583,7 @@ namespace FontGen
             this.Name = "FontGen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Font image generator";
+            this.Load += new System.EventHandler(this.FontGen_Load);
             this.Shown += new System.EventHandler(this.FontGen_Shown);
             this.SizeChanged += new System.EventHandler(this.FontGen_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).EndInit();
@@ -598,5 +637,7 @@ namespace FontGen
         internal System.Windows.Forms.Button Button_Generate;
         internal System.Windows.Forms.Button Button_CmdToClipboard;
         internal System.Windows.Forms.CheckBox CheckBox_AnchorLeft;
+        private System.Windows.Forms.ComboBox ddlBPP;
+        private System.Windows.Forms.CheckBox chkDrawAlpha;
     }
 }

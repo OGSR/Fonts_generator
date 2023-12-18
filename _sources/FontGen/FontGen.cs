@@ -28,10 +28,17 @@ namespace FontGen
 
     public partial class FontGen
     {
+       static string[] TestStrings = [
+            "ё1234567890-=/*-\tйцукенгшщзхъ\\789+фывапролджэ456ячсмитьбю",
+            ".123\\ 0,Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,/",
+            "`1234567890-=/*-\tqwertyuiop[]\\789+asdfghjkl;'456zxcvbnm,",
+            "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
+
         public FontGen()
         {
             InitializeComponent();
         }
+
         [DllImport("kernel32.dll")]
         public static extern bool FreeConsole();
 
@@ -169,7 +176,6 @@ namespace FontGen
 
         public class GlyphComparer : EqualityComparer<IGlyph>
         {
-
             public override bool Equals(IGlyph x, IGlyph y)
             {
                 if (x.c.HasCode && y.c.HasCode)
@@ -543,24 +549,33 @@ namespace FontGen
         {
             StringCode[] StringCodes;
 
-            string Ext = FileNameHandling.GetExtendedFileName(SourcePath);
-            if (Ext.Equals("tbl", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrWhiteSpace(SourcePath))
             {
-                StringCodes = TblCharMappingFile.ReadFile(SourcePath).ToArray();
-            }
-            else if (Ext.Equals("fd", StringComparison.OrdinalIgnoreCase))
-            {
-                StringCodes = (from d in FdGlyphDescriptionFile.ReadFile(SourcePath)
-                               select d.c).ToArray();
-            }
-            else if (Ext.Equals("txt", StringComparison.OrdinalIgnoreCase))
-            {
-                StringCodes = (from c in Txt.ReadFile(SourcePath).ToUTF32()
-                               select StringCode.FromUniChar(c)).ToArray();
+                string Ext = FileNameHandling.GetExtendedFileName(SourcePath);
+                if (Ext.Equals("tbl", StringComparison.OrdinalIgnoreCase))
+                {
+                    StringCodes = TblCharMappingFile.ReadFile(SourcePath).ToArray();
+                }
+                else if (Ext.Equals("fd", StringComparison.OrdinalIgnoreCase))
+                {
+                    StringCodes = (from d in FdGlyphDescriptionFile.ReadFile(SourcePath)
+                                   select d.c).ToArray();
+                }
+                else if (Ext.Equals("txt", StringComparison.OrdinalIgnoreCase))
+                {
+                    StringCodes = (from c in Txt.ReadFile(SourcePath).ToUTF32()
+                                   select StringCode.FromUniChar(c)).ToArray();
+                }
+                else
+                {
+                    throw new InvalidDataException();
+                }
             }
             else
             {
-                throw new InvalidDataException();
+                StringCodes = TestStrings.SelectMany(l => l.ToUTF32()).Select(c => StringCode.FromUniChar(c))
+                    .Distinct()
+                    .ToArray();
             }
 
             IGlyphProvider gg;
@@ -623,8 +638,8 @@ namespace FontGen
             }
         }
 
-
         private bool Initialized = false;
+
         private void ReDraw()
         {
             if (!Initialized)
@@ -666,11 +681,6 @@ namespace FontGen
 
                     using (gg)
                     {
-                        string[] TestStrings = [
-                            "ё1234567890-=/*-\tйцукенгшщзхъ\\789+фывапролджэ456ячсмитьбю",
-                            ".123\\ 0,Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,/",
-                            "`1234567890-=/*-\tqwertyuiop[]\\789+asdfghjkl;'456zxcvbnm,",
-                            "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
 
                         using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
                         {
@@ -841,10 +851,21 @@ namespace FontGen
             int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
             bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
             bool AnchorLeft = CheckBox_AnchorLeft.Checked;
-            ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
+            ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
-            SaveFont(GenerateFont(FileSelectBox_File.Path, ComboBox_FontName.Text, Style, (int)Math.Round(NumericUpDown_Size.Value), PhysicalWidth, PhysicalHeight, (int)Math.Round(NumericUpDown_DrawOffsetX.Value), (int)Math.Round(NumericUpDown_DrawOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), EnableDoubleSample, AnchorLeft, ChannelPatterns), FileNameHandling.ChangeExtension(FileSelectBox_File.Path, "fd"), -1, -1, 8, false, false);
-            MessageBox.Show("After generating.", Text);
+            if (!chkDrawAlpha.Checked)
+                ChannelPatterns[0] = ChannelPattern.One;
+
+            int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
+
+            IEnumerable<IGlyph> glyphs = GenerateFont(FileSelectBox_File.Path, ComboBox_FontName.Text, Style, (int)Math.Round(NumericUpDown_Size.Value), PhysicalWidth, PhysicalHeight, (int)Math.Round(NumericUpDown_DrawOffsetX.Value), (int)Math.Round(NumericUpDown_DrawOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), EnableDoubleSample, AnchorLeft, ChannelPatterns);
+            SaveFont(glyphs, FileNameHandling.ChangeExtension(FileSelectBox_File.Path, "fd"), -1, -1, bpp, false, false);
+            MessageBox.Show("Generation completed!", Text);
+        }
+
+        private void FontGen_Load(object sender, EventArgs e)
+        {
+            ddlBPP.SelectedItem = "8";
         }
     }
 }
