@@ -57,26 +57,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Compressing\CompressorSelector.cs" />
-    <Compile Include="Compressing\LZ77.cs" />
-    <Compile Include="Compressing\LZ77Reversed.cs" />
-    <Compile Include="Compressing\Pointer.cs" />
-    <Compile Include="Compressing\RLE.cs" />
-    <Compile Include="Core\BitStream.cs" />
+    <Compile Include="Core\ArrayOperations.cs" />
     <Compile Include="Core\CommandLine.cs" />
-    <Compile Include="Core\Counter.cs" />
     <Compile Include="Core\ListPartStringEx.cs" />
     <Compile Include="Core\ListPart.cs" />
     <Compile Include="Core\Enumerators.cs" />
     <Compile Include="Core\StringEx.cs" />
-    <Compile Include="Core\ArrayOperations.cs" />
     <Compile Include="Core\BitOperations.cs" />
     <Compile Include="Core\ExceptionHandler.cs" />
     <Compile Include="Core\NumericOperations.cs" />
     <Compile Include="Core\StreamExPasser.cs" />
     <Compile Include="Core\StringDescape.cs" />
     <Compile Include="Core\ArrayStream.cs" />
-    <Compile Include="Core\ByteArrayStream.cs" />
     <Compile Include="Core\ListStringEx.cs" />
     <Compile Include="Glyphing\FdGlyphDescriptionFile.cs" />
     <Compile Include="Glyphing\Glyph.cs" />
@@ -86,11 +78,6 @@
     <Compile Include="Imaging\BitmapEx.cs" />
     <Compile Include="Imaging\ImageInterface.cs" />
     <Compile Include="Imaging\Quantizer.cs" />
-    <Compile Include="Packaging\PackageFixed.cs" />
-    <Compile Include="Packaging\PackageFixedAddress.cs" />
-    <Compile Include="Packaging\PackageContinuous.cs" />
-    <Compile Include="Packaging\PackageDiscrete.cs" />
-    <Compile Include="Setting\Xml.cs" />
     <Compile Include="TextEncoding\CharCode.cs" />
     <Compile Include="TextEncoding\ControlChars.cs" />
     <Compile Include="TextEncoding\Encoding.cs" />
@@ -100,28 +87,15 @@
     <Compile Include="Core\CRC32.cs" />
     <Compile Include="Core\DirectIntConvert.cs" />
     <Compile Include="Core\Indexer.cs" />
-    <Compile Include="Core\FileLengthUtility.cs" />
     <Compile Include="Core\FileNameHandling.cs" />
-    <Compile Include="Imaging\Gif.cs" />
-    <Compile Include="Setting\INI.cs" />
-    <Compile Include="Packaging\ISO.cs" />
-    <Compile Include="Packaging\PackageBase.cs" />
     <Compile Include="Core\PartialStreamEx.cs" />
-    <Compile Include="Packaging\PCK.cs" />
     <Compile Include="Core\StreamEx.cs" />
     <Compile Include="TextEncoding\MultiByteEncoding.cs" />
     <Compile Include="TextEncoding\TblCharMappingFile.cs" />
     <Compile Include="TextEncoding\Char32.cs" />
     <Compile Include="TextEncoding\StringCode.cs" />
     <Compile Include="Core\Tokenizer.cs" />
-    <Compile Include="Texting\Agemo.cs" />
-    <Compile Include="Texting\ByteTextSearch.cs" />
-    <Compile Include="Texting\HanziConverter.cs" />
-    <Compile Include="Texting\HanziVariantTableGen.cs" />
     <Compile Include="Texting\LOC.cs" />
-    <Compile Include="Texting\Plain.cs" />
-    <Compile Include="Texting\UniHanDatabase.cs" />
-    <Compile Include="Texting\WQSG.cs" />
     <Compile Include="Texting\Txt.cs" />
   </ItemGroup>
   <ItemGroup />
