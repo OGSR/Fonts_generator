@@ -2,7 +2,7 @@
 // 
 // File:        CharAdder.vb
 // Location:    Firefly.CharAdder <Visual Basic .Net>
-// Description: 字符入库器
+// Description: Character in the library
 // Version:     2010.03.05.
 // Copyright(C) F.R.C.
 // 
@@ -114,23 +114,23 @@ namespace CharAdder
 
         public static void DisplayInfo()
         {
-            Console.WriteLine("字符入库器");
-            Console.WriteLine("Firefly.CharAdder，按BSD许可证分发");
-            Console.WriteLine("F.R.C.");
-            Console.WriteLine("");
-            Console.WriteLine("用法:");
-            Console.WriteLine("CharAdder <Pattern> <CharFile> [<ExcludeFile>] (RemoveUnicode)* [/I]");
-            Console.WriteLine("RemoveUnicode ::= /removeunicode:<Lower:Hex>,<Upper:Hex>");
-            Console.WriteLine("Pattern 文本的文件名模式，参考 MSDN - 正则表达式 [.NET Framework]");
-            Console.WriteLine("CharFile 字符库文件");
-            Console.WriteLine("ExcludeFile 字符排除库文件");
-            Console.WriteLine("/removeunicode 移除该Unicode范围内(包含两边界)字符，Unicode的范围包括扩展平面");
-            Console.WriteLine("/I 忽略已有字符库文件中的字符");
-            Console.WriteLine("注意：文本文件编码仅支持GB18030(GB2312)和带BOM的Unicode系编码。生成的结果保存为UTF-16编码。");
-            Console.WriteLine("");
-            Console.WriteLine("示例:");
-            Console.WriteLine(@"CharAdder "".*?\.txt"" Char.txt Exclude.txt");
-            Console.WriteLine("从所有扩展名为txt的文件中提取字符，排除掉Exclude.txt中的字符，加到Char.txt的最后。");
+           Console.WriteLine("Character library");
+           Console.WriteLine("Firefly.CharAdder, distributed under BSD license");
+           Console.WriteLine("F.R.C.");
+           Console.WriteLine("");
+           Console.WriteLine("Usage:");
+           Console.WriteLine("CharAdder <Pattern> <Char File> [<Exclude File>] (Remove Unicode)* [/I]");
+           Console.WriteLine("RemoveUnicode ::= /removeunicode:<Lower:Hex>,<Upper:Hex>");
+           Console.WriteLine("Pattern text file name pattern, refer to MSDN - Regular Expressions [.NET Framework]");
+           Console.WriteLine("CharFile character library file");
+           Console.WriteLine("ExcludeFile character exclusion library file");
+           Console.WriteLine("/removeunicode removes characters within the Unicode range (including both boundaries). The range of Unicode includes the extended plane");
+           Console.WriteLine("/I ignore characters in existing character library files");
+           Console.WriteLine("Note: Text file encoding only supports GB18030 (GB2312) and Unicode encoding with BOM. The generated results are saved as UTF-16 encoding.");
+           Console.WriteLine("");
+           Console.WriteLine("Example:");
+           Console.WriteLine(@"CharAdder "".*?\.txt"" Char.txt Exclude.txt");
+           Console.WriteLine("Extract characters from all files with the extension txt, exclude the characters in Exclude.txt, and add them to the end of Char.txt.");
         }
 
         public static void AddChar(string Pattern, string BaseFile, string ExcludeFile, List<Range> RemoveUnicodeRanges, bool IgnoreExistingBaseFile)
@@ -180,7 +180,7 @@ namespace CharAdder
                 BaseWriter.Write(LibString.ToString());
             }
 
-            Console.WriteLine("共处理了{0}个文件。".Formats(Count));
+            Console.WriteLine("A total of {0} file is processed.".Formats(Count));
         }
     }
 }

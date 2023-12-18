@@ -2,7 +2,7 @@
 // 
 // File:        Txt.vb
 // Location:    Firefly.Texting <Visual Basic .Net>
-// Description: 文本文件格式
+// Description: Text file format
 // Version:     2009.11.21.
 // Copyright(C) F.R.C.
 // 
@@ -20,7 +20,7 @@ namespace Firefly.Texting
         {
         }
 
-        /// <summary>已重载。检查UTF-16(FF FE)、GB18030(84 31 95 33)、UTF-8(EF BB BF)、UTF-32(FF FE 00 00)、UTF-16B(FE FF)、UTF-32B(00 00 FE FF)这六种编码的BOM，如果失败，返回系统默认编码(GB2312会被替换为GB18030)。</summary>
+        /// <summary>Reloaded. Check UTF-16(FF FE), GB18030(84 31 95 33), UTF-8(EF BB BF), UTF-32(FF FE 00 00), UTF-16B(FE FF), UTF-32B(00 00 FE FF) BOM of these six encodings. If it fails, it will return to the system default encoding (GB2312 will be replaced by GB18030). </summary>
         public static Encoding GetEncoding(string Path)
         {
             using (var s = new StreamEx(Path, FileMode.Open, FileAccess.Read))
@@ -57,7 +57,7 @@ namespace Firefly.Texting
             }
         }
 
-        /// <summary>已重载。检查UTF-16(FF FE)、GB18030(84 31 95 33)、UTF-8(EF BB BF)、UTF-32(FF FE 00 00)、UTF-16B(FE FF)、UTF-32B(00 00 FE FF)这六种编码的BOM，如果失败，返回默认编码。</summary>
+        /// <summary>Reloaded. Check UTF-16(FF FE), GB18030(84 31 95 33), UTF-8(EF BB BF), UTF-32(FF FE 00 00), UTF-16B(FE FF), UTF-32B(00 00 FE FF) BOM of these six encodings, if failed, return to the default encoding. </summary>
         public static Encoding GetEncoding(string Path, Encoding DefaultEncoding)
         {
             using (var s = new StreamEx(Path, FileMode.Open, FileAccess.Read))
@@ -94,7 +94,7 @@ namespace Firefly.Texting
             }
         }
 
-        /// <param name="DetectEncodingFromByteOrderMarks">如果为真，将检查UTF-16(FF FE)、GB18030(84 31 95 33)、UTF-8(EF BB BF)、UTF-32(FF FE 00 00)、UTF-16B(FE FF)、UTF-32B(00 00 FE FF)这六种编码的BOM。</param>
+        /// <param name="Detect Encoding From Byte Order Marks">If true, UTF-16 (FF FE), GB18030 (84 31 95 33), UTF-8 (EF BB BF), UTF-32 will be checked (FF FE 00 00), UTF-16B (FE FF), UTF-32B (00 00 FE FF). </param>
         public static StreamReader CreateTextReader(string Path, Encoding Encoding, bool DetectEncodingFromByteOrderMarks = true)
         {
             if (DetectEncodingFromByteOrderMarks)
@@ -142,7 +142,7 @@ namespace Firefly.Texting
             return CreateTextReader(Path, TextEncoding.TextEncoding.Default, true);
         }
 
-        /// <param name="DetectEncodingFromByteOrderMarks">如果为真，将检查UTF-16(FF FE)、GB18030(84 31 95 33)、UTF-8(EF BB BF)、UTF-32(FF FE 00 00)、UTF-16B(FE FF)、UTF-32B(00 00 FE FF)这六种编码的BOM。</param>
+        /// <param name="Detect Encoding From Byte Order Marks">If true, UTF-16 (FF FE), GB18030 (84 31 95 33), UTF-8 (EF BB BF), UTF-32 will be checked (FF FE 00 00), UTF-16B (FE FF), UTF-32B (00 00 FE FF). </param>
         public static string ReadFile(string Path, Encoding Encoding, bool DetectEncodingFromByteOrderMarks = true)
         {
             using (var s = CreateTextReader(Path, Encoding, DetectEncodingFromByteOrderMarks))
@@ -158,7 +158,7 @@ namespace Firefly.Texting
         }
 
 
-        /// <param name="WithByteOrderMarks">如果为真，将为UTF-16(FF FE)、GB18030(84 31 95 33)、UTF-8(EF BB BF)、UTF-32(FF FE 00 00)、UTF-16B(FE FF)、UTF-32B(00 00 FE FF)这六种编码写入BOM。</param>
+        /// <param name="With Byte Order Marks">If true, it will be UTF-16(FF FE), GB18030(84 31 95 33), UTF-8(EF BB BF), UTF-32(FF Six encodings: FE 00 00), UTF-16B (FE FF), and UTF-32B (00 00 FE FF) are written into the BOM. </param>
         public static StreamWriter CreateTextWriter(string Path, Encoding Encoding, bool WithByteOrderMarks = true)
         {
             if (WithByteOrderMarks)
@@ -236,7 +236,7 @@ namespace Firefly.Texting
             return CreateTextWriter(Path, TextEncoding.TextEncoding.WritingDefault, true);
         }
 
-        /// <param name="WithByteOrderMarks">如果为真，将为UTF-16(FF FE)、GB18030(84 31 95 33)、UTF-8(EF BB BF)、UTF-32(FF FE 00 00)、UTF-16B(FE FF)、UTF-32B(00 00 FE FF)这六种编码写入BOM。</param>
+        /// <param name="With Byte Order Marks">If true, it will be UTF-16(FF FE), GB18030(84 31 95 33), UTF-8(EF BB BF), UTF-32(FF Six encodings: FE 00 00), UTF-16B (FE FF), and UTF-32B (00 00 FE FF) are written into the BOM. </param>
         public static void WriteFile(string Path, Encoding Encoding, string Value, bool WithByteOrderMarks = true)
         {
             using (var s = CreateTextWriter(Path, Encoding, WithByteOrderMarks))

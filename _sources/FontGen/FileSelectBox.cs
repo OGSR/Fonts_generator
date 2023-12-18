@@ -2,7 +2,7 @@
 // 
 // File:        FileSelectBox.vb
 // Location:    Firefly.GUI <Visual Basic .Net>
-// Description: 文件选取框
+// Description: File selection box
 // Version:     2009.11.30.
 // Copyright(C) F.R.C.
 // 
@@ -29,7 +29,7 @@ namespace FontGen
             //SplitterDistance = _SplitterDistance;
         }
 
-        // UserControl 重写 Dispose，以清理组件列表。
+        // User Control overrides Dispose to clean up the component list.
         [System.Diagnostics.DebuggerNonUserCode()]
         protected override void Dispose(bool disposing)
         {
@@ -64,93 +64,99 @@ namespace FontGen
                 _SplitContainer = value;
             }
         }
-        // Windows 窗体设计器所必需的
+        // Required for Windows Forms Designer
         private IContainer components;
 
-        // 注意: 以下过程是 Windows 窗体设计器所必需的
-        // 可以使用 Windows 窗体设计器修改它。
-        // 不要使用代码编辑器修改它。
+        // NOTE: The following procedure is required for Windows Forms Designer
+        // This can be modified using Windows Forms Designer.
+        // Don't use the code editor to modify it.
         [System.Diagnostics.DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            Button = new Button();
-            Button.Click += new EventHandler(Button_Click);
-            TextBox = new TextBox();
-            TextBox.KeyUp += new KeyEventHandler(TextBox_KeyUp);
-            Label = new Label();
-            _SplitContainer = new SplitContainer();
-            _SplitContainer.Panel1.SuspendLayout();
-            _SplitContainer.Panel2.SuspendLayout();
-            _SplitContainer.SuspendLayout();
-            SuspendLayout();
+            this.Button = new System.Windows.Forms.Button();
+            this.TextBox = new System.Windows.Forms.TextBox();
+            this.Label = new System.Windows.Forms.Label();
+            this._SplitContainer = new System.Windows.Forms.SplitContainer();
+            ((System.ComponentModel.ISupportInitialize)(this._SplitContainer)).BeginInit();
+            this._SplitContainer.Panel1.SuspendLayout();
+            this._SplitContainer.Panel2.SuspendLayout();
+            this._SplitContainer.SuspendLayout();
+            this.SuspendLayout();
             // 
             // Button
             // 
-            Button.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            Button.Location = new System.Drawing.Point(296, 2);
-            Button.Name = "Button";
-            Button.Size = new System.Drawing.Size(34, 23);
-            Button.TabIndex = 0;
-            Button.Text = "...";
-            Button.UseVisualStyleBackColor = true;
+            this.Button.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Button.Location = new System.Drawing.Point(141, 2);
+            this.Button.Name = "Button";
+            this.Button.Size = new System.Drawing.Size(34, 25);
+            this.Button.TabIndex = 0;
+            this.Button.Text = "...";
+            this.Button.UseVisualStyleBackColor = true;
+            this.Button.Click += new System.EventHandler(this.Button_Click);
             // 
             // TextBox
             // 
-            TextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-
-            TextBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            TextBox.AutoCompleteSource = AutoCompleteSource.FileSystemDirectories;
-            TextBox.Location = new System.Drawing.Point(3, 3);
-            TextBox.Margin = new Padding(0);
-            TextBox.Name = "TextBox";
-            TextBox.Size = new System.Drawing.Size(290, 21);
-            TextBox.TabIndex = 1;
+            this.TextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TextBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.TextBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
+            this.TextBox.Location = new System.Drawing.Point(3, 5);
+            this.TextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.TextBox.Name = "TextBox";
+            this.TextBox.Size = new System.Drawing.Size(135, 20);
+            this.TextBox.TabIndex = 1;
+            this.TextBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // Label
             // 
-            Label.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            Label.AutoSize = true;
-            Label.Location = new System.Drawing.Point(3, 7);
-            Label.Name = "Label";
-            Label.Size = new System.Drawing.Size(35, 12);
-            Label.TabIndex = 2;
-            Label.Text = "Label";
+            this.Label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.Label.AutoSize = true;
+            this.Label.Location = new System.Drawing.Point(3, 8);
+            this.Label.Name = "Label";
+            this.Label.Size = new System.Drawing.Size(33, 13);
+            this.Label.TabIndex = 2;
+            this.Label.Text = "Label";
             // 
-            // SplitContainer
+            // _SplitContainer
             // 
-            _SplitContainer.Dock = DockStyle.Fill;
-            _SplitContainer.FixedPanel = FixedPanel.Panel1;
-            _SplitContainer.IsSplitterFixed = true;
-            _SplitContainer.Location = new System.Drawing.Point(0, 0);
-            _SplitContainer.Name = "_SplitContainer";
+            this._SplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._SplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this._SplitContainer.IsSplitterFixed = true;
+            this._SplitContainer.Location = new System.Drawing.Point(0, 0);
+            this._SplitContainer.Name = "_SplitContainer";
             // 
-            // SplitContainer.Panel1
+            // _SplitContainer.Panel1
             // 
-            _SplitContainer.Panel1.Controls.Add(Label);
+            this._SplitContainer.Panel1.Controls.Add(this.Label);
+            this._SplitContainer.Panel1MinSize = 200;
             // 
-            // SplitContainer.Panel2
+            // _SplitContainer.Panel2
             // 
-            _SplitContainer.Panel2.Controls.Add(TextBox);
-            _SplitContainer.Panel2.Controls.Add(Button);
-            _SplitContainer.Size = new System.Drawing.Size(379, 27);
-            _SplitContainer.SplitterDistance = 45;
-            _SplitContainer.SplitterWidth = 1;
-            _SplitContainer.TabIndex = 3;
+            this._SplitContainer.Panel2.Controls.Add(this.TextBox);
+            this._SplitContainer.Panel2.Controls.Add(this.Button);
+            this._SplitContainer.Size = new System.Drawing.Size(379, 29);
+            this._SplitContainer.SplitterDistance = 200;
+            this._SplitContainer.SplitterWidth = 1;
+            this._SplitContainer.TabIndex = 3;
             // 
             // FileSelectBox
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6.0f, 12.0f);
-            AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
-            Controls.Add(_SplitContainer);
-            Name = "FileSelectBox";
-            Size = new System.Drawing.Size(379, 27);
-            _SplitContainer.Panel1.ResumeLayout(false);
-            _SplitContainer.Panel1.PerformLayout();
-            _SplitContainer.Panel2.ResumeLayout(false);
-            _SplitContainer.Panel2.PerformLayout();
-            _SplitContainer.ResumeLayout(false);
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.Controls.Add(this._SplitContainer);
+            this.Name = "FileSelectBox";
+            this.Size = new System.Drawing.Size(379, 29);
+            this._SplitContainer.Panel1.ResumeLayout(false);
+            this._SplitContainer.Panel1.PerformLayout();
+            this._SplitContainer.Panel2.ResumeLayout(false);
+            this._SplitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._SplitContainer)).EndInit();
+            this._SplitContainer.ResumeLayout(false);
+            this.ResumeLayout(false);
 
         }
 

@@ -5,7 +5,7 @@ namespace FontGen
     public partial class FontGen : System.Windows.Forms.Form
     {
 
-        // Form 重写 Dispose，以清理组件列表。
+        // Form overrides Dispose to clean up the component list.
         [System.Diagnostics.DebuggerNonUserCode()]
         protected override void Dispose(bool disposing)
         {
@@ -22,460 +22,548 @@ namespace FontGen
             }
         }
 
-        // Windows 窗体设计器所必需的
+        // Required for Windows Forms Designer
         private System.ComponentModel.IContainer components;
 
-        // 注意: 以下过程是 Windows 窗体设计器所必需的
-        // 可以使用 Windows 窗体设计器修改它。
-        // 不要使用代码编辑器修改它。
+        // NOTE: The following procedure is required for Windows Forms Designer
+        // This can be modified using Windows Forms Designer.
+        // Don't use the code editor to modify it.
         [System.Diagnostics.DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            var resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGen));
-            Label_FontName = new System.Windows.Forms.Label();
-            ComboBox_FontName = new System.Windows.Forms.ComboBox();
-            ComboBox_FontName.TextChanged += new System.EventHandler(ComboBox_FontName_TextChanged);
-            CheckBox_Bold = new System.Windows.Forms.CheckBox();
-            CheckBox_Bold.CheckedChanged += new System.EventHandler(CheckBox_Bold_CheckedChanged);
-            CheckBox_Italic = new System.Windows.Forms.CheckBox();
-            CheckBox_Italic.CheckedChanged += new System.EventHandler(CheckBox_Italic_CheckedChanged);
-            CheckBox_Underline = new System.Windows.Forms.CheckBox();
-            CheckBox_Underline.CheckedChanged += new System.EventHandler(CheckBox_Underline_CheckedChanged);
-            CheckBox_Strikeout = new System.Windows.Forms.CheckBox();
-            CheckBox_Strikeout.CheckedChanged += new System.EventHandler(CheckBox_Strikeout_CheckedChanged);
-            NumericUpDown_Size = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_Size.ValueChanged += new System.EventHandler(NumericUpDown_Size_ValueChanged);
-            Label_Size = new System.Windows.Forms.Label();
-            PictureBox_Preview = new System.Windows.Forms.PictureBox();
-            CheckBox_DoubleSample = new System.Windows.Forms.CheckBox();
-            CheckBox_DoubleSample.CheckedChanged += new System.EventHandler(CheckBox_DoubleSample_CheckedChanged);
-            Label_PhysicalWidth = new System.Windows.Forms.Label();
-            NumericUpDown_PhysicalWidth = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_PhysicalWidth.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            Label_PhysicalHeight = new System.Windows.Forms.Label();
-            NumericUpDown_PhysicalHeight = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_PhysicalHeight.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            PictureBox_Preview2x = new System.Windows.Forms.PictureBox();
-            SplitContainer_Main = new System.Windows.Forms.SplitContainer();
-            Label_DrawOffsetX = new System.Windows.Forms.Label();
-            Label_DrawOffsetY = new System.Windows.Forms.Label();
-            NumericUpDown_DrawOffsetX = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_DrawOffsetX.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            NumericUpDown_DrawOffsetY = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_DrawOffsetY.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            Label_VirtualOffsetX = new System.Windows.Forms.Label();
-            Label_VirtualOffsetY = new System.Windows.Forms.Label();
-            NumericUpDown_VirtualOffsetX = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_VirtualOffsetX.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            NumericUpDown_VirtualOffsetY = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_VirtualOffsetY.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            Label_VirtualDeltaWidth = new System.Windows.Forms.Label();
-            Label_VirtualDeltaHeight = new System.Windows.Forms.Label();
-            NumericUpDown_VirtualDeltaWidth = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_VirtualDeltaWidth.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            NumericUpDown_VirtualDeltaHeight = new System.Windows.Forms.NumericUpDown();
-            NumericUpDown_VirtualDeltaHeight.ValueChanged += new System.EventHandler(NumericUpDowns_ValueChanged);
-            Button_Generate = new System.Windows.Forms.Button();
-            Button_Generate.Click += new System.EventHandler(Button_Generate_Click);
-            FileSelectBox_File = new FileSelectBox();
-            Button_CmdToClipboard = new System.Windows.Forms.Button();
-            Button_CmdToClipboard.Click += new System.EventHandler(Button_CmdToClipboard_Click);
-            CheckBox_AnchorLeft = new System.Windows.Forms.CheckBox();
-            CheckBox_AnchorLeft.CheckedChanged += new System.EventHandler(CheckBox_DoubleSample_CheckedChanged);
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_Size).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)PictureBox_Preview).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_PhysicalWidth).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_PhysicalHeight).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)PictureBox_Preview2x).BeginInit();
-            SplitContainer_Main.Panel1.SuspendLayout();
-            SplitContainer_Main.Panel2.SuspendLayout();
-            SplitContainer_Main.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_DrawOffsetX).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_DrawOffsetY).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualOffsetX).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualOffsetY).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualDeltaWidth).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualDeltaHeight).BeginInit();
-            SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGen));
+            this.Label_FontName = new System.Windows.Forms.Label();
+            this.ComboBox_FontName = new System.Windows.Forms.ComboBox();
+            this.CheckBox_Bold = new System.Windows.Forms.CheckBox();
+            this.CheckBox_Italic = new System.Windows.Forms.CheckBox();
+            this.CheckBox_Underline = new System.Windows.Forms.CheckBox();
+            this.CheckBox_Strikeout = new System.Windows.Forms.CheckBox();
+            this.NumericUpDown_Size = new System.Windows.Forms.NumericUpDown();
+            this.Label_Size = new System.Windows.Forms.Label();
+            this.PictureBox_Preview = new System.Windows.Forms.PictureBox();
+            this.CheckBox_DoubleSample = new System.Windows.Forms.CheckBox();
+            this.Label_PhysicalWidth = new System.Windows.Forms.Label();
+            this.NumericUpDown_PhysicalWidth = new System.Windows.Forms.NumericUpDown();
+            this.Label_PhysicalHeight = new System.Windows.Forms.Label();
+            this.NumericUpDown_PhysicalHeight = new System.Windows.Forms.NumericUpDown();
+            this.PictureBox_Preview2x = new System.Windows.Forms.PictureBox();
+            this.SplitContainer_Main = new System.Windows.Forms.SplitContainer();
+            this.Label_DrawOffsetX = new System.Windows.Forms.Label();
+            this.Label_DrawOffsetY = new System.Windows.Forms.Label();
+            this.NumericUpDown_DrawOffsetX = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_DrawOffsetY = new System.Windows.Forms.NumericUpDown();
+            this.Label_VirtualOffsetX = new System.Windows.Forms.Label();
+            this.Label_VirtualOffsetY = new System.Windows.Forms.Label();
+            this.NumericUpDown_VirtualOffsetX = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_VirtualOffsetY = new System.Windows.Forms.NumericUpDown();
+            this.Label_VirtualDeltaWidth = new System.Windows.Forms.Label();
+            this.Label_VirtualDeltaHeight = new System.Windows.Forms.Label();
+            this.NumericUpDown_VirtualDeltaWidth = new System.Windows.Forms.NumericUpDown();
+            this.NumericUpDown_VirtualDeltaHeight = new System.Windows.Forms.NumericUpDown();
+            this.Button_Generate = new System.Windows.Forms.Button();
+            this.FileSelectBox_File = new FileSelectBox();
+            this.Button_CmdToClipboard = new System.Windows.Forms.Button();
+            this.CheckBox_AnchorLeft = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalHeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SplitContainer_Main)).BeginInit();
+            this.SplitContainer_Main.Panel1.SuspendLayout();
+            this.SplitContainer_Main.Panel2.SuspendLayout();
+            this.SplitContainer_Main.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualOffsetX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualOffsetY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaWidth)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaHeight)).BeginInit();
+            this.SuspendLayout();
             // 
             // Label_FontName
             // 
-            Label_FontName.AutoSize = true;
-            Label_FontName.Location = new System.Drawing.Point(13, 13);
-            Label_FontName.Name = "Label_FontName";
-            Label_FontName.Size = new System.Drawing.Size(53, 12);
-            Label_FontName.TabIndex = 0;
-            Label_FontName.Text = "字体名称";
+            this.Label_FontName.AutoSize = true;
+            this.Label_FontName.Location = new System.Drawing.Point(13, 14);
+            this.Label_FontName.Name = "Label_FontName";
+            this.Label_FontName.Size = new System.Drawing.Size(57, 13);
+            this.Label_FontName.TabIndex = 0;
+            this.Label_FontName.Text = "Font name";
             // 
             // ComboBox_FontName
             // 
-            ComboBox_FontName.FormattingEnabled = true;
-            ComboBox_FontName.Location = new System.Drawing.Point(15, 29);
-            ComboBox_FontName.Name = "ComboBox_FontName";
-            ComboBox_FontName.Size = new System.Drawing.Size(120, 20);
-            ComboBox_FontName.TabIndex = 1;
-            ComboBox_FontName.Text = "宋体";
+            this.ComboBox_FontName.FormattingEnabled = true;
+            this.ComboBox_FontName.Location = new System.Drawing.Point(15, 31);
+            this.ComboBox_FontName.Name = "ComboBox_FontName";
+            this.ComboBox_FontName.Size = new System.Drawing.Size(120, 21);
+            this.ComboBox_FontName.TabIndex = 1;
+            this.ComboBox_FontName.Text = "Song style";
+            this.ComboBox_FontName.TextChanged += new System.EventHandler(this.ComboBox_FontName_TextChanged);
             // 
             // CheckBox_Bold
             // 
-            CheckBox_Bold.AutoSize = true;
-            CheckBox_Bold.Location = new System.Drawing.Point(15, 94);
-            CheckBox_Bold.Name = "CheckBox_Bold";
-            CheckBox_Bold.Size = new System.Drawing.Size(48, 16);
-            CheckBox_Bold.TabIndex = 2;
-            CheckBox_Bold.Text = "加粗";
-            CheckBox_Bold.UseVisualStyleBackColor = true;
+            this.CheckBox_Bold.AutoSize = true;
+            this.CheckBox_Bold.Location = new System.Drawing.Point(15, 102);
+            this.CheckBox_Bold.Name = "CheckBox_Bold";
+            this.CheckBox_Bold.Size = new System.Drawing.Size(47, 17);
+            this.CheckBox_Bold.TabIndex = 2;
+            this.CheckBox_Bold.Text = "Bold";
+            this.CheckBox_Bold.UseVisualStyleBackColor = true;
+            this.CheckBox_Bold.CheckedChanged += new System.EventHandler(this.CheckBox_Bold_CheckedChanged);
             // 
             // CheckBox_Italic
             // 
-            CheckBox_Italic.AutoSize = true;
-            CheckBox_Italic.Location = new System.Drawing.Point(78, 94);
-            CheckBox_Italic.Name = "CheckBox_Italic";
-            CheckBox_Italic.Size = new System.Drawing.Size(48, 16);
-            CheckBox_Italic.TabIndex = 2;
-            CheckBox_Italic.Text = "斜体";
-            CheckBox_Italic.UseVisualStyleBackColor = true;
+            this.CheckBox_Italic.AutoSize = true;
+            this.CheckBox_Italic.Location = new System.Drawing.Point(103, 102);
+            this.CheckBox_Italic.Name = "CheckBox_Italic";
+            this.CheckBox_Italic.Size = new System.Drawing.Size(48, 17);
+            this.CheckBox_Italic.TabIndex = 2;
+            this.CheckBox_Italic.Text = "Italic";
+            this.CheckBox_Italic.UseVisualStyleBackColor = true;
+            this.CheckBox_Italic.CheckedChanged += new System.EventHandler(this.CheckBox_Italic_CheckedChanged);
             // 
             // CheckBox_Underline
             // 
-            CheckBox_Underline.AutoSize = true;
-            CheckBox_Underline.Location = new System.Drawing.Point(15, 116);
-            CheckBox_Underline.Name = "CheckBox_Underline";
-            CheckBox_Underline.Size = new System.Drawing.Size(60, 16);
-            CheckBox_Underline.TabIndex = 2;
-            CheckBox_Underline.Text = "下划线";
-            CheckBox_Underline.UseVisualStyleBackColor = true;
+            this.CheckBox_Underline.AutoSize = true;
+            this.CheckBox_Underline.Location = new System.Drawing.Point(15, 126);
+            this.CheckBox_Underline.Name = "CheckBox_Underline";
+            this.CheckBox_Underline.Size = new System.Drawing.Size(71, 17);
+            this.CheckBox_Underline.TabIndex = 2;
+            this.CheckBox_Underline.Text = "Underline";
+            this.CheckBox_Underline.UseVisualStyleBackColor = true;
+            this.CheckBox_Underline.CheckedChanged += new System.EventHandler(this.CheckBox_Underline_CheckedChanged);
             // 
             // CheckBox_Strikeout
             // 
-            CheckBox_Strikeout.AutoSize = true;
-            CheckBox_Strikeout.Location = new System.Drawing.Point(78, 116);
-            CheckBox_Strikeout.Name = "CheckBox_Strikeout";
-            CheckBox_Strikeout.Size = new System.Drawing.Size(60, 16);
-            CheckBox_Strikeout.TabIndex = 2;
-            CheckBox_Strikeout.Text = "删除线";
-            CheckBox_Strikeout.UseVisualStyleBackColor = true;
+            this.CheckBox_Strikeout.AutoSize = true;
+            this.CheckBox_Strikeout.Location = new System.Drawing.Point(103, 126);
+            this.CheckBox_Strikeout.Name = "CheckBox_Strikeout";
+            this.CheckBox_Strikeout.Size = new System.Drawing.Size(68, 17);
+            this.CheckBox_Strikeout.TabIndex = 2;
+            this.CheckBox_Strikeout.Text = "Strikeout";
+            this.CheckBox_Strikeout.UseVisualStyleBackColor = true;
+            this.CheckBox_Strikeout.CheckedChanged += new System.EventHandler(this.CheckBox_Strikeout_CheckedChanged);
             // 
             // NumericUpDown_Size
             // 
-            NumericUpDown_Size.Location = new System.Drawing.Point(15, 67);
-            NumericUpDown_Size.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_Size.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            NumericUpDown_Size.Name = "NumericUpDown_Size";
-            NumericUpDown_Size.Size = new System.Drawing.Size(120, 21);
-            NumericUpDown_Size.TabIndex = 3;
-            NumericUpDown_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            NumericUpDown_Size.Value = new decimal(new int[] { 16, 0, 0, 0 });
+            this.NumericUpDown_Size.Location = new System.Drawing.Point(15, 73);
+            this.NumericUpDown_Size.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_Size.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_Size.Name = "NumericUpDown_Size";
+            this.NumericUpDown_Size.Size = new System.Drawing.Size(120, 20);
+            this.NumericUpDown_Size.TabIndex = 3;
+            this.NumericUpDown_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_Size.Value = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.NumericUpDown_Size.ValueChanged += new System.EventHandler(this.NumericUpDown_Size_ValueChanged);
             // 
             // Label_Size
             // 
-            Label_Size.AutoSize = true;
-            Label_Size.Location = new System.Drawing.Point(13, 52);
-            Label_Size.Name = "Label_Size";
-            Label_Size.Size = new System.Drawing.Size(53, 12);
-            Label_Size.TabIndex = 0;
-            Label_Size.Text = "字体大小";
+            this.Label_Size.AutoSize = true;
+            this.Label_Size.Location = new System.Drawing.Point(13, 56);
+            this.Label_Size.Name = "Label_Size";
+            this.Label_Size.Size = new System.Drawing.Size(27, 13);
+            this.Label_Size.TabIndex = 0;
+            this.Label_Size.Text = "Size";
             // 
             // PictureBox_Preview
             // 
-            PictureBox_Preview.BackColor = System.Drawing.Color.White;
-            PictureBox_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
-            PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
-            PictureBox_Preview.Name = "PictureBox_Preview";
-            PictureBox_Preview.Size = new System.Drawing.Size(479, 129);
-            PictureBox_Preview.TabIndex = 4;
-            PictureBox_Preview.TabStop = false;
+            this.PictureBox_Preview.BackColor = System.Drawing.Color.White;
+            this.PictureBox_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
+            this.PictureBox_Preview.Name = "PictureBox_Preview";
+            this.PictureBox_Preview.Size = new System.Drawing.Size(614, 139);
+            this.PictureBox_Preview.TabIndex = 4;
+            this.PictureBox_Preview.TabStop = false;
             // 
             // CheckBox_DoubleSample
             // 
-            CheckBox_DoubleSample.AutoSize = true;
-            CheckBox_DoubleSample.Location = new System.Drawing.Point(15, 138);
-            CheckBox_DoubleSample.Name = "CheckBox_DoubleSample";
-            CheckBox_DoubleSample.Size = new System.Drawing.Size(60, 16);
-            CheckBox_DoubleSample.TabIndex = 2;
-            CheckBox_DoubleSample.Text = "2x采样";
-            CheckBox_DoubleSample.UseVisualStyleBackColor = true;
+            this.CheckBox_DoubleSample.AutoSize = true;
+            this.CheckBox_DoubleSample.Location = new System.Drawing.Point(15, 150);
+            this.CheckBox_DoubleSample.Name = "CheckBox_DoubleSample";
+            this.CheckBox_DoubleSample.Size = new System.Drawing.Size(78, 17);
+            this.CheckBox_DoubleSample.TabIndex = 2;
+            this.CheckBox_DoubleSample.Text = "2xsampling";
+            this.CheckBox_DoubleSample.UseVisualStyleBackColor = true;
+            this.CheckBox_DoubleSample.CheckedChanged += new System.EventHandler(this.CheckBox_DoubleSample_CheckedChanged);
             // 
             // Label_PhysicalWidth
             // 
-            Label_PhysicalWidth.AutoSize = true;
-            Label_PhysicalWidth.Location = new System.Drawing.Point(13, 157);
-            Label_PhysicalWidth.Name = "Label_PhysicalWidth";
-            Label_PhysicalWidth.Size = new System.Drawing.Size(53, 12);
-            Label_PhysicalWidth.TabIndex = 0;
-            Label_PhysicalWidth.Text = "物理宽度";
+            this.Label_PhysicalWidth.AutoSize = true;
+            this.Label_PhysicalWidth.Location = new System.Drawing.Point(13, 170);
+            this.Label_PhysicalWidth.Name = "Label_PhysicalWidth";
+            this.Label_PhysicalWidth.Size = new System.Drawing.Size(74, 13);
+            this.Label_PhysicalWidth.TabIndex = 0;
+            this.Label_PhysicalWidth.Text = "PhysicalWidth";
             // 
             // NumericUpDown_PhysicalWidth
             // 
-            NumericUpDown_PhysicalWidth.Location = new System.Drawing.Point(15, 171);
-            NumericUpDown_PhysicalWidth.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_PhysicalWidth.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            NumericUpDown_PhysicalWidth.Name = "NumericUpDown_PhysicalWidth";
-            NumericUpDown_PhysicalWidth.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_PhysicalWidth.TabIndex = 3;
-            NumericUpDown_PhysicalWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            NumericUpDown_PhysicalWidth.Value = new decimal(new int[] { 16, 0, 0, 0 });
+            this.NumericUpDown_PhysicalWidth.Location = new System.Drawing.Point(15, 185);
+            this.NumericUpDown_PhysicalWidth.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_PhysicalWidth.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_PhysicalWidth.Name = "NumericUpDown_PhysicalWidth";
+            this.NumericUpDown_PhysicalWidth.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_PhysicalWidth.TabIndex = 3;
+            this.NumericUpDown_PhysicalWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_PhysicalWidth.Value = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.NumericUpDown_PhysicalWidth.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // Label_PhysicalHeight
             // 
-            Label_PhysicalHeight.AutoSize = true;
-            Label_PhysicalHeight.Location = new System.Drawing.Point(76, 157);
-            Label_PhysicalHeight.Name = "Label_PhysicalHeight";
-            Label_PhysicalHeight.Size = new System.Drawing.Size(53, 12);
-            Label_PhysicalHeight.TabIndex = 0;
-            Label_PhysicalHeight.Text = "物理高度";
+            this.Label_PhysicalHeight.AutoSize = true;
+            this.Label_PhysicalHeight.Location = new System.Drawing.Point(101, 170);
+            this.Label_PhysicalHeight.Name = "Label_PhysicalHeight";
+            this.Label_PhysicalHeight.Size = new System.Drawing.Size(77, 13);
+            this.Label_PhysicalHeight.TabIndex = 0;
+            this.Label_PhysicalHeight.Text = "PhysicalHeight";
             // 
             // NumericUpDown_PhysicalHeight
             // 
-            NumericUpDown_PhysicalHeight.Location = new System.Drawing.Point(78, 172);
-            NumericUpDown_PhysicalHeight.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_PhysicalHeight.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            NumericUpDown_PhysicalHeight.Name = "NumericUpDown_PhysicalHeight";
-            NumericUpDown_PhysicalHeight.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_PhysicalHeight.TabIndex = 3;
-            NumericUpDown_PhysicalHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            NumericUpDown_PhysicalHeight.Value = new decimal(new int[] { 16, 0, 0, 0 });
+            this.NumericUpDown_PhysicalHeight.Location = new System.Drawing.Point(103, 186);
+            this.NumericUpDown_PhysicalHeight.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_PhysicalHeight.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NumericUpDown_PhysicalHeight.Name = "NumericUpDown_PhysicalHeight";
+            this.NumericUpDown_PhysicalHeight.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_PhysicalHeight.TabIndex = 3;
+            this.NumericUpDown_PhysicalHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_PhysicalHeight.Value = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            this.NumericUpDown_PhysicalHeight.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // PictureBox_Preview2x
             // 
-            PictureBox_Preview2x.BackColor = System.Drawing.Color.White;
-            PictureBox_Preview2x.Dock = System.Windows.Forms.DockStyle.Fill;
-            PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
-            PictureBox_Preview2x.Name = "PictureBox_Preview2x";
-            PictureBox_Preview2x.Size = new System.Drawing.Size(479, 258);
-            PictureBox_Preview2x.TabIndex = 4;
-            PictureBox_Preview2x.TabStop = false;
+            this.PictureBox_Preview2x.BackColor = System.Drawing.Color.White;
+            this.PictureBox_Preview2x.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
+            this.PictureBox_Preview2x.Name = "PictureBox_Preview2x";
+            this.PictureBox_Preview2x.Size = new System.Drawing.Size(614, 281);
+            this.PictureBox_Preview2x.TabIndex = 4;
+            this.PictureBox_Preview2x.TabStop = false;
             // 
             // SplitContainer_Main
             // 
-            SplitContainer_Main.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
-
-            SplitContainer_Main.Location = new System.Drawing.Point(141, 46);
-            SplitContainer_Main.Name = "SplitContainer_Main";
-            SplitContainer_Main.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.SplitContainer_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SplitContainer_Main.Location = new System.Drawing.Point(221, 50);
+            this.SplitContainer_Main.Name = "SplitContainer_Main";
+            this.SplitContainer_Main.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // SplitContainer_Main.Panel1
             // 
-            SplitContainer_Main.Panel1.Controls.Add(PictureBox_Preview);
+            this.SplitContainer_Main.Panel1.Controls.Add(this.PictureBox_Preview);
             // 
             // SplitContainer_Main.Panel2
             // 
-            SplitContainer_Main.Panel2.Controls.Add(PictureBox_Preview2x);
-            SplitContainer_Main.Size = new System.Drawing.Size(479, 391);
-            SplitContainer_Main.SplitterDistance = 129;
-            SplitContainer_Main.TabIndex = 5;
+            this.SplitContainer_Main.Panel2.Controls.Add(this.PictureBox_Preview2x);
+            this.SplitContainer_Main.Size = new System.Drawing.Size(614, 424);
+            this.SplitContainer_Main.SplitterDistance = 139;
+            this.SplitContainer_Main.TabIndex = 5;
             // 
             // Label_DrawOffsetX
             // 
-            Label_DrawOffsetX.AutoSize = true;
-            Label_DrawOffsetX.Location = new System.Drawing.Point(13, 196);
-            Label_DrawOffsetX.Name = "Label_DrawOffsetX";
-            Label_DrawOffsetX.Size = new System.Drawing.Size(59, 12);
-            Label_DrawOffsetX.TabIndex = 0;
-            Label_DrawOffsetX.Text = "绘制X偏移";
+            this.Label_DrawOffsetX.AutoSize = true;
+            this.Label_DrawOffsetX.Location = new System.Drawing.Point(13, 212);
+            this.Label_DrawOffsetX.Name = "Label_DrawOffsetX";
+            this.Label_DrawOffsetX.Size = new System.Drawing.Size(67, 13);
+            this.Label_DrawOffsetX.TabIndex = 0;
+            this.Label_DrawOffsetX.Text = "DrawOffsetX";
             // 
             // Label_DrawOffsetY
             // 
-            Label_DrawOffsetY.AutoSize = true;
-            Label_DrawOffsetY.Location = new System.Drawing.Point(76, 196);
-            Label_DrawOffsetY.Name = "Label_DrawOffsetY";
-            Label_DrawOffsetY.Size = new System.Drawing.Size(59, 12);
-            Label_DrawOffsetY.TabIndex = 0;
-            Label_DrawOffsetY.Text = "绘制Y偏移";
+            this.Label_DrawOffsetY.AutoSize = true;
+            this.Label_DrawOffsetY.Location = new System.Drawing.Point(101, 212);
+            this.Label_DrawOffsetY.Name = "Label_DrawOffsetY";
+            this.Label_DrawOffsetY.Size = new System.Drawing.Size(67, 13);
+            this.Label_DrawOffsetY.TabIndex = 0;
+            this.Label_DrawOffsetY.Text = "DrawOffsetY";
             // 
             // NumericUpDown_DrawOffsetX
             // 
-            NumericUpDown_DrawOffsetX.Location = new System.Drawing.Point(15, 211);
-            NumericUpDown_DrawOffsetX.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_DrawOffsetX.Minimum = new decimal(new int[] { 65535, 0, 0, (int)-2147483648L });
-            NumericUpDown_DrawOffsetX.Name = "NumericUpDown_DrawOffsetX";
-            NumericUpDown_DrawOffsetX.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_DrawOffsetX.TabIndex = 3;
-            NumericUpDown_DrawOffsetX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_DrawOffsetX.Location = new System.Drawing.Point(15, 229);
+            this.NumericUpDown_DrawOffsetX.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_DrawOffsetX.Minimum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_DrawOffsetX.Name = "NumericUpDown_DrawOffsetX";
+            this.NumericUpDown_DrawOffsetX.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_DrawOffsetX.TabIndex = 3;
+            this.NumericUpDown_DrawOffsetX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_DrawOffsetX.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // NumericUpDown_DrawOffsetY
             // 
-            NumericUpDown_DrawOffsetY.Location = new System.Drawing.Point(78, 211);
-            NumericUpDown_DrawOffsetY.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_DrawOffsetY.Minimum = new decimal(new int[] { 65535, 0, 0, (int)-2147483648L });
-            NumericUpDown_DrawOffsetY.Name = "NumericUpDown_DrawOffsetY";
-            NumericUpDown_DrawOffsetY.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_DrawOffsetY.TabIndex = 3;
-            NumericUpDown_DrawOffsetY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_DrawOffsetY.Location = new System.Drawing.Point(103, 229);
+            this.NumericUpDown_DrawOffsetY.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_DrawOffsetY.Minimum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_DrawOffsetY.Name = "NumericUpDown_DrawOffsetY";
+            this.NumericUpDown_DrawOffsetY.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_DrawOffsetY.TabIndex = 3;
+            this.NumericUpDown_DrawOffsetY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_DrawOffsetY.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // Label_VirtualOffsetX
             // 
-            Label_VirtualOffsetX.AutoSize = true;
-            Label_VirtualOffsetX.Location = new System.Drawing.Point(13, 235);
-            Label_VirtualOffsetX.Name = "Label_VirtualOffsetX";
-            Label_VirtualOffsetX.Size = new System.Drawing.Size(59, 12);
-            Label_VirtualOffsetX.TabIndex = 0;
-            Label_VirtualOffsetX.Text = "虚拟X偏移";
+            this.Label_VirtualOffsetX.AutoSize = true;
+            this.Label_VirtualOffsetX.Location = new System.Drawing.Point(13, 255);
+            this.Label_VirtualOffsetX.Name = "Label_VirtualOffsetX";
+            this.Label_VirtualOffsetX.Size = new System.Drawing.Size(71, 13);
+            this.Label_VirtualOffsetX.TabIndex = 0;
+            this.Label_VirtualOffsetX.Text = "VirtualOffsetX";
             // 
             // Label_VirtualOffsetY
             // 
-            Label_VirtualOffsetY.AutoSize = true;
-            Label_VirtualOffsetY.Location = new System.Drawing.Point(76, 235);
-            Label_VirtualOffsetY.Name = "Label_VirtualOffsetY";
-            Label_VirtualOffsetY.Size = new System.Drawing.Size(59, 12);
-            Label_VirtualOffsetY.TabIndex = 0;
-            Label_VirtualOffsetY.Text = "虚拟Y偏移";
+            this.Label_VirtualOffsetY.AutoSize = true;
+            this.Label_VirtualOffsetY.Location = new System.Drawing.Point(101, 255);
+            this.Label_VirtualOffsetY.Name = "Label_VirtualOffsetY";
+            this.Label_VirtualOffsetY.Size = new System.Drawing.Size(71, 13);
+            this.Label_VirtualOffsetY.TabIndex = 0;
+            this.Label_VirtualOffsetY.Text = "VirtualOffsetY";
             // 
             // NumericUpDown_VirtualOffsetX
             // 
-            NumericUpDown_VirtualOffsetX.Location = new System.Drawing.Point(15, 250);
-            NumericUpDown_VirtualOffsetX.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_VirtualOffsetX.Minimum = new decimal(new int[] { 65535, 0, 0, (int)-2147483648L });
-            NumericUpDown_VirtualOffsetX.Name = "NumericUpDown_VirtualOffsetX";
-            NumericUpDown_VirtualOffsetX.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_VirtualOffsetX.TabIndex = 3;
-            NumericUpDown_VirtualOffsetX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualOffsetX.Location = new System.Drawing.Point(15, 271);
+            this.NumericUpDown_VirtualOffsetX.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_VirtualOffsetX.Minimum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_VirtualOffsetX.Name = "NumericUpDown_VirtualOffsetX";
+            this.NumericUpDown_VirtualOffsetX.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_VirtualOffsetX.TabIndex = 3;
+            this.NumericUpDown_VirtualOffsetX.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualOffsetX.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // NumericUpDown_VirtualOffsetY
             // 
-            NumericUpDown_VirtualOffsetY.Location = new System.Drawing.Point(78, 250);
-            NumericUpDown_VirtualOffsetY.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_VirtualOffsetY.Minimum = new decimal(new int[] { 65535, 0, 0, (int)-2147483648L });
-            NumericUpDown_VirtualOffsetY.Name = "NumericUpDown_VirtualOffsetY";
-            NumericUpDown_VirtualOffsetY.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_VirtualOffsetY.TabIndex = 3;
-            NumericUpDown_VirtualOffsetY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualOffsetY.Location = new System.Drawing.Point(103, 271);
+            this.NumericUpDown_VirtualOffsetY.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_VirtualOffsetY.Minimum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_VirtualOffsetY.Name = "NumericUpDown_VirtualOffsetY";
+            this.NumericUpDown_VirtualOffsetY.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_VirtualOffsetY.TabIndex = 3;
+            this.NumericUpDown_VirtualOffsetY.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualOffsetY.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // Label_VirtualDeltaWidth
             // 
-            Label_VirtualDeltaWidth.AutoSize = true;
-            Label_VirtualDeltaWidth.Location = new System.Drawing.Point(13, 274);
-            Label_VirtualDeltaWidth.Name = "Label_VirtualDeltaWidth";
-            Label_VirtualDeltaWidth.Size = new System.Drawing.Size(65, 12);
-            Label_VirtualDeltaWidth.TabIndex = 0;
-            Label_VirtualDeltaWidth.Text = "虚拟宽度差";
+            this.Label_VirtualDeltaWidth.AutoSize = true;
+            this.Label_VirtualDeltaWidth.Location = new System.Drawing.Point(13, 297);
+            this.Label_VirtualDeltaWidth.Name = "Label_VirtualDeltaWidth";
+            this.Label_VirtualDeltaWidth.Size = new System.Drawing.Size(89, 13);
+            this.Label_VirtualDeltaWidth.TabIndex = 0;
+            this.Label_VirtualDeltaWidth.Text = "VirtualDeltaWidth";
             // 
             // Label_VirtualDeltaHeight
             // 
-            Label_VirtualDeltaHeight.AutoSize = true;
-            Label_VirtualDeltaHeight.Location = new System.Drawing.Point(76, 274);
-            Label_VirtualDeltaHeight.Name = "Label_VirtualDeltaHeight";
-            Label_VirtualDeltaHeight.Size = new System.Drawing.Size(65, 12);
-            Label_VirtualDeltaHeight.TabIndex = 0;
-            Label_VirtualDeltaHeight.Text = "虚拟高度差";
+            this.Label_VirtualDeltaHeight.AutoSize = true;
+            this.Label_VirtualDeltaHeight.Location = new System.Drawing.Point(101, 297);
+            this.Label_VirtualDeltaHeight.Name = "Label_VirtualDeltaHeight";
+            this.Label_VirtualDeltaHeight.Size = new System.Drawing.Size(92, 13);
+            this.Label_VirtualDeltaHeight.TabIndex = 0;
+            this.Label_VirtualDeltaHeight.Text = "VirtualDeltaHeight";
             // 
             // NumericUpDown_VirtualDeltaWidth
             // 
-            NumericUpDown_VirtualDeltaWidth.Location = new System.Drawing.Point(15, 289);
-            NumericUpDown_VirtualDeltaWidth.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_VirtualDeltaWidth.Minimum = new decimal(new int[] { 65535, 0, 0, (int)-2147483648L });
-            NumericUpDown_VirtualDeltaWidth.Name = "NumericUpDown_VirtualDeltaWidth";
-            NumericUpDown_VirtualDeltaWidth.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_VirtualDeltaWidth.TabIndex = 3;
-            NumericUpDown_VirtualDeltaWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualDeltaWidth.Location = new System.Drawing.Point(15, 313);
+            this.NumericUpDown_VirtualDeltaWidth.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_VirtualDeltaWidth.Minimum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_VirtualDeltaWidth.Name = "NumericUpDown_VirtualDeltaWidth";
+            this.NumericUpDown_VirtualDeltaWidth.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_VirtualDeltaWidth.TabIndex = 3;
+            this.NumericUpDown_VirtualDeltaWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualDeltaWidth.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // NumericUpDown_VirtualDeltaHeight
             // 
-            NumericUpDown_VirtualDeltaHeight.Location = new System.Drawing.Point(78, 289);
-            NumericUpDown_VirtualDeltaHeight.Maximum = new decimal(new int[] { 65536, 0, 0, 0 });
-            NumericUpDown_VirtualDeltaHeight.Minimum = new decimal(new int[] { 65535, 0, 0, (int)-2147483648L });
-            NumericUpDown_VirtualDeltaHeight.Name = "NumericUpDown_VirtualDeltaHeight";
-            NumericUpDown_VirtualDeltaHeight.Size = new System.Drawing.Size(57, 21);
-            NumericUpDown_VirtualDeltaHeight.TabIndex = 3;
-            NumericUpDown_VirtualDeltaHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualDeltaHeight.Location = new System.Drawing.Point(103, 313);
+            this.NumericUpDown_VirtualDeltaHeight.Maximum = new decimal(new int[] {
+            65536,
+            0,
+            0,
+            0});
+            this.NumericUpDown_VirtualDeltaHeight.Minimum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            -2147483648});
+            this.NumericUpDown_VirtualDeltaHeight.Name = "NumericUpDown_VirtualDeltaHeight";
+            this.NumericUpDown_VirtualDeltaHeight.Size = new System.Drawing.Size(57, 20);
+            this.NumericUpDown_VirtualDeltaHeight.TabIndex = 3;
+            this.NumericUpDown_VirtualDeltaHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NumericUpDown_VirtualDeltaHeight.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
             // Button_Generate
             // 
-            Button_Generate.Location = new System.Drawing.Point(15, 345);
-            Button_Generate.Name = "Button_Generate";
-            Button_Generate.Size = new System.Drawing.Size(120, 23);
-            Button_Generate.TabIndex = 7;
-            Button_Generate.Text = "生成";
-            Button_Generate.UseVisualStyleBackColor = true;
+            this.Button_Generate.Location = new System.Drawing.Point(15, 374);
+            this.Button_Generate.Name = "Button_Generate";
+            this.Button_Generate.Size = new System.Drawing.Size(157, 25);
+            this.Button_Generate.TabIndex = 7;
+            this.Button_Generate.Text = "Generate";
+            this.Button_Generate.UseVisualStyleBackColor = true;
+            this.Button_Generate.Click += new System.EventHandler(this.Button_Generate_Click);
             // 
             // FileSelectBox_File
             // 
-            FileSelectBox_File.AutoSize = true;
-            FileSelectBox_File.Filter = "tbl码表文件(*.tbl)|*.tbl|fd字符描述文件(*.fd)|*.fd|字符文件(*.txt)|*.txt";
-            FileSelectBox_File.LabelText = "tbl/fd/字符文件";
-            FileSelectBox_File.Location = new System.Drawing.Point(141, 13);
-            FileSelectBox_File.Name = "FileSelectBox_File";
-            FileSelectBox_File.Path = "";
-            FileSelectBox_File.Size = new System.Drawing.Size(479, 27);
-            FileSelectBox_File.SplitterDistance = 100;
-            FileSelectBox_File.TabIndex = 6;
+            this.FileSelectBox_File.AutoSize = true;
+            this.FileSelectBox_File.Filter = "TBL code watch file (*.tbl) |*.tbl | fd character description file (*.fd) |*.fd |" +
+    " character file (*.txt) |*.txt";
+            this.FileSelectBox_File.LabelText = "TBL/FD/character file";
+            this.FileSelectBox_File.Location = new System.Drawing.Point(221, 14);
+            this.FileSelectBox_File.Name = "FileSelectBox_File";
+            this.FileSelectBox_File.Path = "";
+            this.FileSelectBox_File.Size = new System.Drawing.Size(614, 29);
+            this.FileSelectBox_File.SplitterDistance = 100;
+            this.FileSelectBox_File.TabIndex = 6;
             // 
             // Button_CmdToClipboard
             // 
-            Button_CmdToClipboard.Location = new System.Drawing.Point(15, 316);
-            Button_CmdToClipboard.Name = "Button_CmdToClipboard";
-            Button_CmdToClipboard.Size = new System.Drawing.Size(120, 23);
-            Button_CmdToClipboard.TabIndex = 8;
-            Button_CmdToClipboard.Text = "传命令行到剪贴板";
-            Button_CmdToClipboard.UseVisualStyleBackColor = true;
+            this.Button_CmdToClipboard.Location = new System.Drawing.Point(15, 342);
+            this.Button_CmdToClipboard.Name = "Button_CmdToClipboard";
+            this.Button_CmdToClipboard.Size = new System.Drawing.Size(156, 25);
+            this.Button_CmdToClipboard.TabIndex = 8;
+            this.Button_CmdToClipboard.Text = "Pass the command line to the clipboard";
+            this.Button_CmdToClipboard.UseVisualStyleBackColor = true;
+            this.Button_CmdToClipboard.Click += new System.EventHandler(this.Button_CmdToClipboard_Click);
             // 
             // CheckBox_AnchorLeft
             // 
-            CheckBox_AnchorLeft.AutoSize = true;
-            CheckBox_AnchorLeft.Location = new System.Drawing.Point(78, 138);
-            CheckBox_AnchorLeft.Name = "CheckBox_AnchorLeft";
-            CheckBox_AnchorLeft.Size = new System.Drawing.Size(60, 16);
-            CheckBox_AnchorLeft.TabIndex = 2;
-            CheckBox_AnchorLeft.Text = "左对齐";
-            CheckBox_AnchorLeft.UseVisualStyleBackColor = true;
+            this.CheckBox_AnchorLeft.AutoSize = true;
+            this.CheckBox_AnchorLeft.Location = new System.Drawing.Point(103, 150);
+            this.CheckBox_AnchorLeft.Name = "CheckBox_AnchorLeft";
+            this.CheckBox_AnchorLeft.Size = new System.Drawing.Size(92, 17);
+            this.CheckBox_AnchorLeft.TabIndex = 2;
+            this.CheckBox_AnchorLeft.Text = "Left alignment";
+            this.CheckBox_AnchorLeft.UseVisualStyleBackColor = true;
+            this.CheckBox_AnchorLeft.CheckedChanged += new System.EventHandler(this.CheckBox_DoubleSample_CheckedChanged);
             // 
             // FontGen
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6.0f, 12.0f);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(632, 446);
-            Controls.Add(Button_CmdToClipboard);
-            Controls.Add(Button_Generate);
-            Controls.Add(FileSelectBox_File);
-            Controls.Add(SplitContainer_Main);
-            Controls.Add(NumericUpDown_VirtualDeltaHeight);
-            Controls.Add(NumericUpDown_VirtualDeltaWidth);
-            Controls.Add(NumericUpDown_VirtualOffsetY);
-            Controls.Add(NumericUpDown_VirtualOffsetX);
-            Controls.Add(NumericUpDown_DrawOffsetY);
-            Controls.Add(NumericUpDown_DrawOffsetX);
-            Controls.Add(NumericUpDown_PhysicalHeight);
-            Controls.Add(NumericUpDown_PhysicalWidth);
-            Controls.Add(NumericUpDown_Size);
-            Controls.Add(Label_VirtualDeltaHeight);
-            Controls.Add(CheckBox_Strikeout);
-            Controls.Add(Label_VirtualOffsetY);
-            Controls.Add(CheckBox_Underline);
-            Controls.Add(Label_DrawOffsetY);
-            Controls.Add(Label_VirtualDeltaWidth);
-            Controls.Add(CheckBox_Italic);
-            Controls.Add(Label_VirtualOffsetX);
-            Controls.Add(Label_PhysicalHeight);
-            Controls.Add(Label_DrawOffsetX);
-            Controls.Add(CheckBox_Bold);
-            Controls.Add(Label_PhysicalWidth);
-            Controls.Add(ComboBox_FontName);
-            Controls.Add(Label_Size);
-            Controls.Add(Label_FontName);
-            Controls.Add(CheckBox_AnchorLeft);
-            Controls.Add(CheckBox_DoubleSample);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-            Name = "FontGen";
-            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            Text = "字库图片生成器";
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_Size).EndInit();
-            ((System.ComponentModel.ISupportInitialize)PictureBox_Preview).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_PhysicalWidth).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_PhysicalHeight).EndInit();
-            ((System.ComponentModel.ISupportInitialize)PictureBox_Preview2x).EndInit();
-            SplitContainer_Main.Panel1.ResumeLayout(false);
-            SplitContainer_Main.Panel2.ResumeLayout(false);
-            SplitContainer_Main.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_DrawOffsetX).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_DrawOffsetY).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualOffsetX).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualOffsetY).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualDeltaWidth).EndInit();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown_VirtualDeltaHeight).EndInit();
-            Shown += new System.EventHandler(FontGen_Shown);
-            SizeChanged += new System.EventHandler(FontGen_SizeChanged);
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(847, 483);
+            this.Controls.Add(this.Button_CmdToClipboard);
+            this.Controls.Add(this.Button_Generate);
+            this.Controls.Add(this.FileSelectBox_File);
+            this.Controls.Add(this.SplitContainer_Main);
+            this.Controls.Add(this.NumericUpDown_VirtualDeltaHeight);
+            this.Controls.Add(this.NumericUpDown_VirtualDeltaWidth);
+            this.Controls.Add(this.NumericUpDown_VirtualOffsetY);
+            this.Controls.Add(this.NumericUpDown_VirtualOffsetX);
+            this.Controls.Add(this.NumericUpDown_DrawOffsetY);
+            this.Controls.Add(this.NumericUpDown_DrawOffsetX);
+            this.Controls.Add(this.NumericUpDown_PhysicalHeight);
+            this.Controls.Add(this.NumericUpDown_PhysicalWidth);
+            this.Controls.Add(this.NumericUpDown_Size);
+            this.Controls.Add(this.Label_VirtualDeltaHeight);
+            this.Controls.Add(this.CheckBox_Strikeout);
+            this.Controls.Add(this.Label_VirtualOffsetY);
+            this.Controls.Add(this.CheckBox_Underline);
+            this.Controls.Add(this.Label_DrawOffsetY);
+            this.Controls.Add(this.Label_VirtualDeltaWidth);
+            this.Controls.Add(this.CheckBox_Italic);
+            this.Controls.Add(this.Label_VirtualOffsetX);
+            this.Controls.Add(this.Label_PhysicalHeight);
+            this.Controls.Add(this.Label_DrawOffsetX);
+            this.Controls.Add(this.CheckBox_Bold);
+            this.Controls.Add(this.Label_PhysicalWidth);
+            this.Controls.Add(this.ComboBox_FontName);
+            this.Controls.Add(this.Label_Size);
+            this.Controls.Add(this.Label_FontName);
+            this.Controls.Add(this.CheckBox_AnchorLeft);
+            this.Controls.Add(this.CheckBox_DoubleSample);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "FontGen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Font image generator";
+            this.Shown += new System.EventHandler(this.FontGen_Shown);
+            this.SizeChanged += new System.EventHandler(this.FontGen_SizeChanged);
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalHeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).EndInit();
+            this.SplitContainer_Main.Panel1.ResumeLayout(false);
+            this.SplitContainer_Main.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SplitContainer_Main)).EndInit();
+            this.SplitContainer_Main.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualOffsetX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualOffsetY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaWidth)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaHeight)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         internal System.Windows.Forms.Label Label_FontName;

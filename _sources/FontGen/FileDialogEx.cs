@@ -2,7 +2,7 @@
 // 
 // File:        FileDialogEx.vb
 // Location:    Firefly.GUI <Visual Basic .Net>
-// Description: 扩展文件对话框类，Win7下存在兼容性问题，已过时，请使用FilePicker
+// Description: The extended file dialog class has compatibility issues under Win7 and is obsolete. Please use File Picker.
 // Version:     2009.11.30.
 // Copyright(C) F.R.C.
 // 
@@ -21,31 +21,7 @@ namespace FontGen
     public partial class FileDialogEx
     {
 
-        [Obsolete("Win7下存在兼容性问题，已过时，请使用FilePicker")]
-        public FileDialogEx(bool IsSaveDialog = false)
-        {
-            Size = new Size(0, 0);
-            StartPosition = FormStartPosition.Manual;
-            Location = new Point(0, -Screen.PrimaryScreen.Bounds.Height * 16);
-            SetStyle(ControlStyles.EnableNotifyMessage, true);
-            ShowInTaskbar = false;
-
-            IsSaveDialogValue = IsSaveDialog;
-            if (IsSaveDialog)
-            {
-                SaveDialogValue = new SaveFileDialog();
-            }
-            else
-            {
-                OpenDialogValue = new OpenFileDialog();
-            }
-
-            AutoUpgradeEnabled = false;
-            Multiselect = false;
-            ValidateNames = false;
-        }
-
-        #region  修改过的属性 
+        #region  modified properties
 
         protected bool IsSaveDialogValue;
         public bool IsSaveDialog
@@ -164,7 +140,7 @@ namespace FontGen
             }
         }
 
-        /// <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+        /// <summary>It is only valid when used as an Open File Dialog, otherwise a Not Supported Exception will be thrown.</summary>
         public string SafeFileName
         {
             get
@@ -176,7 +152,7 @@ namespace FontGen
         }
 
         private List<string> SafeFileNamesValue = new List<string>();
-        /// <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
+        /// <summary>It is only valid when used as an Open File Dialog, otherwise a Not Supported Exception will be thrown.</summary>
         public string[] SafeFileNames
         {
             get
@@ -189,7 +165,7 @@ namespace FontGen
 
         #endregion
 
-        #region  FileDialog公有方法 
+        #region  FileDialogpublic method
 
         public bool AddExtension
         {
@@ -395,83 +371,7 @@ namespace FontGen
 
         #endregion
 
-        #region  OpenFileDialog专有方法 
-
-        /// <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
-        public bool ReadOnlyChecked
-        {
-            get
-            {
-                if (IsSaveDialog)
-                    throw new NotSupportedException();
-                return OpenDialogValue.ReadOnlyChecked;
-            }
-            set
-            {
-                if (IsSaveDialog)
-                    throw new NotSupportedException();
-                OpenDialogValue.ReadOnlyChecked = value;
-            }
-        }
-
-        /// <summary>仅当作为OpenFileDialog时有效，否则会抛出NotSupportedException异常</summary>
-        public bool ShowReadOnly
-        {
-            get
-            {
-                if (IsSaveDialog)
-                    throw new NotSupportedException();
-                return OpenDialogValue.ShowReadOnly;
-            }
-            set
-            {
-                if (IsSaveDialog)
-                    throw new NotSupportedException();
-                OpenDialogValue.ShowReadOnly = value;
-            }
-        }
-
-        #endregion
-
-        #region  SaveFileDialog专有方法 
-
-        /// <summary>仅当作为SaveFileDialog时有效，否则会抛出NotSupportedException异常</summary>
-        public bool CreatePrompt
-        {
-            get
-            {
-                if (!IsSaveDialog)
-                    throw new NotSupportedException();
-                return SaveDialogValue.CreatePrompt;
-            }
-            set
-            {
-                if (!IsSaveDialog)
-                    throw new NotSupportedException();
-                SaveDialogValue.CreatePrompt = value;
-            }
-        }
-
-        /// <summary>仅当作为SaveFileDialog时有效，否则会抛出NotSupportedException异常</summary>
-        public bool OverwritePrompt
-        {
-            get
-            {
-                if (!IsSaveDialog)
-                    throw new NotSupportedException();
-                return SaveDialogValue.OverwritePrompt;
-            }
-            set
-            {
-                if (!IsSaveDialog)
-                    throw new NotSupportedException();
-                SaveDialogValue.OverwritePrompt = value;
-            }
-        }
-
-        #endregion
-
-        #region  事件参数 
+        #region  event parameters
 
         public class SelectionChangedEventArgs : EventArgs
         {
@@ -534,7 +434,7 @@ namespace FontGen
         }
         #endregion
 
-        #region  事件 
+        #region  event 
 
         private bool FileOKValue = false;
         protected void mNativeDialog_ButtonOpenClick(object sender, ButtonOpenClickEventArgs e)

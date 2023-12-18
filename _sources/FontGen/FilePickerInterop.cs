@@ -2,7 +2,7 @@
 // 
 // File:        FilePickerInterop.vb
 // Location:    Firefly.GUI <Visual Basic .Net>
-// Description: 文件选取对话框 - Win32调用包装
+// Description: File selection dialog - Win32 call wrapper
 // Version:     2009.11.30.
 // Copyright(C) F.R.C.
 // 

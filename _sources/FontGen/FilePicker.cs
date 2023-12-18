@@ -2,7 +2,7 @@
 // 
 // File:        FilePicker.vb
 // Location:    Firefly.GUI <Visual Basic .Net>
-// Description: 文件选取对话框
+// Description: File selection dialog box
 // Version:     2009.12.04.
 // Copyright(C) F.R.C.
 // 
@@ -18,9 +18,7 @@ using Microsoft.VisualBasic.CompilerServices;
 
 namespace FontGen
 {
-
-
-    /// <summary>文件选取对话框，用于统一打开和保存单个和多个文件和文件夹，可替代OpenFileDialog、SaveFileDialog、FolderBrowserDialog三个对话框。</summary>
+    /// <summary>The file selection dialog box is used to open and save single and multiple files and folders in a unified manner. It can replace the three dialog boxes of Open File Dialog, Save File Dialog and Folder Browser Dialog. </summary>
     public partial class FilePicker
     {
         private string InitialDirectoryValue;
@@ -61,7 +59,7 @@ namespace FontGen
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        MessageBox.Show(@"无法访问{0}。\r\n拒绝访问。".Descape().Formats(CurrentDirectoryValue), "位置不可用", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(@"Inaccessible{0}。\r\naccess denied。".Descape().Formats(CurrentDirectoryValue), "Unavailable position", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         CurrentDirectoryValue = Previous;
                         ComboBox_Directory.Text = Previous;
                         RefreshList();
@@ -125,11 +123,11 @@ namespace FontGen
                     return;
                 if (value)
                 {
-                    Title = "另存为..";
+                    Title = "Save as..";
                 }
                 else
                 {
-                    Title = "打开";
+                    Title = "Open";
                 }
             }
         }

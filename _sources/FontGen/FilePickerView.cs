@@ -35,7 +35,7 @@ namespace FontGen
             DirectoryList.Clear();
             ComboBox_Directory.Items.Clear();
             DirectoryList.Add(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            ComboBox_Directory.Items.Add("桌面");
+            ComboBox_Directory.Items.Add("desktop");
             foreach (var d in DriveInfo.GetDrives())
             {
                 DirectoryList.Add(d.Name);
@@ -210,10 +210,10 @@ namespace FontGen
         {
 
             Timer = new Timer();
-            // 此调用是 Windows 窗体设计器所必需的。
+            // This call is required by Windows Forms Designer.
             InitializeComponent();
 
-            // 在 InitializeComponent() 调用之后添加任何初始化。
+            // Add any initialization after the Initialize Component() call.
 
             // FileListView.ContextMenu = ContextMenu
 
@@ -320,7 +320,7 @@ namespace FontGen
                     {
                         if (PopCheckFileExistBox)
                         {
-                            var dr = MessageBox.Show(@"{0} 已存在。\r\n要替换吗？".Descape().Formats(Path), "确认另存为", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            var dr = MessageBox.Show(@"{0} existed. Do RN want to replace?？".Descape().Formats(Path), "Confirm that it is stored again", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                             if (dr != DialogResult.Yes)
                                 return false;
                         }

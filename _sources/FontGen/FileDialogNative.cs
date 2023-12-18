@@ -1,14 +1,14 @@
 ﻿// ==========================================================================
 // 
 // File:        FileDialogNative.vb
-// Location:    Firefly.GUI <Visual Basic .Net>
-// Description: 扩展文件对话框类，Win7下存在兼容性问题，已过时，请使用FilePicker
-// 本文件使用了http://www.codeproject.com/KB/dialog/OpenFileDialogEx.aspx中提到的方法
-// 已知问题1：快捷方式等隐藏扩展名文件无法正确处理
-// 已知问题2：按回车时无法自动进入文件夹
-// Version:     2009.11.30.
+// Location: Firefly.GUI <Visual Basic .Net>
+// Description: Extended file dialog class, there are compatibility issues under Win7, it is obsolete, please use File Picker
+// This file uses the method mentioned in http://www.codeproject.com/KB/dialog/Open File Dialog Ex.aspx
+// Known issue 1: Hidden extension files such as shortcuts cannot be processed correctly
+// Known issue 2: Unable to automatically enter the folder when pressing Enter
+// Version: 2009.11.30.
 // Copyright(C) F.R.C.
-// 
+//
 // ==========================================================================
 
 

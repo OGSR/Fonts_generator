@@ -2,7 +2,7 @@
 // 
 // File:        FontGen.vb
 // Location:    Firefly.FontGen <Visual Basic .Net>
-// Description: 字库图片生成器
+// Description: Font image generator
 // Version:     2010.04.08.
 // Copyright(C) F.R.C.
 // 
@@ -108,63 +108,63 @@ namespace FontGen
 
         public static void DisplayInfo()
         {
-            Console.WriteLine("字库图片生成器");
-            Console.WriteLine("Firefly.FontGen，按BSD许可证分发");
+            Console.WriteLine("Font Image Generator");
+            Console.WriteLine("Firefly.FontGen, distributed under BSD license");
             Console.WriteLine("F.R.C.");
             Console.WriteLine("");
-            Console.WriteLine("本生成器用于从tbl编码文件、fd字库描述文件或者字符文件生成字库图片和对应的fd字库描述文件。");
+            Console.WriteLine("This generator is used to generate font images and corresponding fd font description files from tbl encoding files, fd font description files or character files.");
             Console.WriteLine("");
-            Console.WriteLine("用法:");
-            Console.WriteLine("FontGen <Source tbl/fd/CharFile> <Target fd> <FontName> <FontStyle> <FontSize> <PhysicalWidth> <PhysicalHeight> <DrawOffsetX> <DrawOffsetY> [<VirtualOffsetX> <VirtualOffsetY> <VirtualDeltaWidth> <VirtualDeltaHeight> [<PicWidth> <PicHeight>]] [/x2] [/left]");
-            Console.WriteLine("Source tbl/fd/CharFile 输入tbl编码文件、fd字库描述文件或者字符文件路径。");
-            Console.WriteLine("Target fd 输出fd字库描述文件路径。输出的字库图片(bmp)也使用该路径。");
-            Console.WriteLine("FontName 字体名称。");
-            Console.WriteLine("FontStyle 字体风格，加粗 1 斜体 2 下划线 4 删除线 8，可叠加。");
-            Console.WriteLine("FontSize 字体大小。");
-            Console.WriteLine("PhysicalWidth 物理宽度，字符格子宽度。");
-            Console.WriteLine("PhysicalHeight 物理高度，字符格子高度。");
-            Console.WriteLine("DrawOffsetX 绘制X偏移。");
-            Console.WriteLine("DrawOffsetY 绘制Y偏移。");
-            Console.WriteLine("VirtualOffsetX 虚拟X偏移，字符的显示部分的X偏移。");
-            Console.WriteLine("VirtualOffsetY 虚拟Y偏移，字符的显示部分的Y偏移。");
-            Console.WriteLine("VirtualDeltaWidth 虚拟宽度差，字符的显示部分的宽度相对于默认值的差。");
-            Console.WriteLine("VirtualDeltaHeight 虚拟高度差，字符的显示部分的高度相对于默认值的差。");
-            Console.WriteLine("PicWidth 图片宽度。");
-            Console.WriteLine("PicHeight 图片高度。");
-            Console.WriteLine("如果不指定图片宽度和高度，将会自动选择最小的能容纳所有字符的2的幂的宽和高。");
-            Console.WriteLine("如果指定图片宽度和高度，将会生成多张图片。");
-            Console.WriteLine("/x2 2x超采样。");
-            Console.WriteLine("/left 左对齐。");
+            Console.WriteLine("Usage:");
+            Console.WriteLine("FontGen <Source tbl/fd/CharFile> <Target fd> <FontName> <FontStyle> <FontSize> <PhysicalWidth> <PhysicalHeight> <DrawOffsetX> <DrawOffsetY> [<VirtualOffsetX> <VirtualOffsetY> <VirtualDeltaWidth> < VirtualDeltaHeight> [<PicWidth> <PicHeight>]] [/x2] [/left]");
+            Console.WriteLine("Source tbl/fd/CharFile Enter the tbl encoding file, fd font description file or character file path.");
+            Console.WriteLine("Target fd outputs the fd font description file path. The output font image (bmp) also uses this path.");
+            Console.WriteLine("FontName font name.");
+            Console.WriteLine("FontStyle font style, bold 1 italic 2 underline 4 strikethrough 8, can be superimposed.");
+            Console.WriteLine("FontSize font size.");
+            Console.WriteLine("PhysicalWidth physical width, character grid width.");
+            Console.WriteLine("PhysicalHeight physical height, character grid height.");
+            Console.WriteLine("DrawOffsetX draws X offset.");
+            Console.WriteLine("DrawOffsetY draws Y offset.");
+            Console.WriteLine("VirtualOffsetX virtual X offset, X offset of the displayed part of the character.");
+            Console.WriteLine("VirtualOffsetY virtual Y offset, Y offset of the displayed part of the character.");
+            Console.WriteLine("VirtualDeltaWidth virtual width difference, the difference between the width of the displayed part of the character and the default value.");
+            Console.WriteLine("VirtualDeltaHeight virtual height difference, the difference between the height of the displayed part of the character and the default value.");
+            Console.WriteLine("PicWidth picture width.");
+            Console.WriteLine("PicHeight picture height.");
+            Console.WriteLine("If you do not specify the image width and height, the smallest power of 2 width and height that can accommodate all characters will be automatically selected.");
+            Console.WriteLine("If you specify the image width and height, multiple images will be generated.");
+            Console.WriteLine("/x2 2x supersampling.");
+            Console.WriteLine("/left align left.");
             Console.WriteLine("");
-            Console.WriteLine("示例:");
+            Console.WriteLine("Example:");
             Console.WriteLine("FontGen FakeShiftJIS.tbl FakeShiftJIS.fd 宋体 0 16 16 16 0 0");
             Console.WriteLine("FontGen FakeShiftJIS.tbl FakeShiftJIS.fd 宋体 0 16 16 16 0 0 0 0 0 0 1024 1024");
             Console.WriteLine("");
-            Console.WriteLine("高级用法：");
+            Console.WriteLine("Advanced usage:");
             Console.WriteLine("FontGen (Add|AddNew|RemoveUnicode|RemoveCode|Save)*");
-            Console.WriteLine("Add ::= [/x2] [/left] [/argb:<Pattern>=1xxx] /add:<Source tbl/fd/CharFile>[,<FontName>,<FontStyle>,<FontSize>,<PhysicalWidth>,<PhysicalHeight>,<DrawOffsetX>,<DrawOffsetY>[,<VirtualOffsetX>,<VirtualOffsetY>,<VirtualDeltaWidth>,<VirtualDeltaHeight>]]");
-            Console.WriteLine("AddNew ::= [/x2] [/left] [/argb:<Pattern>=1xxx] /addnew:<Source tbl/fd/CharFile>[,<FontName>,<FontStyle>,<FontSize>,<PhysicalWidth>,<PhysicalHeight>,<DrawOffsetX>,<DrawOffsetY>[,<VirtualOffsetX>,<VirtualOffsetY>,<VirtualDeltaWidth>,<VirtualDeltaHeight>]]");
+            Console.WriteLine("Add ::= [/x2] [/left] [/argb:<Pattern>=1xxx] /add:<Source tbl/fd/CharFile>[,<FontName>,<FontStyle>,<FontSize >,<PhysicalWidth>,<PhysicalHeight>,<DrawOffsetX>,<DrawOffsetY>[,<VirtualOffsetX>,<VirtualOffsetY>,<VirtualDeltaWidth>,<VirtualDeltaHeight>]]");
+            Console.WriteLine("AddNew ::= [/x2] [/left] [/argb:<Pattern>=1xxx] /addnew:<Source tbl/fd/CharFile>[,<FontName>,<FontStyle>,<FontSize >,<PhysicalWidth>,<PhysicalHeight>,<DrawOffsetX>,<DrawOffsetY>[,<VirtualOffsetX>,<VirtualOffsetY>,<VirtualDeltaWidth>,<VirtualDeltaHeight>]]");
             Console.WriteLine("RemoveUnicode ::= /removeunicode:<Lower:Hex>,<Upper:Hex>");
             Console.WriteLine("RemoveCode ::= /removecode:<Lower:Hex>,<Upper:Hex>");
             Console.WriteLine("Save ::= [/bpp:<BitPerPixel>=8] [/size:<PicWidth>,<PicHeight>] [/multiple] [/compact] /save:<Target fd>");
-            Console.WriteLine("/argb 指定颜色的形式");
-            Console.WriteLine("Pattern Pattern由4位组成，分别对应A、R、G、B通道，每位可以是0、1或x，其中0表示为0，1表示为最大值，x表示为绘图值");
-            Console.WriteLine("/add 添加字形源，可以指定参数由本程序生成，或指定由fd文件加载");
-            Console.WriteLine("/addnew 添加字形源，但仅当字符不存在时才添加");
-            Console.WriteLine("/removeunicode 移除该Unicode范围内(包含两边界)字符的字形，Unicode的范围包括扩展平面");
-            Console.WriteLine("/removecode 移除该编码范围内(包含两边界)字符的字形");
-            Console.WriteLine("/bpp 指定位深度");
-            Console.WriteLine("BitPerPixel 位深度：1、2、4、8、16、32");
-            Console.WriteLine("/size 指定图片大小");
-            Console.WriteLine("PicWidth 图片宽度");
-            Console.WriteLine("PicHeight 图片高度");
-            Console.WriteLine("/multiple 指定保存为多个文件");
-            Console.WriteLine("/compact 紧凑存储，列不对齐");
-            Console.WriteLine("/save 保存字形到fd文件");
+            Console.WriteLine("/argb specifies the color form");
+            Console.WriteLine("Pattern Pattern consists of 4 bits, corresponding to the A, R, G, and B channels respectively. Each bit can be 0, 1 or x, where 0 represents 0, 1 represents the maximum value, and x represents the drawing value ");
+            Console.WriteLine("/add adds glyph source, you can specify parameters to be generated by this program, or specified to be loaded from fd file");
+            Console.WriteLine("/addnew adds a glyph source, but only if the character does not exist");
+            Console.WriteLine("/removeunicode removes the glyphs of characters within the Unicode range (including both boundaries). The Unicode range includes the extended plane");
+            Console.WriteLine("/removecode removes the glyphs of characters within the encoding range (including both boundaries)");
+            Console.WriteLine("/bpp specifies bit depth");
+            Console.WriteLine("BitPerPixel bit depth: 1, 2, 4, 8, 16, 32");
+            Console.WriteLine("/size specifies the image size");
+            Console.WriteLine("PicWidth picture width");
+            Console.WriteLine("PicHeight picture height");
+            Console.WriteLine("/multiple specifies saving as multiple files");
+            Console.WriteLine("/compact compact storage, columns are not aligned");
+            Console.WriteLine("/save save glyphs to fd file");
             Console.WriteLine("");
-            Console.WriteLine("示例:");
+            Console.WriteLine("Example:");
             Console.WriteLine("FontGen /add:Original.fd /removecode:100,10000 /x2 /left /addnew:FakeShiftJIS.tbl,宋体,0,16,16,16,0,0 /save:FakeShiftJIS.fd");
-            Console.WriteLine("该例子表明：从Original.fd加载字库，删去0x100到0x10000的部分，然後将FakeShiftJIS.tbl生成字形，将其中新增的字形加入，并将结果保存到FakeShiftJIS.fd");
+            Console.WriteLine("This example shows: load the font library from Original.fd, delete the part from 0x100 to 0x10000, then generate glyphs from FakeShiftJIS.tbl, add the new glyphs, and save the result to FakeShiftJIS.fd");
         }
 
         public class GlyphComparer : EqualityComparer<IGlyph>
@@ -666,7 +666,11 @@ namespace FontGen
 
                     using (gg)
                     {
-                        string[] TestStrings = ["012 AaBbCc", @"!""#$%&'()*+,-./:;<=>?@[\]^_`", "珍爱生命　远离汉化", "これはテストォーー！", "يادداشت هاي شخصي احمدي نژاد"];
+                        string[] TestStrings = [
+                            "ё1234567890-=/*-\tйцукенгшщзхъ\\789+фывапролджэ456ячсмитьбю",
+                            ".123\\ 0,Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,/",
+                            "`1234567890-=/*-\tqwertyuiop[]\\789+asdfghjkl;'456zxcvbnm,",
+                            "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
 
                         using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
                         {
@@ -840,7 +844,7 @@ namespace FontGen
             ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
             SaveFont(GenerateFont(FileSelectBox_File.Path, ComboBox_FontName.Text, Style, (int)Math.Round(NumericUpDown_Size.Value), PhysicalWidth, PhysicalHeight, (int)Math.Round(NumericUpDown_DrawOffsetX.Value), (int)Math.Round(NumericUpDown_DrawOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), EnableDoubleSample, AnchorLeft, ChannelPatterns), FileNameHandling.ChangeExtension(FileSelectBox_File.Path, "fd"), -1, -1, 8, false, false);
-            MessageBox.Show("生成完毕。", Text);
+            MessageBox.Show("After generating.", Text);
         }
     }
 }

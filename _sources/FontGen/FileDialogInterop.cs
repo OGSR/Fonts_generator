@@ -2,7 +2,7 @@
 // 
 // File:        FileDialogInterop.vb
 // Location:    Firefly.GUI <Visual Basic .Net>
-// Description: 扩展文件对话框类，Win7下存在兼容性问题，已过时，请使用FilePicker
+// Description: The extended file dialog class has compatibility issues under Win7 and is obsolete. Please use File Picker.
 // Version:     2009.11.30.
 // Copyright(C) F.R.C.
 // 
