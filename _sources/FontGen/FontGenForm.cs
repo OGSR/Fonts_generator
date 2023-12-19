@@ -14,33 +14,32 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Firefly;
 using Firefly.Glyphing;
 using Firefly.Imaging;
 using Firefly.TextEncoding;
 using Firefly.Texting;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace FontGen
 {
 
     public partial class FontGenForm
     {
-       static string[] TestStrings = [
-            "ё1234567890-=/*-\tйцукенгшщзхъ\\789+фывапролджэ456ячсмитьбю",
-            ".123\\ 0,Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,/",
-            "`1234567890-=/*-\tqwertyuiop[]\\789+asdfghjkl;'456zxcvbnm,",
-            "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
+        static string[] TestStrings = [
+             "ё1234567890-=/*-\tйцукенгшщзхъ\\",
+            "789+фывапролджэ456ячсмитьбю",
+            ".123\\ 0,Ё!\"№;%:?*()_+",
+            "ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,/",
+            "`1234567890-=/*-\tqwertyuiop[]\\",
+            "789+asdfghjkl;'456zxcvbnm,",
+            "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|",
+            "ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
 
         public FontGenForm()
         {
             InitializeComponent();
         }
-
-        [DllImport("kernel32.dll")]
-        public static extern bool FreeConsole();
 
         public static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
@@ -114,443 +113,11 @@ namespace FontGen
             return 0;
         }
 
-        public static void DisplayInfo()
-        {
-            Console.WriteLine("Font Image Generator");
-            Console.WriteLine("Firefly.FontGen, distributed under BSD license");
-            Console.WriteLine("F.R.C.");
-            Console.WriteLine("");
-            Console.WriteLine("This generator is used to generate font images and corresponding fd font description files from tbl encoding files, fd font description files or character files.");
-            Console.WriteLine("");
-            Console.WriteLine("Usage:");
-            Console.WriteLine("FontGen <Source tbl/fd/CharFile> <Target fd> <FontName> <FontStyle> <FontSize> <PhysicalWidth> <PhysicalHeight> <DrawOffsetX> <DrawOffsetY> [<VirtualOffsetX> <VirtualOffsetY> <VirtualDeltaWidth> < VirtualDeltaHeight> [<PicWidth> <PicHeight>]] [/x2] [/left]");
-            Console.WriteLine("Source tbl/fd/CharFile Enter the tbl encoding file, fd font description file or character file path.");
-            Console.WriteLine("Target fd outputs the fd font description file path. The output font image (bmp) also uses this path.");
-            Console.WriteLine("FontName font name.");
-            Console.WriteLine("FontStyle font style, bold 1 italic 2 underline 4 strikethrough 8, can be superimposed.");
-            Console.WriteLine("FontSize font size.");
-            Console.WriteLine("PhysicalWidth physical width, character grid width.");
-            Console.WriteLine("PhysicalHeight physical height, character grid height.");
-            Console.WriteLine("DrawOffsetX draws X offset.");
-            Console.WriteLine("DrawOffsetY draws Y offset.");
-            Console.WriteLine("VirtualOffsetX virtual X offset, X offset of the displayed part of the character.");
-            Console.WriteLine("VirtualOffsetY virtual Y offset, Y offset of the displayed part of the character.");
-            Console.WriteLine("VirtualDeltaWidth virtual width difference, the difference between the width of the displayed part of the character and the default value.");
-            Console.WriteLine("VirtualDeltaHeight virtual height difference, the difference between the height of the displayed part of the character and the default value.");
-            Console.WriteLine("PicWidth picture width.");
-            Console.WriteLine("PicHeight picture height.");
-            Console.WriteLine("If you do not specify the image width and height, the smallest power of 2 width and height that can accommodate all characters will be automatically selected.");
-            Console.WriteLine("If you specify the image width and height, multiple images will be generated.");
-            Console.WriteLine("/x2 2x supersampling.");
-            Console.WriteLine("/left align left.");
-            Console.WriteLine("");
-            Console.WriteLine("Example:");
-            Console.WriteLine("FontGen FakeShiftJIS.tbl FakeShiftJIS.fd 宋体 0 16 16 16 0 0");
-            Console.WriteLine("FontGen FakeShiftJIS.tbl FakeShiftJIS.fd 宋体 0 16 16 16 0 0 0 0 0 0 1024 1024");
-            Console.WriteLine("");
-            Console.WriteLine("Advanced usage:");
-            Console.WriteLine("FontGen (Add|AddNew|RemoveUnicode|RemoveCode|Save)*");
-            Console.WriteLine("Add ::= [/x2] [/left] [/argb:<Pattern>=1xxx] /add:<Source tbl/fd/CharFile>[,<FontName>,<FontStyle>,<FontSize >,<PhysicalWidth>,<PhysicalHeight>,<DrawOffsetX>,<DrawOffsetY>[,<VirtualOffsetX>,<VirtualOffsetY>,<VirtualDeltaWidth>,<VirtualDeltaHeight>]]");
-            Console.WriteLine("AddNew ::= [/x2] [/left] [/argb:<Pattern>=1xxx] /addnew:<Source tbl/fd/CharFile>[,<FontName>,<FontStyle>,<FontSize >,<PhysicalWidth>,<PhysicalHeight>,<DrawOffsetX>,<DrawOffsetY>[,<VirtualOffsetX>,<VirtualOffsetY>,<VirtualDeltaWidth>,<VirtualDeltaHeight>]]");
-            Console.WriteLine("RemoveUnicode ::= /removeunicode:<Lower:Hex>,<Upper:Hex>");
-            Console.WriteLine("RemoveCode ::= /removecode:<Lower:Hex>,<Upper:Hex>");
-            Console.WriteLine("Save ::= [/bpp:<BitPerPixel>=8] [/size:<PicWidth>,<PicHeight>] [/multiple] [/compact] /save:<Target fd>");
-            Console.WriteLine("/argb specifies the color form");
-            Console.WriteLine("Pattern Pattern consists of 4 bits, corresponding to the A, R, G, and B channels respectively. Each bit can be 0, 1 or x, where 0 represents 0, 1 represents the maximum value, and x represents the drawing value ");
-            Console.WriteLine("/add adds glyph source, you can specify parameters to be generated by this program, or specified to be loaded from fd file");
-            Console.WriteLine("/addnew adds a glyph source, but only if the character does not exist");
-            Console.WriteLine("/removeunicode removes the glyphs of characters within the Unicode range (including both boundaries). The Unicode range includes the extended plane");
-            Console.WriteLine("/removecode removes the glyphs of characters within the encoding range (including both boundaries)");
-            Console.WriteLine("/bpp specifies bit depth");
-            Console.WriteLine("BitPerPixel bit depth: 1, 2, 4, 8, 16, 32");
-            Console.WriteLine("/size specifies the image size");
-            Console.WriteLine("PicWidth picture width");
-            Console.WriteLine("PicHeight picture height");
-            Console.WriteLine("/multiple specifies saving as multiple files");
-            Console.WriteLine("/compact compact storage, columns are not aligned");
-            Console.WriteLine("/save save glyphs to fd file");
-            Console.WriteLine("");
-            Console.WriteLine("Example:");
-            Console.WriteLine("FontGen /add:Original.fd /removecode:100,10000 /x2 /left /addnew:FakeShiftJIS.tbl,宋体,0,16,16,16,0,0 /save:FakeShiftJIS.fd");
-            Console.WriteLine("This example shows: load the font library from Original.fd, delete the part from 0x100 to 0x10000, then generate glyphs from FakeShiftJIS.tbl, add the new glyphs, and save the result to FakeShiftJIS.fd");
-        }
-
-        public class GlyphComparer : EqualityComparer<IGlyph>
-        {
-            public override bool Equals(IGlyph x, IGlyph y)
-            {
-                if (x.c.HasCode && y.c.HasCode)
-                    return x.c.Code == y.c.Code;
-                if (x.c.HasUnicode && y.c.HasUnicode)
-                    return (x.c.Unicode ?? "") == (y.c.Unicode ?? "");
-                return x.c.Equals(y.c);
-            }
-
-            public override int GetHashCode(IGlyph obj)
-            {
-                if (obj.c.HasCode)
-                    return obj.c.Code;
-                if (obj.c.HasUnicode)
-                    return obj.c.Code;
-                return obj.c.GetHashCode();
-            }
-        }
-
-        public static int MainConsole()
-        {
-            Application.EnableVisualStyles();
-
-            var CmdLine = CommandLine.GetCmdLine();
-
-            foreach (var opt in CmdLine.Options)
-            {
-                switch (opt.Name.ToLower() ?? "")
-                {
-                    case "?":
-                    case "help":
-                        {
-                            DisplayInfo();
-                            return 0;
-                        }
-                }
-            }
-
-            switch (CmdLine.Arguments.Count())
-            {
-                case 0:
-                    {
-                        IEnumerable<IGlyph> Glyphs = new Glyph[] { };
-                        ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
-                        bool EnableDoubleSample = false;
-                        bool AnchorLeft = false;
-                        int BitPerPixel = 8;
-                        int PicWidth = -1;
-                        int PicHeight = -1;
-                        bool Multiple = false;
-                        bool Compact = false;
-                        foreach (var opt in CmdLine.Options)
-                        {
-                            switch (opt.Name.ToLower() ?? "")
-                            {
-                                case "argb":
-                                    {
-                                        string[] argv = opt.Arguments;
-                                        switch (argv.Length)
-                                        {
-                                            case 1:
-                                                {
-                                                    Char32[] s = argv[0].ToLower().ToUTF32();
-                                                    if (s.Length != 4)
-                                                        throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                    for (int n = 0; n <= 3; n++)
-                                                    {
-                                                        switch (n.ToString())
-                                                        {
-                                                            case "0":
-                                                                {
-                                                                    ChannelPatterns[n] = ChannelPattern.Zero;
-                                                                    break;
-                                                                }
-                                                            case "x":
-                                                                {
-                                                                    ChannelPatterns[n] = ChannelPattern.Draw;
-                                                                    break;
-                                                                }
-                                                            case "1":
-                                                                {
-                                                                    ChannelPatterns[n] = ChannelPattern.One;
-                                                                    break;
-                                                                }
-
-                                                            default:
-                                                                {
-                                                                    throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                                }
-                                                        }
-                                                    }
-
-                                                    break;
-                                                }
-
-                                            default:
-                                                {
-                                                    throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                }
-                                        }
-
-                                        break;
-                                    }
-                                case "x2":
-                                    {
-                                        EnableDoubleSample = true;
-                                        break;
-                                    }
-                                case "left":
-                                    {
-                                        AnchorLeft = true;
-                                        break;
-                                    }
-                                case "bpp":
-                                    {
-                                        string[] argv = opt.Arguments;
-                                        switch (argv.Length)
-                                        {
-                                            case 1:
-                                                {
-                                                    BitPerPixel = int.Parse(argv[0]);
-                                                    break;
-                                                }
-
-                                            default:
-                                                {
-                                                    throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                }
-                                        }
-
-                                        break;
-                                    }
-                                case "size":
-                                    {
-                                        string[] argv = opt.Arguments;
-                                        switch (argv.Length)
-                                        {
-                                            case 2:
-                                                {
-                                                    PicWidth = int.Parse(argv[0]);
-                                                    PicHeight = int.Parse(argv[1]);
-                                                    break;
-                                                }
-
-                                            default:
-                                                {
-                                                    throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                }
-                                        }
-
-                                        break;
-                                    }
-                                case "multiple":
-                                    {
-                                        Multiple = true;
-                                        break;
-                                    }
-                                case "compact":
-                                    {
-                                        Compact = true;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        string[] argv = opt.Arguments;
-                                        switch (opt.Name.ToLower() ?? "")
-                                        {
-                                            case "add":
-                                                {
-                                                    switch (argv.Length)
-                                                    {
-                                                        case 1:
-                                                            {
-                                                                var g = FdGlyphDescriptionFile.ReadFont(argv[0]);
-                                                                Glyphs = Glyphs.Except(g, new GlyphComparer()).Concat(g);
-                                                                break;
-                                                            }
-                                                        case 8:
-                                                            {
-                                                                var g = GenerateFont(argv[0], argv[1], (FontStyle)Conversions.ToInteger(argv[2]), Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), 0, 0, 0, 0, EnableDoubleSample, AnchorLeft, ChannelPatterns);
-                                                                Glyphs = Glyphs.Except(g, new GlyphComparer()).Concat(g);
-                                                                break;
-                                                            }
-                                                        case 12:
-                                                            {
-                                                                var g = GenerateFont(argv[0], argv[1], (FontStyle)Conversions.ToInteger(argv[2]), Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), Conversions.ToInteger(argv[8]), Conversions.ToInteger(argv[9]), Conversions.ToInteger(argv[10]), Conversions.ToInteger(argv[11]), EnableDoubleSample, AnchorLeft, ChannelPatterns);
-                                                                Glyphs = Glyphs.Except(g, new GlyphComparer()).Concat(g);
-                                                                break;
-                                                            }
-
-                                                        default:
-                                                            {
-                                                                throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                            }
-                                                    }
-
-                                                    break;
-                                                }
-                                            case "addnew":
-                                                {
-                                                    switch (argv.Length)
-                                                    {
-                                                        case 1:
-                                                            {
-                                                                var g = FdGlyphDescriptionFile.ReadFont(argv[0]);
-                                                                Glyphs = Glyphs.Concat(g.Except(Glyphs, new GlyphComparer()));
-                                                                break;
-                                                            }
-                                                        case 8:
-                                                            {
-                                                                var g = GenerateFont(argv[0], argv[1], (FontStyle)Conversions.ToInteger(argv[2]), Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), 0, 0, 0, 0, EnableDoubleSample, AnchorLeft, ChannelPatterns);
-                                                                Glyphs = Glyphs.Concat(g.Except(Glyphs, new GlyphComparer()));
-                                                                break;
-                                                            }
-                                                        case 12:
-                                                            {
-                                                                var g = GenerateFont(argv[0], argv[1], (FontStyle)Conversions.ToInteger(argv[2]), Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), Conversions.ToInteger(argv[8]), Conversions.ToInteger(argv[9]), Conversions.ToInteger(argv[10]), Conversions.ToInteger(argv[11]), EnableDoubleSample, AnchorLeft, ChannelPatterns);
-                                                                Glyphs = Glyphs.Concat(g.Except(Glyphs, new GlyphComparer()));
-                                                                break;
-                                                            }
-
-                                                        default:
-                                                            {
-                                                                throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                            }
-                                                    }
-
-                                                    break;
-                                                }
-                                            case "removeunicode":
-                                                {
-                                                    switch (argv.Length)
-                                                    {
-                                                        case 2:
-                                                            {
-                                                                int l = int.Parse(argv[0], System.Globalization.NumberStyles.HexNumber);
-                                                                int u = int.Parse(argv[1], System.Globalization.NumberStyles.HexNumber);
-                                                                Glyphs = Glyphs.Where(g => !g.c.HasUnicode || Conversions.ToDouble(g.c.Unicode) < l || Conversions.ToDouble(g.c.Unicode) > u);
-                                                                break;
-                                                            }
-
-                                                        default:
-                                                            {
-                                                                throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                            }
-                                                    }
-
-                                                    break;
-                                                }
-                                            case "removecode":
-                                                {
-                                                    switch (argv.Length)
-                                                    {
-                                                        case 2:
-                                                            {
-                                                                int l = int.Parse(argv[0], System.Globalization.NumberStyles.HexNumber);
-                                                                int u = int.Parse(argv[1], System.Globalization.NumberStyles.HexNumber);
-                                                                Glyphs = Glyphs.Where(g => !g.c.HasCode || g.c.Code < l || g.c.Code > u);
-                                                                break;
-                                                            }
-
-                                                        default:
-                                                            {
-                                                                throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                            }
-                                                    }
-
-                                                    break;
-                                                }
-                                            case "save":
-                                                {
-                                                    switch (argv.Length)
-                                                    {
-                                                        case 1:
-                                                            {
-                                                                SaveFont(Glyphs, argv[0], PicWidth, PicHeight, BitPerPixel, Multiple, Compact);
-                                                                break;
-                                                            }
-
-                                                        default:
-                                                            {
-                                                                throw new ArgumentException(string.Join(",", opt.Arguments));
-                                                            }
-                                                    }
-
-                                                    break;
-                                                }
-
-                                            default:
-                                                {
-                                                    throw new ArgumentException(opt.Name);
-                                                }
-                                        }
-                                        ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
-                                        EnableDoubleSample = false;
-                                        AnchorLeft = false;
-                                        BitPerPixel = 8;
-                                        PicWidth = -1;
-                                        PicHeight = -1;
-                                        Multiple = false;
-                                        Compact = false;
-                                        break;
-                                    }
-                            }
-                        }
-
-                        break;
-                    }
-                case 9:
-                case 13:
-                case 15:
-                    {
-                        string[] argv = CmdLine.Arguments;
-                        ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
-                        bool EnableDoubleSample = false;
-                        bool AnchorLeft = false;
-                        foreach (var opt in CmdLine.Options)
-                        {
-                            switch (opt.Name.ToLower() ?? "")
-                            {
-                                case "x2":
-                                    {
-                                        EnableDoubleSample = true;
-                                        break;
-                                    }
-                                case "left":
-                                    {
-                                        AnchorLeft = true;
-                                        break;
-                                    }
-
-                                default:
-                                    {
-                                        throw new ArgumentException();
-                                    }
-                            }
-                        }
-                        switch (argv.Count())
-                        {
-                            case 9:
-                                {
-                                    SaveFont(GenerateFont(argv[0], argv[2], (FontStyle)Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), Conversions.ToInteger(argv[8]), 0, 0, 0, 0, EnableDoubleSample, AnchorLeft, ChannelPatterns), argv[1], -1, -1, 8, false, false);
-                                    break;
-                                }
-                            case 13:
-                                {
-                                    SaveFont(GenerateFont(argv[0], argv[2], (FontStyle)Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), Conversions.ToInteger(argv[8]), Conversions.ToInteger(argv[9]), Conversions.ToInteger(argv[10]), Conversions.ToInteger(argv[11]), Conversions.ToInteger(argv[12]), EnableDoubleSample, AnchorLeft, ChannelPatterns), argv[1], -1, -1, 8, false, false);
-                                    break;
-                                }
-                            case 15:
-                                {
-                                    SaveFont(GenerateFont(argv[0], argv[2], (FontStyle)Conversions.ToInteger(argv[3]), Conversions.ToInteger(argv[4]), Conversions.ToInteger(argv[5]), Conversions.ToInteger(argv[6]), Conversions.ToInteger(argv[7]), Conversions.ToInteger(argv[8]), Conversions.ToInteger(argv[9]), Conversions.ToInteger(argv[10]), Conversions.ToInteger(argv[11]), Conversions.ToInteger(argv[12]), EnableDoubleSample, AnchorLeft, ChannelPatterns), argv[1], Conversions.ToInteger(argv[13]), Conversions.ToInteger(argv[14]), 8, true, false);
-                                    break;
-                                }
-                        }
-
-                        break;
-                    }
-
-                default:
-                    {
-                        DisplayInfo();
-                        return -1;
-                    }
-            }
-            return 0;
-        }
-
         public static IEnumerable<IGlyph> GenerateFont(string SourcePath, string FontName, FontStyle FontStyle, int FontSize, int PhysicalWidth, int PhysicalHeight, int DrawOffsetX, int DrawOffsetY, int VirtualOffsetX, int VirtualOffsetY, int VirtualDeltaWidth, int VirtualDeltaHeight, bool EnableDoubleSample, bool AnchorLeft, ChannelPattern[] ChannelPatterns)
         {
             StringCode[] StringCodes;
 
-            if (!string.IsNullOrWhiteSpace(SourcePath))
+            if (!string.IsNullOrWhiteSpace(SourcePath) && File.Exists(SourcePath))
             {
                 string Ext = FileNameHandling.GetExtendedFileName(SourcePath);
                 if (Ext.Equals("tbl", StringComparison.OrdinalIgnoreCase))
@@ -583,35 +150,35 @@ namespace FontGen
             if (EnableDoubleSample)
             {
                 gg = new GlyphGeneratorDoubleSample(
-                    FontName, 
-                    FontStyle, 
-                    FontSize, 
-                    PhysicalWidth, 
-                    PhysicalHeight, 
-                    DrawOffsetX, 
-                    DrawOffsetY, 
-                    VirtualOffsetX, 
-                    VirtualOffsetY, 
-                    VirtualDeltaWidth, 
-                    VirtualDeltaHeight, 
-                    AnchorLeft, 
+                    FontName,
+                    FontStyle,
+                    FontSize,
+                    PhysicalWidth,
+                    PhysicalHeight,
+                    DrawOffsetX,
+                    DrawOffsetY,
+                    VirtualOffsetX,
+                    VirtualOffsetY,
+                    VirtualDeltaWidth,
+                    VirtualDeltaHeight,
+                    AnchorLeft,
                     ChannelPatterns);
             }
             else
             {
                 gg = new GlyphGenerator(
-                    FontName, 
-                    FontStyle, 
+                    FontName,
+                    FontStyle,
                     FontSize,
-                    PhysicalWidth, 
-                    PhysicalHeight, 
-                    DrawOffsetX, 
+                    PhysicalWidth,
+                    PhysicalHeight,
+                    DrawOffsetX,
                     DrawOffsetY,
-                    VirtualOffsetX, 
-                    VirtualOffsetY, 
-                    VirtualDeltaWidth, 
-                    VirtualDeltaHeight, 
-                    AnchorLeft, 
+                    VirtualOffsetX,
+                    VirtualOffsetY,
+                    VirtualDeltaWidth,
+                    VirtualDeltaHeight,
+                    AnchorLeft,
                     ChannelPatterns);
             }
 
@@ -636,6 +203,7 @@ namespace FontGen
             {
                 ga = new GlyphArranger(PhysicalWidth, PhysicalHeight);
             }
+
             if (PicWidth < 0 || PicHeight < 0)
             {
                 var Size = ga.GetPreferredSize(gl);
@@ -655,13 +223,19 @@ namespace FontGen
                     if (pgd.Length == 0)
                         throw new InvalidDataException("PicSizeTooSmallForGlyphOfChar:{0}".Formats(gl[GlyphIndex].c.ToString()));
                     IGlyph[] pgl = gl.SubArray(GlyphIndex, pgd.Length);
-                    FdGlyphDescriptionFile.WriteFont(FdPath, TextEncoding.WritingDefault, pgl, pgd, new BmpFontImageWriter(FileNameHandling.ChangeExtension(FdPath, "bmp"), BitPerPixel), PicWidth, PicHeight);
+                    using (BmpFontImageWriter imageWriter = new BmpFontImageWriter(FileNameHandling.ChangeExtension(FdPath, "bmp"), BitPerPixel))
+                    {
+                        FdGlyphDescriptionFile.WriteFont(FdPath, TextEncoding.WritingDefault, pgl, pgd, imageWriter, PicWidth, PicHeight);
+                    }
                     GlyphIndex += pgd.Length;
                 }
             }
             else
             {
-                FdGlyphDescriptionFile.WriteFont(TargetPath, TextEncoding.WritingDefault, gl, new BmpFontImageWriter(FileNameHandling.ChangeExtension(TargetPath, "bmp"), BitPerPixel), ga, PicWidth, PicHeight);
+                using (BmpFontImageWriter imageWriter = new BmpFontImageWriter(FileNameHandling.ChangeExtension(TargetPath, "bmp"), BitPerPixel))
+                {
+                    FdGlyphDescriptionFile.WriteFont(TargetPath, TextEncoding.WritingDefault, gl, imageWriter, ga, PicWidth, PicHeight);
+                }
             }
         }
 
@@ -675,7 +249,7 @@ namespace FontGen
             var Image = new Bitmap(PictureBox_Preview.Width, PictureBox_Preview.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             var Image2x = new Bitmap(PictureBox_Preview2x.Width, PictureBox_Preview2x.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             // Try
-            using (var g = Graphics.FromImage(Image))            
+            using (var g = Graphics.FromImage(Image))
             using (var g2x = Graphics.FromImage(Image2x))
             {
                 g.Clear(Color.White);
@@ -705,40 +279,40 @@ namespace FontGen
                 if (EnableDoubleSample)
                 {
                     gg = new GlyphGeneratorDoubleSample(
-                        GetSelectedFont(), 
-                        Style, 
-                        (int)Math.Round(NumericUpDown_Size.Value), 
-                        PhysicalWidth, 
-                        PhysicalHeight, 
-                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
-                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
-                        AnchorLeft, 
+                        GetSelectedFont(),
+                        Style,
+                        (int)Math.Round(NumericUpDown_Size.Value),
+                        PhysicalWidth,
+                        PhysicalHeight,
+                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
+                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
+                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
+                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
+                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
+                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
+                        AnchorLeft,
                         ChannelPatterns);
                 }
                 else
                 {
                     gg = new GlyphGenerator(
-                        GetSelectedFont(), Style, 
-                        (int)Math.Round(NumericUpDown_Size.Value), 
-                        PhysicalWidth, 
-                        PhysicalHeight, 
-                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
-                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
-                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
-                        AnchorLeft, 
+                        GetSelectedFont(), Style,
+                        (int)Math.Round(NumericUpDown_Size.Value),
+                        PhysicalWidth,
+                        PhysicalHeight,
+                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
+                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
+                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
+                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
+                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
+                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
+                        AnchorLeft,
                         ChannelPatterns);
                 }
 
                 using (gg)
-                {                    
-                    using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))                        
+                {
+                    using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
                     using (var b2x = new Bmp(PhysicalWidth * 2, PhysicalHeight * 2, 32))
                     {
                         int[,] Block2x = new int[(PhysicalWidth * 2), (PhysicalHeight * 2)];
@@ -804,10 +378,10 @@ namespace FontGen
                             l += 1;
                         }
                     }
-                        
+
                 }
             }
-            
+
             // Catch
             // End Try
             PictureBox_Preview.Image = Image;
@@ -822,7 +396,7 @@ namespace FontGen
 
         private string GetSelectedFont()
         {
-            if (!string.IsNullOrEmpty(customFontPath)) 
+            if (!string.IsNullOrEmpty(customFontPath))
             {
                 return customFontPath;
             }
@@ -916,31 +490,49 @@ namespace FontGen
                 Style = Style | FontStyle.Underline;
             if (CheckBox_Strikeout.Checked)
                 Style = Style | FontStyle.Strikeout;
+
             int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
             int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
+
             var Options = new List<string>();
             if (CheckBox_DoubleSample.Checked)
                 Options.Add("/x2");
             if (CheckBox_AnchorLeft.Checked)
                 Options.Add("/left");
+
+            string path = FileSelectBox_File.Path;
+
             string[] AddParameters = [
-                FileNameHandling.GetFileName(FileSelectBox_File.Path), 
-                GetSelectedFont(), 
-                ((int)Style).ToString(), 
-                NumericUpDown_Size.Value.ToString(), 
-                PhysicalWidth.ToString(), 
-                PhysicalHeight.ToString(), 
-                NumericUpDown_DrawOffsetX.Value.ToString(), 
-                NumericUpDown_DrawOffsetY.Value.ToString(), 
-                NumericUpDown_VirtualOffsetX.Value.ToString(), 
-                NumericUpDown_VirtualOffsetY.Value.ToString(), 
-                NumericUpDown_VirtualDeltaWidth.Value.ToString(), 
+                FileNameHandling.GetFileName(path),
+                GetSelectedFont(),
+                ((int)Style).ToString(),
+                NumericUpDown_Size.Value.ToString(),
+                PhysicalWidth.ToString(),
+                PhysicalHeight.ToString(),
+                NumericUpDown_DrawOffsetX.Value.ToString(),
+                NumericUpDown_DrawOffsetY.Value.ToString(),
+                NumericUpDown_VirtualOffsetX.Value.ToString(),
+                NumericUpDown_VirtualOffsetY.Value.ToString(),
+                NumericUpDown_VirtualDeltaWidth.Value.ToString(),
                 NumericUpDown_VirtualDeltaHeight.Value.ToString()];
+
             Options.Add("/add:" + string.Join(",", (from p in AddParameters select Esc(p)).ToArray()));
-            Options.Add("/save:" + Esc(FileNameHandling.ChangeExtension(FileNameHandling.GetFileName(FileSelectBox_File.Path), "fd")));
+            Options.Add("/save:" + Esc(FileNameHandling.ChangeExtension(FileNameHandling.GetFileName(path), "fd")));
+
             string Cmd = FormatEsc("FontGen " + string.Join(" ", Options.ToArray()));
             Clipboard.SetText(Cmd);
+
             MessageBox.Show(Cmd, Text);
+        }
+
+        private void RunAndWait(string workDir, string exe, string args)
+        {
+            ProcessStartInfo myProcess = new ProcessStartInfo(exe, args);
+            myProcess.WorkingDirectory = workDir;
+            myProcess.UseShellExecute = true;
+            myProcess.Verb = "runas";
+
+            Process.Start(myProcess).WaitForExit();
         }
 
         private void Button_Generate_Click(object sender, EventArgs e)
@@ -954,6 +546,7 @@ namespace FontGen
                 Style = Style | FontStyle.Underline;
             if (CheckBox_Strikeout.Checked)
                 Style = Style | FontStyle.Strikeout;
+
             int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
             int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
             bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
@@ -967,21 +560,56 @@ namespace FontGen
             int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
 
             IEnumerable<IGlyph> glyphs = GenerateFont(
-                FileSelectBox_File.Path, 
-                GetSelectedFont(), Style, 
-                (int)Math.Round(NumericUpDown_Size.Value), 
-                PhysicalWidth, 
-                PhysicalHeight, 
-                (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
-                (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
-                (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
-                (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
-                (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
-                (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
-                EnableDoubleSample, 
-                AnchorLeft, 
-                ChannelPatterns);
-            SaveFont(glyphs, FileNameHandling.ChangeExtension(FileSelectBox_File.Path, "fd"), -1, -1, bpp, false, false);
+            FileSelectBox_File.Path,
+            GetSelectedFont(), Style,
+            (int)Math.Round(NumericUpDown_Size.Value),
+            PhysicalWidth,
+            PhysicalHeight,
+            (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
+            (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
+            (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
+            (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
+            (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
+            (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
+            EnableDoubleSample,
+            AnchorLeft,
+            ChannelPatterns);
+
+            string wortDir = txtTargetPath.Text;
+
+            if (string.IsNullOrWhiteSpace(wortDir))
+            {
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    if (fbd.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        wortDir = fbd.SelectedPath;
+
+                        txtTargetPath.Text = wortDir;
+                    }
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(wortDir))
+            {
+                return;
+            }
+
+            string path = Path.Combine(wortDir, Path.GetFileName(GetSelectedFont()));
+
+            string fd_filePath = FileNameHandling.ChangeExtension(path, "fd");
+            string bmp_filePath = FileNameHandling.ChangeExtension(path, "bmp");
+
+            SaveFont(glyphs, fd_filePath, -1, -1, bpp, false, false);
+
+            string toolDir = AppDomain.CurrentDomain.BaseDirectory + "\\Bins";
+
+            string dds_format = bpp == 32 ? "-32 u8888" : "-8 A8";
+
+            RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
+            RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
+            RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmp_filePath)}\" -outdir \"{wortDir}\" -nomipmap {dds_format}");
+
             MessageBox.Show("Generation completed!", Text);
         }
 

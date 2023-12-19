@@ -10,7 +10,6 @@
 
 using System;
 using System.Drawing;
-using Firefly.Imaging;
 using Firefly.TextEncoding;
 
 namespace Firefly.Glyphing

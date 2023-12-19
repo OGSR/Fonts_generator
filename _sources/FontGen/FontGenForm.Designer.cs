@@ -32,6 +32,7 @@ namespace FontGen
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGenForm));
             this.Label_FontName = new System.Windows.Forms.Label();
             this.ComboBox_FontName = new System.Windows.Forms.ComboBox();
@@ -69,7 +70,9 @@ namespace FontGen
             this.chkDrawAlpha = new System.Windows.Forms.CheckBox();
             this.btnCustomFont = new System.Windows.Forms.Button();
             this.lblCustomFontName = new System.Windows.Forms.Label();
+            this.txtTargetPath = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).BeginInit();
@@ -198,7 +201,7 @@ namespace FontGen
             this.PictureBox_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
             this.PictureBox_Preview.Name = "PictureBox_Preview";
-            this.PictureBox_Preview.Size = new System.Drawing.Size(614, 156);
+            this.PictureBox_Preview.Size = new System.Drawing.Size(827, 190);
             this.PictureBox_Preview.TabIndex = 4;
             this.PictureBox_Preview.TabStop = false;
             // 
@@ -285,7 +288,7 @@ namespace FontGen
             this.PictureBox_Preview2x.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
             this.PictureBox_Preview2x.Name = "PictureBox_Preview2x";
-            this.PictureBox_Preview2x.Size = new System.Drawing.Size(614, 316);
+            this.PictureBox_Preview2x.Size = new System.Drawing.Size(827, 389);
             this.PictureBox_Preview2x.TabIndex = 4;
             this.PictureBox_Preview2x.TabStop = false;
             // 
@@ -294,7 +297,7 @@ namespace FontGen
             this.SplitContainer_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SplitContainer_Main.Location = new System.Drawing.Point(221, 50);
+            this.SplitContainer_Main.Location = new System.Drawing.Point(221, 88);
             this.SplitContainer_Main.Name = "SplitContainer_Main";
             this.SplitContainer_Main.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -305,8 +308,8 @@ namespace FontGen
             // SplitContainer_Main.Panel2
             // 
             this.SplitContainer_Main.Panel2.Controls.Add(this.PictureBox_Preview2x);
-            this.SplitContainer_Main.Size = new System.Drawing.Size(614, 476);
-            this.SplitContainer_Main.SplitterDistance = 156;
+            this.SplitContainer_Main.Size = new System.Drawing.Size(827, 583);
+            this.SplitContainer_Main.SplitterDistance = 190;
             this.SplitContainer_Main.TabIndex = 5;
             // 
             // Label_DrawOffsetX
@@ -492,7 +495,7 @@ namespace FontGen
             this.FileSelectBox_File.AutoSize = true;
             this.FileSelectBox_File.Filter = "TBL code watch file (*.tbl) |*.tbl | fd character description file (*.fd) |*.fd |" +
     " character file (*.txt) |*.txt";
-            this.FileSelectBox_File.LabelText = "TBL/FD/character file";
+            this.FileSelectBox_File.LabelText = "TBL/FD/character source file";
             this.FileSelectBox_File.Location = new System.Drawing.Point(221, 14);
             this.FileSelectBox_File.Name = "FileSelectBox_File";
             this.FileSelectBox_File.Path = "";
@@ -562,11 +565,29 @@ namespace FontGen
             this.lblCustomFontName.Size = new System.Drawing.Size(0, 13);
             this.lblCustomFontName.TabIndex = 14;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(229, 58);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(86, 13);
+            label2.TabIndex = 15;
+            label2.Text = "Target Directory:";
+            // 
+            // txtTargetPath
+            // 
+            this.txtTargetPath.Location = new System.Drawing.Point(424, 51);
+            this.txtTargetPath.Name = "txtTargetPath";
+            this.txtTargetPath.Size = new System.Drawing.Size(411, 20);
+            this.txtTargetPath.TabIndex = 16;
+            // 
             // FontGenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(847, 535);
+            this.ClientSize = new System.Drawing.Size(1060, 680);
+            this.Controls.Add(this.txtTargetPath);
+            this.Controls.Add(label2);
             this.Controls.Add(this.lblCustomFontName);
             this.Controls.Add(this.btnCustomFont);
             this.Controls.Add(this.chkDrawAlpha);
@@ -664,5 +685,6 @@ namespace FontGen
         private System.Windows.Forms.CheckBox chkDrawAlpha;
         private System.Windows.Forms.Button btnCustomFont;
         private System.Windows.Forms.Label lblCustomFontName;
+        private System.Windows.Forms.TextBox txtTargetPath;
     }
 }

@@ -92,6 +92,9 @@
     <Compile Include="FileSelectBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="FontGenForm.Console.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FontGenForm.Designer.cs">
       <DependentUpon>FontGenForm.cs</DependentUpon>
     </Compile>
@@ -121,6 +124,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bins\BmpCuter.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bins\FD2INI.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Bins\nvdxt.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="FontGen.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +147,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

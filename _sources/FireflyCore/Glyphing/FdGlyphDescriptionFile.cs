@@ -152,7 +152,7 @@ namespace Firefly.Glyphing
             int PicWidth = Width;
             int PicHeight = Height;
 
-            var GlyphDescriptors = GlyphArranger.GetGlyphArrangement(gl, PicWidth, PicHeight);
+            IEnumerable<GlyphDescriptor> GlyphDescriptors = GlyphArranger.GetGlyphArrangement(gl, PicWidth, PicHeight);
             GlyphDescriptor[] gdl = GlyphDescriptors.ToArray();
             if (gl.Length != gdl.Length)
                 throw new InvalidOperationException("NumGlyphTooMuch: NumGlyph={0} MaxNumGlyph={1}".Formats(gl.Count(), GlyphDescriptors.Count()));
