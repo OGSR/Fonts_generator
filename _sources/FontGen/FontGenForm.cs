@@ -27,14 +27,13 @@ namespace FontGen
     public partial class FontGenForm
     {
         static string[] TestStrings = [
-             "ё1234567890-=/*-\tйцукенгшщзхъ\\",
-            "789+фывапролджэ456ячсмитьбю",
-            ".123\\ 0,Ё!\"№;%:?*()_+",
-            "ЙЦУКЕНГШЩЗХЪ/ФЫВАПРОЛДЖЭЯЧСМИТЬБЮ,/",
-            "`1234567890-=/*-\tqwertyuiop[]\\",
-            "789+asdfghjkl;'456zxcvbnm,",
-            "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|",
-            "ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
+            "йцукенгшщзхъфывапролджэячсмитьбюё",
+            "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ",
+            "qwertyuiop[]asdfghjklzxcvbnm",
+            "QWERTYUIOP{}ASDFGHJKLZXCVBNM",
+            "ҐґЄєІіЇї",
+            " 1234567890-=/*,!\"№;%:?()_.`|'\\+~@#$^&<>",
+        ];
 
         public FontGenForm()
         {
@@ -245,9 +244,13 @@ namespace FontGen
         {
             if (!Initialized)
                 return;
+
+            int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
+            int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
+
             // Try
-            var Image = new Bitmap(PictureBox_Preview.Width, PictureBox_Preview.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            var Image2x = new Bitmap(PictureBox_Preview2x.Width, PictureBox_Preview2x.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var Image = new Bitmap(PhysicalWidth * 64 + 32 * 8, PhysicalHeight * 32 + 32 * 8, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var Image2x = new Bitmap(PhysicalWidth * 64 * 2 + 32 * 8 * 2, PhysicalHeight * 32 * 2 + 32 * 8 * 2, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             // Try
             using (var g = Graphics.FromImage(Image))
             using (var g2x = Graphics.FromImage(Image2x))
@@ -265,8 +268,6 @@ namespace FontGen
                 if (CheckBox_Strikeout.Checked)
                     Style = Style | FontStyle.Strikeout;
 
-                int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
-                int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
                 bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
                 bool AnchorLeft = CheckBox_AnchorLeft.Checked;
 
@@ -385,7 +386,9 @@ namespace FontGen
             // Catch
             // End Try
             PictureBox_Preview.Image = Image;
+            PictureBox_Preview.ClientSize = Image.Size;
             PictureBox_Preview2x.Image = Image2x;
+            PictureBox_Preview2x.ClientSize = Image2x.Size;
             PictureBox_Preview.Invalidate();
             PictureBox_Preview2x.Invalidate();
             // Catch
@@ -401,13 +404,13 @@ namespace FontGen
                 return customFontPath;
             }
 
-            return ComboBox_FontName.Text;
+            return ((FontFamily)ComboBox_FontName.SelectedItem).Name;
         }
 
         private void FontGen_Load(object sender, EventArgs e)
         {
             Initialized = true;
-            ComboBox_FontName.Items.AddRange((from f in FontFamily.Families select f.Name).ToArray());
+            ComboBox_FontName.DataSource = FontFamily.Families.ToList();
             ComboBox_FontName.SelectedIndex = 0;
             ReDraw();
 
@@ -424,6 +427,8 @@ namespace FontGen
                 customFontPath = string.Empty;
             }
             ReDraw();
+
+            lblCustomFontName.Text = GetSelectedFont();
         }
         private void NumericUpDown_Size_ValueChanged(object sender, EventArgs e)
         {
@@ -628,8 +633,36 @@ namespace FontGen
                     }
                     else
                         ReDraw();
+
                     lblCustomFontName.Text = Path.GetFileName(customFontPath);
                 }
+            }
+        }
+
+        private void ComboBox_FontName_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index != -1)
+            {
+                var comboBox = (ComboBox)sender;
+                var fontFamily = (FontFamily)comboBox.Items[e.Index];
+                var font = new Font(fontFamily, 12);
+
+                e.DrawBackground();
+                e.Graphics.DrawString(font.Name, font, Brushes.Black, e.Bounds.X, e.Bounds.Y);
+            }
+        }
+
+        private void ComboBox_FontName_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index != -1)
+            {
+                var comboBox = (ComboBox)sender;
+                var fontFamily = (FontFamily)comboBox.Items[e.Index];
+                var font = new Font(fontFamily, 12);
+
+                var DrawedRectangle = e.Graphics.MeasureStringRectangle(font.Name, font);
+
+                e.ItemHeight = (int)Math.Floor(DrawedRectangle.Height);
             }
         }
     }

@@ -47,8 +47,12 @@ namespace Firefly.Glyphing
 
         public static IDictionary<int, ushort> LoadSystem(string name)
         {
-            foreach (System.Windows.Media.FontFamily family in System.Windows.Media.Fonts.SystemFontFamilies)
+            var r = new System.Drawing.Text.InstalledFontCollection();
+
+            foreach (var f in r.Families)
             {
+                var family = new System.Windows.Media.FontFamily(f.Name);
+
                 if (family.Source == name)
                 {
                     var typefaces = family.GetTypefaces();

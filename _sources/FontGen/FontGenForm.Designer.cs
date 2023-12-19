@@ -42,14 +42,16 @@ namespace FontGen
             this.CheckBox_Strikeout = new System.Windows.Forms.CheckBox();
             this.NumericUpDown_Size = new System.Windows.Forms.NumericUpDown();
             this.Label_Size = new System.Windows.Forms.Label();
-            this.PictureBox_Preview = new System.Windows.Forms.PictureBox();
             this.CheckBox_DoubleSample = new System.Windows.Forms.CheckBox();
             this.Label_PhysicalWidth = new System.Windows.Forms.Label();
             this.NumericUpDown_PhysicalWidth = new System.Windows.Forms.NumericUpDown();
             this.Label_PhysicalHeight = new System.Windows.Forms.Label();
             this.NumericUpDown_PhysicalHeight = new System.Windows.Forms.NumericUpDown();
-            this.PictureBox_Preview2x = new System.Windows.Forms.PictureBox();
             this.SplitContainer_Main = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.PictureBox_Preview = new System.Windows.Forms.PictureBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.PictureBox_Preview2x = new System.Windows.Forms.PictureBox();
             this.Label_DrawOffsetX = new System.Windows.Forms.Label();
             this.Label_DrawOffsetY = new System.Windows.Forms.Label();
             this.NumericUpDown_DrawOffsetX = new System.Windows.Forms.NumericUpDown();
@@ -63,7 +65,6 @@ namespace FontGen
             this.NumericUpDown_VirtualDeltaWidth = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_VirtualDeltaHeight = new System.Windows.Forms.NumericUpDown();
             this.Button_Generate = new System.Windows.Forms.Button();
-            this.FileSelectBox_File = new FontGen.FileSelectBox();
             this.Button_CmdToClipboard = new System.Windows.Forms.Button();
             this.CheckBox_AnchorLeft = new System.Windows.Forms.CheckBox();
             this.ddlBPP = new System.Windows.Forms.ComboBox();
@@ -71,17 +72,20 @@ namespace FontGen
             this.btnCustomFont = new System.Windows.Forms.Button();
             this.lblCustomFontName = new System.Windows.Forms.Label();
             this.txtTargetPath = new System.Windows.Forms.TextBox();
+            this.FileSelectBox_File = new FontGen.FileSelectBox();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalHeight)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer_Main)).BeginInit();
             this.SplitContainer_Main.Panel1.SuspendLayout();
             this.SplitContainer_Main.Panel2.SuspendLayout();
             this.SplitContainer_Main.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).BeginInit();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualOffsetX)).BeginInit();
@@ -99,6 +103,15 @@ namespace FontGen
             label1.TabIndex = 10;
             label1.Text = "BitPerPixel";
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new System.Drawing.Point(229, 58);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(86, 13);
+            label2.TabIndex = 15;
+            label2.Text = "Target Directory:";
+            // 
             // Label_FontName
             // 
             this.Label_FontName.AutoSize = true;
@@ -110,12 +123,21 @@ namespace FontGen
             // 
             // ComboBox_FontName
             // 
+            this.ComboBox_FontName.DisplayMember = "Name";
+            this.ComboBox_FontName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.ComboBox_FontName.DropDownHeight = 300;
             this.ComboBox_FontName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboBox_FontName.DropDownWidth = 250;
+            this.ComboBox_FontName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ComboBox_FontName.FormattingEnabled = true;
+            this.ComboBox_FontName.IntegralHeight = false;
             this.ComboBox_FontName.Location = new System.Drawing.Point(15, 31);
+            this.ComboBox_FontName.MaxDropDownItems = 20;
             this.ComboBox_FontName.Name = "ComboBox_FontName";
-            this.ComboBox_FontName.Size = new System.Drawing.Size(194, 21);
+            this.ComboBox_FontName.Size = new System.Drawing.Size(194, 33);
             this.ComboBox_FontName.TabIndex = 1;
+            this.ComboBox_FontName.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ComboBox_FontName_DrawItem);
+            this.ComboBox_FontName.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.ComboBox_FontName_MeasureItem);
             this.ComboBox_FontName.TextChanged += new System.EventHandler(this.ComboBox_FontName_TextChanged);
             // 
             // CheckBox_Bold
@@ -195,16 +217,6 @@ namespace FontGen
             this.Label_Size.TabIndex = 0;
             this.Label_Size.Text = "Size";
             // 
-            // PictureBox_Preview
-            // 
-            this.PictureBox_Preview.BackColor = System.Drawing.Color.White;
-            this.PictureBox_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
-            this.PictureBox_Preview.Name = "PictureBox_Preview";
-            this.PictureBox_Preview.Size = new System.Drawing.Size(827, 190);
-            this.PictureBox_Preview.TabIndex = 4;
-            this.PictureBox_Preview.TabStop = false;
-            // 
             // CheckBox_DoubleSample
             // 
             this.CheckBox_DoubleSample.AutoSize = true;
@@ -282,16 +294,6 @@ namespace FontGen
             0});
             this.NumericUpDown_PhysicalHeight.ValueChanged += new System.EventHandler(this.NumericUpDowns_ValueChanged);
             // 
-            // PictureBox_Preview2x
-            // 
-            this.PictureBox_Preview2x.BackColor = System.Drawing.Color.White;
-            this.PictureBox_Preview2x.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
-            this.PictureBox_Preview2x.Name = "PictureBox_Preview2x";
-            this.PictureBox_Preview2x.Size = new System.Drawing.Size(827, 389);
-            this.PictureBox_Preview2x.TabIndex = 4;
-            this.PictureBox_Preview2x.TabStop = false;
-            // 
             // SplitContainer_Main
             // 
             this.SplitContainer_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -303,14 +305,57 @@ namespace FontGen
             // 
             // SplitContainer_Main.Panel1
             // 
-            this.SplitContainer_Main.Panel1.Controls.Add(this.PictureBox_Preview);
+            this.SplitContainer_Main.Panel1.AutoScroll = true;
+            this.SplitContainer_Main.Panel1.Controls.Add(this.panel1);
             // 
             // SplitContainer_Main.Panel2
             // 
-            this.SplitContainer_Main.Panel2.Controls.Add(this.PictureBox_Preview2x);
+            this.SplitContainer_Main.Panel2.AutoScroll = true;
+            this.SplitContainer_Main.Panel2.Controls.Add(this.panel2);
             this.SplitContainer_Main.Size = new System.Drawing.Size(827, 583);
             this.SplitContainer_Main.SplitterDistance = 190;
             this.SplitContainer_Main.TabIndex = 5;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.PictureBox_Preview);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(827, 190);
+            this.panel1.TabIndex = 0;
+            // 
+            // PictureBox_Preview
+            // 
+            this.PictureBox_Preview.BackColor = System.Drawing.Color.White;
+            this.PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
+            this.PictureBox_Preview.Name = "PictureBox_Preview";
+            this.PictureBox_Preview.Size = new System.Drawing.Size(827, 190);
+            this.PictureBox_Preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PictureBox_Preview.TabIndex = 5;
+            this.PictureBox_Preview.TabStop = false;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoScroll = true;
+            this.panel2.AutoSize = true;
+            this.panel2.Controls.Add(this.PictureBox_Preview2x);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(827, 389);
+            this.panel2.TabIndex = 0;
+            // 
+            // PictureBox_Preview2x
+            // 
+            this.PictureBox_Preview2x.BackColor = System.Drawing.Color.White;
+            this.PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
+            this.PictureBox_Preview2x.Name = "PictureBox_Preview2x";
+            this.PictureBox_Preview2x.Size = new System.Drawing.Size(827, 389);
+            this.PictureBox_Preview2x.TabIndex = 5;
+            this.PictureBox_Preview2x.TabStop = false;
             // 
             // Label_DrawOffsetX
             // 
@@ -490,19 +535,6 @@ namespace FontGen
             this.Button_Generate.UseVisualStyleBackColor = true;
             this.Button_Generate.Click += new System.EventHandler(this.Button_Generate_Click);
             // 
-            // FileSelectBox_File
-            // 
-            this.FileSelectBox_File.AutoSize = true;
-            this.FileSelectBox_File.Filter = "TBL code watch file (*.tbl) |*.tbl | fd character description file (*.fd) |*.fd |" +
-    " character file (*.txt) |*.txt";
-            this.FileSelectBox_File.LabelText = "TBL/FD/character source file";
-            this.FileSelectBox_File.Location = new System.Drawing.Point(221, 14);
-            this.FileSelectBox_File.Name = "FileSelectBox_File";
-            this.FileSelectBox_File.Path = "";
-            this.FileSelectBox_File.Size = new System.Drawing.Size(614, 29);
-            this.FileSelectBox_File.SplitterDistance = 200;
-            this.FileSelectBox_File.TabIndex = 6;
-            // 
             // Button_CmdToClipboard
             // 
             this.Button_CmdToClipboard.Location = new System.Drawing.Point(12, 454);
@@ -549,7 +581,7 @@ namespace FontGen
             // 
             // btnCustomFont
             // 
-            this.btnCustomFont.Location = new System.Drawing.Point(16, 58);
+            this.btnCustomFont.Location = new System.Drawing.Point(16, 71);
             this.btnCustomFont.Name = "btnCustomFont";
             this.btnCustomFont.Size = new System.Drawing.Size(75, 23);
             this.btnCustomFont.TabIndex = 13;
@@ -560,19 +592,10 @@ namespace FontGen
             // lblCustomFontName
             // 
             this.lblCustomFontName.AutoSize = true;
-            this.lblCustomFontName.Location = new System.Drawing.Point(16, 88);
+            this.lblCustomFontName.Location = new System.Drawing.Point(16, 101);
             this.lblCustomFontName.Name = "lblCustomFontName";
             this.lblCustomFontName.Size = new System.Drawing.Size(0, 13);
             this.lblCustomFontName.TabIndex = 14;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(229, 58);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(86, 13);
-            label2.TabIndex = 15;
-            label2.Text = "Target Directory:";
             // 
             // txtTargetPath
             // 
@@ -580,6 +603,19 @@ namespace FontGen
             this.txtTargetPath.Name = "txtTargetPath";
             this.txtTargetPath.Size = new System.Drawing.Size(411, 20);
             this.txtTargetPath.TabIndex = 16;
+            // 
+            // FileSelectBox_File
+            // 
+            this.FileSelectBox_File.AutoSize = true;
+            this.FileSelectBox_File.Filter = "TBL code watch file (*.tbl) |*.tbl | fd character description file (*.fd) |*.fd |" +
+    " character file (*.txt) |*.txt";
+            this.FileSelectBox_File.LabelText = "TBL/FD/character source file";
+            this.FileSelectBox_File.Location = new System.Drawing.Point(221, 14);
+            this.FileSelectBox_File.Name = "FileSelectBox_File";
+            this.FileSelectBox_File.Path = "";
+            this.FileSelectBox_File.Size = new System.Drawing.Size(614, 29);
+            this.FileSelectBox_File.SplitterDistance = 200;
+            this.FileSelectBox_File.TabIndex = 6;
             // 
             // FontGenForm
             // 
@@ -631,14 +667,19 @@ namespace FontGen
             this.Shown += new System.EventHandler(this.FontGen_Shown);
             this.SizeChanged += new System.EventHandler(this.FontGen_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalHeight)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).EndInit();
             this.SplitContainer_Main.Panel1.ResumeLayout(false);
+            this.SplitContainer_Main.Panel1.PerformLayout();
             this.SplitContainer_Main.Panel2.ResumeLayout(false);
+            this.SplitContainer_Main.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer_Main)).EndInit();
             this.SplitContainer_Main.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).EndInit();
+            this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_DrawOffsetY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualOffsetX)).EndInit();
@@ -657,13 +698,11 @@ namespace FontGen
         internal System.Windows.Forms.CheckBox CheckBox_Strikeout;
         internal System.Windows.Forms.NumericUpDown NumericUpDown_Size;
         internal System.Windows.Forms.Label Label_Size;
-        internal System.Windows.Forms.PictureBox PictureBox_Preview;
         internal System.Windows.Forms.CheckBox CheckBox_DoubleSample;
         internal System.Windows.Forms.Label Label_PhysicalWidth;
         internal System.Windows.Forms.NumericUpDown NumericUpDown_PhysicalWidth;
         internal System.Windows.Forms.Label Label_PhysicalHeight;
         internal System.Windows.Forms.NumericUpDown NumericUpDown_PhysicalHeight;
-        internal System.Windows.Forms.PictureBox PictureBox_Preview2x;
         internal System.Windows.Forms.SplitContainer SplitContainer_Main;
         internal System.Windows.Forms.Label Label_DrawOffsetX;
         internal System.Windows.Forms.Label Label_DrawOffsetY;
@@ -686,5 +725,9 @@ namespace FontGen
         private System.Windows.Forms.Button btnCustomFont;
         private System.Windows.Forms.Label lblCustomFontName;
         private System.Windows.Forms.TextBox txtTargetPath;
+        private System.Windows.Forms.Panel panel1;
+        internal System.Windows.Forms.PictureBox PictureBox_Preview;
+        private System.Windows.Forms.Panel panel2;
+        internal System.Windows.Forms.PictureBox PictureBox_Preview2x;
     }
 }
