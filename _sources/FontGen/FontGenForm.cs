@@ -675,121 +675,129 @@ namespace FontGen
             var Image = new Bitmap(PictureBox_Preview.Width, PictureBox_Preview.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             var Image2x = new Bitmap(PictureBox_Preview2x.Width, PictureBox_Preview2x.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             // Try
-            using (var g = Graphics.FromImage(Image))
+            using (var g = Graphics.FromImage(Image))            
+            using (var g2x = Graphics.FromImage(Image2x))
             {
-                using (var g2x = Graphics.FromImage(Image2x))
+                g.Clear(Color.White);
+                g2x.Clear(Color.LightGray);
+
+                var Style = FontStyle.Regular;
+                if (CheckBox_Bold.Checked)
+                    Style = Style | FontStyle.Bold;
+                if (CheckBox_Italic.Checked)
+                    Style = Style | FontStyle.Italic;
+                if (CheckBox_Underline.Checked)
+                    Style = Style | FontStyle.Underline;
+                if (CheckBox_Strikeout.Checked)
+                    Style = Style | FontStyle.Strikeout;
+
+                int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
+                int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
+                bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
+                bool AnchorLeft = CheckBox_AnchorLeft.Checked;
+
+                ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
+
+                IGlyphProvider gg;
+                if (EnableDoubleSample)
                 {
-                    g.Clear(Color.White);
-                    g2x.Clear(Color.LightGray);
+                    gg = new GlyphGeneratorDoubleSample(
+                        GetSelectedFont(), 
+                        Style, 
+                        (int)Math.Round(NumericUpDown_Size.Value), 
+                        PhysicalWidth, 
+                        PhysicalHeight, 
+                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
+                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
+                        AnchorLeft, 
+                        ChannelPatterns);
+                }
+                else
+                {
+                    gg = new GlyphGenerator(
+                        GetSelectedFont(), Style, 
+                        (int)Math.Round(NumericUpDown_Size.Value), 
+                        PhysicalWidth, 
+                        PhysicalHeight, 
+                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
+                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
+                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
+                        AnchorLeft, 
+                        ChannelPatterns);
+                }
 
-                    var Style = FontStyle.Regular;
-                    if (CheckBox_Bold.Checked)
-                        Style = Style | FontStyle.Bold;
-                    if (CheckBox_Italic.Checked)
-                        Style = Style | FontStyle.Italic;
-                    if (CheckBox_Underline.Checked)
-                        Style = Style | FontStyle.Underline;
-                    if (CheckBox_Strikeout.Checked)
-                        Style = Style | FontStyle.Strikeout;
-                    int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
-                    int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
-                    bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
-                    bool AnchorLeft = CheckBox_AnchorLeft.Checked;
-                    ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
-                    IGlyphProvider gg;
-                    if (EnableDoubleSample)
+                using (gg)
+                {                    
+                    using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))                        
+                    using (var b2x = new Bmp(PhysicalWidth * 2, PhysicalHeight * 2, 32))
                     {
-                        gg = new GlyphGeneratorDoubleSample(
-                            GetSelectedFont(), 
-                            Style, 
-                            (int)Math.Round(NumericUpDown_Size.Value), 
-                            PhysicalWidth, 
-                            PhysicalHeight, 
-                            (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
-                            (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
-                            AnchorLeft, 
-                            ChannelPatterns);
-                    }
-                    else
-                    {
-                        gg = new GlyphGenerator(
-                            GetSelectedFont(), Style, 
-                            (int)Math.Round(NumericUpDown_Size.Value), 
-                            PhysicalWidth, 
-                            PhysicalHeight, 
-                            (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
-                            (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
-                            (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
-                            AnchorLeft, 
-                            ChannelPatterns);
-                    }
+                        int[,] Block2x = new int[(PhysicalWidth * 2), (PhysicalHeight * 2)];
+                        //int[,] Block = new int[(PhysicalWidth), (PhysicalHeight)];
 
-                    using (gg)
-                    {
-
-                        using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
+                        int l = 0;
+                        foreach (string t in TestStrings)
                         {
-                            using (var b2x = new Bmp(PhysicalWidth * 2, PhysicalHeight * 2, 32))
+                            int k = 0;
+                            foreach (Char32 c in t.ToUTF32())
                             {
-                                int[,] Block2x = new int[(PhysicalWidth * 2), (PhysicalHeight * 2)];
-                                int l = 0;
-                                foreach (var t in TestStrings)
+                                IGlyph glyph = gg.GetGlyph(StringCode.FromUniChar(c));
+
+                                int x = k * (PhysicalWidth + 4);
+                                int y = l * (PhysicalHeight + 4);
+
+                                int[,] Block = glyph.Block;
+
+                                for (int y0 = 0, loopTo = PhysicalHeight - 1; y0 <= loopTo; y0++)
                                 {
-                                    int k = 0;
-                                    foreach (var c in t.ToUTF32())
+                                    for (int x0 = 0, loopTo1 = PhysicalWidth - 1; x0 <= loopTo1; x0++)
                                     {
-                                        int x = k * (PhysicalWidth + 4);
-                                        int y = l * (PhysicalHeight + 4);
-                                        var PhysicalRect = new Rectangle(x, y, PhysicalWidth, PhysicalHeight);
-                                        var glyph = gg.GetGlyph(StringCode.FromUniChar(c));
-                                        var VirtualRect = glyph.VirtualBox;
-                                        int[,] Block = glyph.Block;
-                                        for (int y0 = 0, loopTo = PhysicalHeight - 1; y0 <= loopTo; y0++)
-                                        {
-                                            for (int x0 = 0, loopTo1 = PhysicalWidth - 1; x0 <= loopTo1; x0++)
-                                                Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
-                                        }
-                                        b.SetRectangle(0, 0, Block);
-                                        using (var bb = b.ToBitmap())
-                                        {
-                                            g.DrawImage(bb, PhysicalRect);
-                                        }
-
-                                        var PhysicalRect2x = new Rectangle(x * 2, y * 2, PhysicalWidth * 2, PhysicalHeight * 2);
-                                        for (int y0 = 0, loopTo2 = PhysicalHeight - 1; y0 <= loopTo2; y0++)
-                                        {
-                                            for (int x0 = 0, loopTo3 = PhysicalWidth - 1; x0 <= loopTo3; x0++)
-                                            {
-                                                Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
-                                                Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
-                                                Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
-                                                Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
-                                            }
-                                        }
-                                        b2x.SetRectangle(0, 0, Block2x);
-                                        using (var bb2x = b2x.ToBitmap())
-                                        {
-                                            g2x.DrawImage(bb2x, PhysicalRect2x);
-                                        }
-
-                                        g2x.DrawRectangle(Pens.Red, new Rectangle(x * 2 + VirtualRect.X * 2, y * 2 + VirtualRect.Y * 2, VirtualRect.Width * 2 - 1, VirtualRect.Height * 2 - 1));
-
-                                        k += 1;
+                                        Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
                                     }
-                                    l += 1;
                                 }
+                                b.SetRectangle(0, 0, Block);
+                                using (var bb = b.ToBitmap())
+                                {
+                                    var PhysicalRect = new Rectangle(x, y, PhysicalWidth, PhysicalHeight);
+                                    g.DrawImage(bb, PhysicalRect);
+                                }
+
+                                for (int y0 = 0, loopTo2 = PhysicalHeight - 1; y0 <= loopTo2; y0++)
+                                {
+                                    for (int x0 = 0, loopTo3 = PhysicalWidth - 1; x0 <= loopTo3; x0++)
+                                    {
+                                        Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
+                                        Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
+                                        Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
+                                        Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
+                                    }
+                                }
+                                b2x.SetRectangle(0, 0, Block2x);
+                                using (var bb2x = b2x.ToBitmap())
+                                {
+                                    var PhysicalRect2x = new Rectangle(x * 2, y * 2, PhysicalWidth * 2, PhysicalHeight * 2);
+                                    g2x.DrawImage(bb2x, PhysicalRect2x);
+                                }
+
+                                var VirtualRect = glyph.VirtualBox;
+                                g2x.DrawRectangle(Pens.Red, new Rectangle(x * 2 + VirtualRect.X * 2, y * 2 + VirtualRect.Y * 2, VirtualRect.Width * 2 - 1, VirtualRect.Height * 2 - 1));
+
+                                k += 1;
                             }
+
+                            l += 1;
                         }
                     }
+                        
                 }
             }
+            
             // Catch
             // End Try
             PictureBox_Preview.Image = Image;
@@ -970,6 +978,7 @@ namespace FontGen
                 {
                     customFontPath = fd.FileName;
                     ComboBox_FontName.SelectedIndex = -1;
+                    lblCustomFontName.Text = Path.GetFileName(customFontPath);
                 }
             }
         }

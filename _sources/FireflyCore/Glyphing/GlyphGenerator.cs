@@ -89,7 +89,7 @@ namespace Firefly.Glyphing
             if (File.Exists(FontName))
             {
                 collection.AddFontFile(FontName);
-                Font = new Font(collection.Families[0], FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+                Font = new Font(collection.Families[0], FontSize, FontStyle, GraphicsUnit.Pixel);
             }
             else
             {
