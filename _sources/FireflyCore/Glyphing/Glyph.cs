@@ -45,6 +45,8 @@ namespace Firefly.Glyphing
 
         /// <summary>虚拟包围盒，字符的显示相对位置为此包围盒。</summary>
         Rectangle VirtualBox { get; }
+
+        bool IsValid { get; }
     }
 
     /// <summary>字形提供器接口</summary>
@@ -121,66 +123,7 @@ namespace Firefly.Glyphing
         }
 
         Rectangle IGlyph.VirtualBox { get => VirtualBoxI; }
-    }
 
-    /// <summary>位于位图中的字形信息</summary>
-    public sealed class BmpGlyph : IGlyph
-    {
-
-        /// <summary>位图。</summary>
-        public Bmp Bmp;
-
-        /// <summary>字形描述信息</summary>
-        public GlyphDescriptor GlyphDescriptor;
-
-        /// <summary>字符信息</summary>
-        public StringCode c
-        {
-            get
-            {
-                return GlyphDescriptor.c;
-            }
-        }
-
-        /// <summary>字符的32位颜色数据。</summary>
-        private int[,] Block
-        {
-            get
-            {
-                var pb = GlyphDescriptor.PhysicalBox;
-                return Bmp.GetRectangleAsARGB(pb.X, pb.Y, pb.Width, pb.Height);
-            }
-        }
-
-        int[,] IGlyph.Block { get => Block; }
-
-        /// <summary>字符的宽度。</summary>
-        public int PhysicalWidth
-        {
-            get
-            {
-                return GlyphDescriptor.PhysicalBox.Width;
-            }
-        }
-
-        /// <summary>字符的高度。</summary>
-        public int PhysicalHeight
-        {
-            get
-            {
-                return GlyphDescriptor.PhysicalBox.Height;
-            }
-        }
-
-        /// <summary>虚拟包围盒，字符的显示相对位置为此包围盒。</summary>
-        private Rectangle VirtualBoxI
-        {
-            get
-            {
-                return GlyphDescriptor.VirtualBox;
-            }
-        }
-
-        Rectangle IGlyph.VirtualBox { get => VirtualBoxI; }
+        public bool IsValid { get; set; }
     }
 }

@@ -542,6 +542,7 @@ namespace FontGen
             this.chkDrawAlpha.TabIndex = 12;
             this.chkDrawAlpha.Text = "DrawAlpha (CoP)";
             this.chkDrawAlpha.UseVisualStyleBackColor = true;
+            this.chkDrawAlpha.CheckedChanged += new System.EventHandler(this.chkDrawAlpha_CheckedChanged);
             // 
             // btnCustomFont
             // 
@@ -558,9 +559,8 @@ namespace FontGen
             this.lblCustomFontName.AutoSize = true;
             this.lblCustomFontName.Location = new System.Drawing.Point(16, 88);
             this.lblCustomFontName.Name = "lblCustomFontName";
-            this.lblCustomFontName.Size = new System.Drawing.Size(101, 13);
+            this.lblCustomFontName.Size = new System.Drawing.Size(0, 13);
             this.lblCustomFontName.TabIndex = 14;
-            this.lblCustomFontName.Text = "lblCustomFontName";
             // 
             // FontGenForm
             // 

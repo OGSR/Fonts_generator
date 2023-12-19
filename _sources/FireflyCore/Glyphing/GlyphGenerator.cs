@@ -11,15 +11,63 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using static System.Math;
 using Firefly.Imaging;
 using Firefly.TextEncoding;
 using Microsoft.VisualBasic.CompilerServices;
 using System.IO;
 using System.Drawing.Text;
+using System.Collections.Generic;
+
+using static System.Math;
 
 namespace Firefly.Glyphing
 {
+    public static class FontMap
+    {
+        public static IDictionary<int, ushort> Load(string path)
+        {
+            var families = System.Windows.Media.Fonts.GetFontFamilies(path);
+
+            foreach (System.Windows.Media.FontFamily family in families)
+            {
+                var typefaces = family.GetTypefaces();
+                foreach (System.Windows.Media.Typeface typeface in typefaces)
+                {
+                    System.Windows.Media.GlyphTypeface glyph;
+                    if (typeface.TryGetGlyphTypeface(out glyph))
+                    {
+                        IDictionary<int, ushort> characterMap = glyph.CharacterToGlyphMap;
+                        return characterMap;
+                    }
+                }
+            }
+
+            return new Dictionary<int, ushort>();
+        }
+
+        public static IDictionary<int, ushort> LoadSystem(string name)
+        {
+            foreach (System.Windows.Media.FontFamily family in System.Windows.Media.Fonts.SystemFontFamilies)
+            {
+                if (family.Source == name)
+                {
+                    var typefaces = family.GetTypefaces();
+                    foreach (System.Windows.Media.Typeface typeface in typefaces)
+                    {
+                        System.Windows.Media.GlyphTypeface glyph;
+                        if (typeface.TryGetGlyphTypeface(out glyph))
+                        {
+                            IDictionary<int, ushort> characterMap = glyph.CharacterToGlyphMap;
+                            return characterMap;
+                        }
+                    }
+                }
+            }
+
+            return new Dictionary<int, ushort>();
+        }
+    }
+
 
     /// <summary>通道类型</summary>
     public enum ChannelPattern
@@ -33,6 +81,8 @@ namespace Firefly.Glyphing
     public class GlyphGenerator : IGlyphProvider
     {
         PrivateFontCollection collection = new PrivateFontCollection();
+
+        IDictionary<int, ushort> characterMap = new Dictionary<int, ushort>();
 
         private int PhysicalWidthValue;
         private int PhysicalHeightValue;
@@ -90,11 +140,15 @@ namespace Firefly.Glyphing
             {
                 collection.AddFontFile(FontName);
                 Font = new Font(collection.Families[0], FontSize, FontStyle, GraphicsUnit.Pixel);
+
+                characterMap = FontMap.Load(FontName);
             }
             else
             {
                 Font = new Font(FontName, FontSize, FontStyle, GraphicsUnit.Pixel);
-            }
+
+                characterMap = FontMap.LoadSystem(FontName);
+            }            
 
             GlyphPiece = new Bitmap(PhysicalWidth, PhysicalHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(GlyphPiece);
@@ -115,7 +169,16 @@ namespace Firefly.Glyphing
 
             byte GetGray(object ARGB) => Conversions.ToByte(Operators.IntDivideObject(Operators.AddObject(Operators.AddObject(Operators.AddObject(Operators.RightShiftObject(Operators.AndObject(ARGB, 0xFF0000), 16), Operators.RightShiftObject(Operators.AndObject(ARGB, 0xFF00), 8)), Operators.AndObject(ARGB, 0xFF)), 2), 3));
 
-            var DrawedRectangle = g.MeasureStringRectangle(c.Unicode.ToString(), Font);
+            string unicode = c.Unicode;
+
+            bool valid = true;
+            if (!characterMap.ContainsKey(unicode[0]))
+            {
+                unicode = "X";
+                valid = false;
+            }
+
+            var DrawedRectangle = g.MeasureStringRectangle(unicode, Font);
             int X = (int)Round(Round((double)DrawedRectangle.Left));
             int Y = (int)Round(Round((double)DrawedRectangle.Top));
             int X2 = (int)Round(Round((double)DrawedRectangle.Right));
@@ -124,11 +187,12 @@ namespace Firefly.Glyphing
             int Height = Y2 - Y;
             int ox = (PhysicalWidthValue - Width) / 2;
             int oy = (PhysicalHeightValue - Height) / 2;
+
             if (AnchorLeft)
                 ox = 0;
 
             g.Clear(Color.Black);
-            g.DrawString(c.Unicode.ToString(), Font, Brushes.White, ox - X + DrawOffsetX, oy - Y + DrawOffsetY);
+            g.DrawString(unicode, Font, Brushes.White, ox - X + DrawOffsetX, oy - Y + DrawOffsetY);
             int[,] r = GlyphPiece.GetRectangle(0, 0, PhysicalWidthValue, PhysicalHeightValue);
             for (int ry = 0, loopTo2 = PhysicalHeightValue - 1; ry <= loopTo2; ry++)
             {
@@ -152,7 +216,14 @@ namespace Firefly.Glyphing
                 VirtualRectangleX2 = PhysicalWidthValue;
             if (VirtualRectangleY2 > PhysicalHeightValue)
                 VirtualRectangleY2 = PhysicalHeightValue;
-            return new Glyph() { c = c, Block = Block, VirtualBox = new Rectangle(VirtualRectangleX, VirtualRectangleY, VirtualRectangleX2 - VirtualRectangleX, VirtualRectangleY2 - VirtualRectangleY) };
+
+            return new Glyph() 
+            { 
+                c = c, 
+                Block = Block, 
+                VirtualBox = new Rectangle(VirtualRectangleX, VirtualRectangleY, VirtualRectangleX2 - VirtualRectangleX, VirtualRectangleY2 - VirtualRectangleY),
+                IsValid = valid
+            };
         }
 
         private static byte GetChannel(ChannelPattern Pattern, byte L)
@@ -217,6 +288,8 @@ namespace Firefly.Glyphing
     {
         PrivateFontCollection collection = new PrivateFontCollection();
 
+        IDictionary<int, ushort> characterMap = new Dictionary<int, ushort>();
+
         private int PhysicalWidthValue;
         private int PhysicalHeightValue;
         public int PhysicalWidth
@@ -273,10 +346,14 @@ namespace Firefly.Glyphing
             {
                 collection.AddFontFile(FontName);
                 Font = new Font(collection.Families[0], FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+
+                characterMap = FontMap.Load(FontName);
             }
             else
             {
                 Font = new Font(FontName, FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+
+                characterMap = FontMap.LoadSystem(FontName);
             }
 
             GlyphPiece = new Bitmap(PhysicalWidth * 2, PhysicalHeight * 2, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
@@ -307,7 +384,16 @@ namespace Firefly.Glyphing
 
             byte GetGray(object ARGB) => Conversions.ToByte(Operators.IntDivideObject(Operators.AddObject(Operators.AddObject(Operators.AddObject(Operators.RightShiftObject(Operators.AndObject(ARGB, 0xFF0000), 16), Operators.RightShiftObject(Operators.AndObject(ARGB, 0xFF00), 8)), Operators.AndObject(ARGB, 0xFF)), 2), 3));
 
-            var DrawedRectangle = g.MeasureStringRectangle(c.Unicode.ToString(), Font);
+            string unicode = c.Unicode;
+
+            bool valid = true;
+            if (!characterMap.ContainsKey(unicode[0]))
+            {
+                unicode = "X";
+                valid = false;
+            }
+
+            var DrawedRectangle = g.MeasureStringRectangle(unicode, Font);
             int X = (int)Round(Round((double)DrawedRectangle.Left));
             int Y = (int)Round(Round((double)DrawedRectangle.Top));
             int X2 = (int)Round(Round((double)DrawedRectangle.Right));
@@ -316,11 +402,12 @@ namespace Firefly.Glyphing
             int Height = Y2 - Y;
             int ox = (PhysicalWidthValue * 2 - Width) / 2;
             int oy = (PhysicalHeightValue * 2 - Height) / 2;
+
             if (AnchorLeft)
                 ox = ox % 2;
 
             g.Clear(Color.Black);
-            g.DrawString(c.Unicode.ToString(), Font, Brushes.White, ox - X + DrawOffsetX * 2, oy - Y + DrawOffsetY * 2);
+            g.DrawString(unicode, Font, Brushes.White, ox - X + DrawOffsetX * 2, oy - Y + DrawOffsetY * 2);
             int[,] r = GlyphPiece.GetRectangle(0, 0, PhysicalWidthValue * 2, PhysicalHeightValue * 2);
             for (int ry = 0, loopTo2 = PhysicalHeightValue - 1; ry <= loopTo2; ry++)
             {
@@ -352,7 +439,14 @@ namespace Firefly.Glyphing
                 VirtualRectangleX2 = PhysicalWidthValue;
             if (VirtualRectangleY2 > PhysicalHeightValue)
                 VirtualRectangleY2 = PhysicalHeightValue;
-            return new Glyph() { c = c, Block = Block, VirtualBox = new Rectangle(VirtualRectangleX, VirtualRectangleY, VirtualRectangleX2 - VirtualRectangleX, VirtualRectangleY2 - VirtualRectangleY) };
+
+            return new Glyph() 
+            { 
+                c = c, 
+                Block = Block, 
+                VirtualBox = new Rectangle(VirtualRectangleX, VirtualRectangleY, VirtualRectangleX2 - VirtualRectangleX, VirtualRectangleY2 - VirtualRectangleY),
+                IsValid = valid
+            };
         }
 
         private static byte GetChannel(ChannelPattern Pattern, byte L)

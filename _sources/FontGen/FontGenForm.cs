@@ -696,7 +696,10 @@ namespace FontGen
                 bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
                 bool AnchorLeft = CheckBox_AnchorLeft.Checked;
 
-                ChannelPattern[] ChannelPatterns = [ChannelPattern.One, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
+                ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
+
+                if (!chkDrawAlpha.Checked)
+                    ChannelPatterns[0] = ChannelPattern.One;
 
                 IGlyphProvider gg;
                 if (EnableDoubleSample)
@@ -759,6 +762,13 @@ namespace FontGen
                                     for (int x0 = 0, loopTo1 = PhysicalWidth - 1; x0 <= loopTo1; x0++)
                                     {
                                         Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
+
+                                        if (!glyph.IsValid)
+                                        {
+                                            //int ARGB = BitOperations.ConcatBits(GetChannel(ChannelPatterns[0], L), 8, GetChannel(ChannelPatterns[1], L), 8, GetChannel(ChannelPatterns[2], L), 8, GetChannel(ChannelPatterns[3], L), 8);
+
+                                            Block[x0, y0] = Color.Red.ToArgb();
+                                        }
                                     }
                                 }
                                 b.SetRectangle(0, 0, Block);
@@ -873,6 +883,10 @@ namespace FontGen
         {
             ReDraw();
         }
+        private void chkDrawAlpha_CheckedChanged(object sender, EventArgs e)
+        {
+            ReDraw();
+        }
 
         private string Esc(string Parameter)
         {
@@ -944,6 +958,7 @@ namespace FontGen
             int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
             bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
             bool AnchorLeft = CheckBox_AnchorLeft.Checked;
+
             ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
             if (!chkDrawAlpha.Checked)
@@ -974,10 +989,17 @@ namespace FontGen
         {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
+                fd.Filter = "(*.ttf)|*.ttf";
+
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
                     customFontPath = fd.FileName;
-                    ComboBox_FontName.SelectedIndex = -1;
+                    if (ComboBox_FontName.SelectedIndex != -1)
+                    {
+                        ComboBox_FontName.SelectedIndex = -1;
+                    }
+                    else
+                        ReDraw();
                     lblCustomFontName.Text = Path.GetFileName(customFontPath);
                 }
             }
