@@ -2,7 +2,7 @@
 namespace FontGen
 {
     [Microsoft.VisualBasic.CompilerServices.DesignerGenerated()]
-    public partial class FontGen : System.Windows.Forms.Form
+    public partial class FontGenForm : System.Windows.Forms.Form
     {
 
         // Form overrides Dispose to clean up the component list.
@@ -32,7 +32,7 @@ namespace FontGen
         private void InitializeComponent()
         {
             System.Windows.Forms.Label label1;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGen));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGenForm));
             this.Label_FontName = new System.Windows.Forms.Label();
             this.ComboBox_FontName = new System.Windows.Forms.ComboBox();
             this.CheckBox_Bold = new System.Windows.Forms.CheckBox();
@@ -62,11 +62,13 @@ namespace FontGen
             this.NumericUpDown_VirtualDeltaWidth = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_VirtualDeltaHeight = new System.Windows.Forms.NumericUpDown();
             this.Button_Generate = new System.Windows.Forms.Button();
-            this.FileSelectBox_File = new FileSelectBox();
+            this.FileSelectBox_File = new FontGen.FileSelectBox();
             this.Button_CmdToClipboard = new System.Windows.Forms.Button();
             this.CheckBox_AnchorLeft = new System.Windows.Forms.CheckBox();
             this.ddlBPP = new System.Windows.Forms.ComboBox();
             this.chkDrawAlpha = new System.Windows.Forms.CheckBox();
+            this.btnCustomFont = new System.Windows.Forms.Button();
+            this.lblCustomFontName = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).BeginInit();
@@ -88,7 +90,7 @@ namespace FontGen
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(13, 346);
+            label1.Location = new System.Drawing.Point(12, 410);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(57, 13);
             label1.TabIndex = 10;
@@ -109,14 +111,14 @@ namespace FontGen
             this.ComboBox_FontName.FormattingEnabled = true;
             this.ComboBox_FontName.Location = new System.Drawing.Point(15, 31);
             this.ComboBox_FontName.Name = "ComboBox_FontName";
-            this.ComboBox_FontName.Size = new System.Drawing.Size(198, 21);
+            this.ComboBox_FontName.Size = new System.Drawing.Size(194, 21);
             this.ComboBox_FontName.TabIndex = 1;
             this.ComboBox_FontName.TextChanged += new System.EventHandler(this.ComboBox_FontName_TextChanged);
             // 
             // CheckBox_Bold
             // 
             this.CheckBox_Bold.AutoSize = true;
-            this.CheckBox_Bold.Location = new System.Drawing.Point(15, 102);
+            this.CheckBox_Bold.Location = new System.Drawing.Point(14, 166);
             this.CheckBox_Bold.Name = "CheckBox_Bold";
             this.CheckBox_Bold.Size = new System.Drawing.Size(47, 17);
             this.CheckBox_Bold.TabIndex = 2;
@@ -127,7 +129,7 @@ namespace FontGen
             // CheckBox_Italic
             // 
             this.CheckBox_Italic.AutoSize = true;
-            this.CheckBox_Italic.Location = new System.Drawing.Point(103, 102);
+            this.CheckBox_Italic.Location = new System.Drawing.Point(102, 166);
             this.CheckBox_Italic.Name = "CheckBox_Italic";
             this.CheckBox_Italic.Size = new System.Drawing.Size(48, 17);
             this.CheckBox_Italic.TabIndex = 2;
@@ -138,7 +140,7 @@ namespace FontGen
             // CheckBox_Underline
             // 
             this.CheckBox_Underline.AutoSize = true;
-            this.CheckBox_Underline.Location = new System.Drawing.Point(15, 126);
+            this.CheckBox_Underline.Location = new System.Drawing.Point(14, 190);
             this.CheckBox_Underline.Name = "CheckBox_Underline";
             this.CheckBox_Underline.Size = new System.Drawing.Size(71, 17);
             this.CheckBox_Underline.TabIndex = 2;
@@ -149,7 +151,7 @@ namespace FontGen
             // CheckBox_Strikeout
             // 
             this.CheckBox_Strikeout.AutoSize = true;
-            this.CheckBox_Strikeout.Location = new System.Drawing.Point(103, 126);
+            this.CheckBox_Strikeout.Location = new System.Drawing.Point(102, 190);
             this.CheckBox_Strikeout.Name = "CheckBox_Strikeout";
             this.CheckBox_Strikeout.Size = new System.Drawing.Size(68, 17);
             this.CheckBox_Strikeout.TabIndex = 2;
@@ -159,7 +161,7 @@ namespace FontGen
             // 
             // NumericUpDown_Size
             // 
-            this.NumericUpDown_Size.Location = new System.Drawing.Point(15, 73);
+            this.NumericUpDown_Size.Location = new System.Drawing.Point(14, 136);
             this.NumericUpDown_Size.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -171,7 +173,7 @@ namespace FontGen
             0,
             0});
             this.NumericUpDown_Size.Name = "NumericUpDown_Size";
-            this.NumericUpDown_Size.Size = new System.Drawing.Size(120, 20);
+            this.NumericUpDown_Size.Size = new System.Drawing.Size(59, 20);
             this.NumericUpDown_Size.TabIndex = 3;
             this.NumericUpDown_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NumericUpDown_Size.Value = new decimal(new int[] {
@@ -184,7 +186,7 @@ namespace FontGen
             // Label_Size
             // 
             this.Label_Size.AutoSize = true;
-            this.Label_Size.Location = new System.Drawing.Point(13, 56);
+            this.Label_Size.Location = new System.Drawing.Point(12, 120);
             this.Label_Size.Name = "Label_Size";
             this.Label_Size.Size = new System.Drawing.Size(27, 13);
             this.Label_Size.TabIndex = 0;
@@ -196,14 +198,14 @@ namespace FontGen
             this.PictureBox_Preview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
             this.PictureBox_Preview.Name = "PictureBox_Preview";
-            this.PictureBox_Preview.Size = new System.Drawing.Size(614, 139);
+            this.PictureBox_Preview.Size = new System.Drawing.Size(614, 156);
             this.PictureBox_Preview.TabIndex = 4;
             this.PictureBox_Preview.TabStop = false;
             // 
             // CheckBox_DoubleSample
             // 
             this.CheckBox_DoubleSample.AutoSize = true;
-            this.CheckBox_DoubleSample.Location = new System.Drawing.Point(15, 150);
+            this.CheckBox_DoubleSample.Location = new System.Drawing.Point(14, 214);
             this.CheckBox_DoubleSample.Name = "CheckBox_DoubleSample";
             this.CheckBox_DoubleSample.Size = new System.Drawing.Size(78, 17);
             this.CheckBox_DoubleSample.TabIndex = 2;
@@ -214,7 +216,7 @@ namespace FontGen
             // Label_PhysicalWidth
             // 
             this.Label_PhysicalWidth.AutoSize = true;
-            this.Label_PhysicalWidth.Location = new System.Drawing.Point(13, 170);
+            this.Label_PhysicalWidth.Location = new System.Drawing.Point(12, 234);
             this.Label_PhysicalWidth.Name = "Label_PhysicalWidth";
             this.Label_PhysicalWidth.Size = new System.Drawing.Size(74, 13);
             this.Label_PhysicalWidth.TabIndex = 0;
@@ -222,7 +224,7 @@ namespace FontGen
             // 
             // NumericUpDown_PhysicalWidth
             // 
-            this.NumericUpDown_PhysicalWidth.Location = new System.Drawing.Point(15, 185);
+            this.NumericUpDown_PhysicalWidth.Location = new System.Drawing.Point(14, 249);
             this.NumericUpDown_PhysicalWidth.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -247,7 +249,7 @@ namespace FontGen
             // Label_PhysicalHeight
             // 
             this.Label_PhysicalHeight.AutoSize = true;
-            this.Label_PhysicalHeight.Location = new System.Drawing.Point(101, 170);
+            this.Label_PhysicalHeight.Location = new System.Drawing.Point(100, 234);
             this.Label_PhysicalHeight.Name = "Label_PhysicalHeight";
             this.Label_PhysicalHeight.Size = new System.Drawing.Size(77, 13);
             this.Label_PhysicalHeight.TabIndex = 0;
@@ -255,7 +257,7 @@ namespace FontGen
             // 
             // NumericUpDown_PhysicalHeight
             // 
-            this.NumericUpDown_PhysicalHeight.Location = new System.Drawing.Point(103, 186);
+            this.NumericUpDown_PhysicalHeight.Location = new System.Drawing.Point(102, 250);
             this.NumericUpDown_PhysicalHeight.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -283,7 +285,7 @@ namespace FontGen
             this.PictureBox_Preview2x.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
             this.PictureBox_Preview2x.Name = "PictureBox_Preview2x";
-            this.PictureBox_Preview2x.Size = new System.Drawing.Size(614, 281);
+            this.PictureBox_Preview2x.Size = new System.Drawing.Size(614, 316);
             this.PictureBox_Preview2x.TabIndex = 4;
             this.PictureBox_Preview2x.TabStop = false;
             // 
@@ -303,14 +305,14 @@ namespace FontGen
             // SplitContainer_Main.Panel2
             // 
             this.SplitContainer_Main.Panel2.Controls.Add(this.PictureBox_Preview2x);
-            this.SplitContainer_Main.Size = new System.Drawing.Size(614, 424);
-            this.SplitContainer_Main.SplitterDistance = 139;
+            this.SplitContainer_Main.Size = new System.Drawing.Size(614, 476);
+            this.SplitContainer_Main.SplitterDistance = 156;
             this.SplitContainer_Main.TabIndex = 5;
             // 
             // Label_DrawOffsetX
             // 
             this.Label_DrawOffsetX.AutoSize = true;
-            this.Label_DrawOffsetX.Location = new System.Drawing.Point(13, 212);
+            this.Label_DrawOffsetX.Location = new System.Drawing.Point(12, 276);
             this.Label_DrawOffsetX.Name = "Label_DrawOffsetX";
             this.Label_DrawOffsetX.Size = new System.Drawing.Size(67, 13);
             this.Label_DrawOffsetX.TabIndex = 0;
@@ -319,7 +321,7 @@ namespace FontGen
             // Label_DrawOffsetY
             // 
             this.Label_DrawOffsetY.AutoSize = true;
-            this.Label_DrawOffsetY.Location = new System.Drawing.Point(101, 212);
+            this.Label_DrawOffsetY.Location = new System.Drawing.Point(100, 276);
             this.Label_DrawOffsetY.Name = "Label_DrawOffsetY";
             this.Label_DrawOffsetY.Size = new System.Drawing.Size(67, 13);
             this.Label_DrawOffsetY.TabIndex = 0;
@@ -327,7 +329,7 @@ namespace FontGen
             // 
             // NumericUpDown_DrawOffsetX
             // 
-            this.NumericUpDown_DrawOffsetX.Location = new System.Drawing.Point(15, 229);
+            this.NumericUpDown_DrawOffsetX.Location = new System.Drawing.Point(14, 293);
             this.NumericUpDown_DrawOffsetX.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -346,7 +348,7 @@ namespace FontGen
             // 
             // NumericUpDown_DrawOffsetY
             // 
-            this.NumericUpDown_DrawOffsetY.Location = new System.Drawing.Point(103, 229);
+            this.NumericUpDown_DrawOffsetY.Location = new System.Drawing.Point(102, 293);
             this.NumericUpDown_DrawOffsetY.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -366,7 +368,7 @@ namespace FontGen
             // Label_VirtualOffsetX
             // 
             this.Label_VirtualOffsetX.AutoSize = true;
-            this.Label_VirtualOffsetX.Location = new System.Drawing.Point(13, 255);
+            this.Label_VirtualOffsetX.Location = new System.Drawing.Point(12, 319);
             this.Label_VirtualOffsetX.Name = "Label_VirtualOffsetX";
             this.Label_VirtualOffsetX.Size = new System.Drawing.Size(71, 13);
             this.Label_VirtualOffsetX.TabIndex = 0;
@@ -375,7 +377,7 @@ namespace FontGen
             // Label_VirtualOffsetY
             // 
             this.Label_VirtualOffsetY.AutoSize = true;
-            this.Label_VirtualOffsetY.Location = new System.Drawing.Point(101, 255);
+            this.Label_VirtualOffsetY.Location = new System.Drawing.Point(100, 319);
             this.Label_VirtualOffsetY.Name = "Label_VirtualOffsetY";
             this.Label_VirtualOffsetY.Size = new System.Drawing.Size(71, 13);
             this.Label_VirtualOffsetY.TabIndex = 0;
@@ -383,7 +385,7 @@ namespace FontGen
             // 
             // NumericUpDown_VirtualOffsetX
             // 
-            this.NumericUpDown_VirtualOffsetX.Location = new System.Drawing.Point(15, 271);
+            this.NumericUpDown_VirtualOffsetX.Location = new System.Drawing.Point(14, 335);
             this.NumericUpDown_VirtualOffsetX.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -402,7 +404,7 @@ namespace FontGen
             // 
             // NumericUpDown_VirtualOffsetY
             // 
-            this.NumericUpDown_VirtualOffsetY.Location = new System.Drawing.Point(103, 271);
+            this.NumericUpDown_VirtualOffsetY.Location = new System.Drawing.Point(102, 335);
             this.NumericUpDown_VirtualOffsetY.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -422,7 +424,7 @@ namespace FontGen
             // Label_VirtualDeltaWidth
             // 
             this.Label_VirtualDeltaWidth.AutoSize = true;
-            this.Label_VirtualDeltaWidth.Location = new System.Drawing.Point(13, 297);
+            this.Label_VirtualDeltaWidth.Location = new System.Drawing.Point(12, 361);
             this.Label_VirtualDeltaWidth.Name = "Label_VirtualDeltaWidth";
             this.Label_VirtualDeltaWidth.Size = new System.Drawing.Size(89, 13);
             this.Label_VirtualDeltaWidth.TabIndex = 0;
@@ -431,7 +433,7 @@ namespace FontGen
             // Label_VirtualDeltaHeight
             // 
             this.Label_VirtualDeltaHeight.AutoSize = true;
-            this.Label_VirtualDeltaHeight.Location = new System.Drawing.Point(101, 297);
+            this.Label_VirtualDeltaHeight.Location = new System.Drawing.Point(100, 361);
             this.Label_VirtualDeltaHeight.Name = "Label_VirtualDeltaHeight";
             this.Label_VirtualDeltaHeight.Size = new System.Drawing.Size(92, 13);
             this.Label_VirtualDeltaHeight.TabIndex = 0;
@@ -439,7 +441,7 @@ namespace FontGen
             // 
             // NumericUpDown_VirtualDeltaWidth
             // 
-            this.NumericUpDown_VirtualDeltaWidth.Location = new System.Drawing.Point(15, 313);
+            this.NumericUpDown_VirtualDeltaWidth.Location = new System.Drawing.Point(14, 377);
             this.NumericUpDown_VirtualDeltaWidth.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -458,7 +460,7 @@ namespace FontGen
             // 
             // NumericUpDown_VirtualDeltaHeight
             // 
-            this.NumericUpDown_VirtualDeltaHeight.Location = new System.Drawing.Point(103, 313);
+            this.NumericUpDown_VirtualDeltaHeight.Location = new System.Drawing.Point(102, 377);
             this.NumericUpDown_VirtualDeltaHeight.Maximum = new decimal(new int[] {
             65536,
             0,
@@ -477,7 +479,7 @@ namespace FontGen
             // 
             // Button_Generate
             // 
-            this.Button_Generate.Location = new System.Drawing.Point(12, 450);
+            this.Button_Generate.Location = new System.Drawing.Point(12, 486);
             this.Button_Generate.Name = "Button_Generate";
             this.Button_Generate.Size = new System.Drawing.Size(202, 25);
             this.Button_Generate.TabIndex = 7;
@@ -500,18 +502,18 @@ namespace FontGen
             // 
             // Button_CmdToClipboard
             // 
-            this.Button_CmdToClipboard.Location = new System.Drawing.Point(12, 418);
+            this.Button_CmdToClipboard.Location = new System.Drawing.Point(12, 454);
             this.Button_CmdToClipboard.Name = "Button_CmdToClipboard";
             this.Button_CmdToClipboard.Size = new System.Drawing.Size(201, 25);
             this.Button_CmdToClipboard.TabIndex = 8;
-            this.Button_CmdToClipboard.Text = "Pass the command line to the clipboard";
+            this.Button_CmdToClipboard.Text = "Commandline to the clipboard";
             this.Button_CmdToClipboard.UseVisualStyleBackColor = true;
             this.Button_CmdToClipboard.Click += new System.EventHandler(this.Button_CmdToClipboard_Click);
             // 
             // CheckBox_AnchorLeft
             // 
             this.CheckBox_AnchorLeft.AutoSize = true;
-            this.CheckBox_AnchorLeft.Location = new System.Drawing.Point(103, 150);
+            this.CheckBox_AnchorLeft.Location = new System.Drawing.Point(102, 214);
             this.CheckBox_AnchorLeft.Name = "CheckBox_AnchorLeft";
             this.CheckBox_AnchorLeft.Size = new System.Drawing.Size(92, 17);
             this.CheckBox_AnchorLeft.TabIndex = 2;
@@ -526,7 +528,7 @@ namespace FontGen
             this.ddlBPP.Items.AddRange(new object[] {
             "8",
             "32"});
-            this.ddlBPP.Location = new System.Drawing.Point(16, 362);
+            this.ddlBPP.Location = new System.Drawing.Point(15, 426);
             this.ddlBPP.Name = "ddlBPP";
             this.ddlBPP.Size = new System.Drawing.Size(58, 21);
             this.ddlBPP.TabIndex = 11;
@@ -534,18 +536,39 @@ namespace FontGen
             // chkDrawAlpha
             // 
             this.chkDrawAlpha.AutoSize = true;
-            this.chkDrawAlpha.Location = new System.Drawing.Point(103, 362);
+            this.chkDrawAlpha.Location = new System.Drawing.Point(102, 426);
             this.chkDrawAlpha.Name = "chkDrawAlpha";
             this.chkDrawAlpha.Size = new System.Drawing.Size(107, 17);
             this.chkDrawAlpha.TabIndex = 12;
             this.chkDrawAlpha.Text = "DrawAlpha (CoP)";
             this.chkDrawAlpha.UseVisualStyleBackColor = true;
             // 
-            // FontGen
+            // btnCustomFont
+            // 
+            this.btnCustomFont.Location = new System.Drawing.Point(16, 58);
+            this.btnCustomFont.Name = "btnCustomFont";
+            this.btnCustomFont.Size = new System.Drawing.Size(75, 23);
+            this.btnCustomFont.TabIndex = 13;
+            this.btnCustomFont.Text = "CustomFont";
+            this.btnCustomFont.UseVisualStyleBackColor = true;
+            this.btnCustomFont.Click += new System.EventHandler(this.btnCustomFont_Click);
+            // 
+            // lblCustomFontName
+            // 
+            this.lblCustomFontName.AutoSize = true;
+            this.lblCustomFontName.Location = new System.Drawing.Point(16, 88);
+            this.lblCustomFontName.Name = "lblCustomFontName";
+            this.lblCustomFontName.Size = new System.Drawing.Size(101, 13);
+            this.lblCustomFontName.TabIndex = 14;
+            this.lblCustomFontName.Text = "lblCustomFontName";
+            // 
+            // FontGenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(847, 483);
+            this.ClientSize = new System.Drawing.Size(847, 535);
+            this.Controls.Add(this.lblCustomFontName);
+            this.Controls.Add(this.btnCustomFont);
             this.Controls.Add(this.chkDrawAlpha);
             this.Controls.Add(this.ddlBPP);
             this.Controls.Add(label1);
@@ -580,7 +603,7 @@ namespace FontGen
             this.Controls.Add(this.CheckBox_AnchorLeft);
             this.Controls.Add(this.CheckBox_DoubleSample);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FontGen";
+            this.Name = "FontGenForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Font image generator";
             this.Load += new System.EventHandler(this.FontGen_Load);
@@ -639,5 +662,7 @@ namespace FontGen
         internal System.Windows.Forms.CheckBox CheckBox_AnchorLeft;
         private System.Windows.Forms.ComboBox ddlBPP;
         private System.Windows.Forms.CheckBox chkDrawAlpha;
+        private System.Windows.Forms.Button btnCustomFont;
+        private System.Windows.Forms.Label lblCustomFontName;
     }
 }

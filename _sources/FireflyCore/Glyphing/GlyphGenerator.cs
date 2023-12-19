@@ -15,6 +15,8 @@ using static System.Math;
 using Firefly.Imaging;
 using Firefly.TextEncoding;
 using Microsoft.VisualBasic.CompilerServices;
+using System.IO;
+using System.Drawing.Text;
 
 namespace Firefly.Glyphing
 {
@@ -30,6 +32,7 @@ namespace Firefly.Glyphing
     /// <summary>字形生成器</summary>
     public class GlyphGenerator : IGlyphProvider
     {
+        PrivateFontCollection collection = new PrivateFontCollection();
 
         private int PhysicalWidthValue;
         private int PhysicalHeightValue;
@@ -73,6 +76,7 @@ namespace Firefly.Glyphing
 
             PhysicalWidthValue = PhysicalWidth;
             PhysicalHeightValue = PhysicalHeight;
+
             this.DrawOffsetX = DrawOffsetX;
             this.DrawOffsetY = DrawOffsetY;
             this.VirtualOffsetX = VirtualOffsetX;
@@ -82,7 +86,16 @@ namespace Firefly.Glyphing
             this.AnchorLeft = AnchorLeft;
             this.ChannelPatterns = ChannelPatterns;
 
-            Font = new Font(FontName, FontSize, FontStyle, GraphicsUnit.Pixel);
+            if (File.Exists(FontName))
+            {
+                collection.AddFontFile(FontName);
+                Font = new Font(collection.Families[0], FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+            }
+            else
+            {
+                Font = new Font(FontName, FontSize, FontStyle, GraphicsUnit.Pixel);
+            }
+
             GlyphPiece = new Bitmap(PhysicalWidth, PhysicalHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(GlyphPiece);
         }
@@ -202,6 +215,7 @@ namespace Firefly.Glyphing
     /// <summary>两倍超采样字形生成器</summary>
     public class GlyphGeneratorDoubleSample : IGlyphProvider
     {
+        PrivateFontCollection collection = new PrivateFontCollection();
 
         private int PhysicalWidthValue;
         private int PhysicalHeightValue;
@@ -245,6 +259,7 @@ namespace Firefly.Glyphing
 
             PhysicalWidthValue = PhysicalWidth;
             PhysicalHeightValue = PhysicalHeight;
+
             this.DrawOffsetX = DrawOffsetX;
             this.DrawOffsetY = DrawOffsetY;
             this.VirtualOffsetX = VirtualOffsetX;
@@ -254,7 +269,16 @@ namespace Firefly.Glyphing
             this.AnchorLeft = AnchorLeft;
             this.ChannelPatterns = ChannelPatterns;
 
-            Font = new Font(FontName, FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+            if (File.Exists(FontName))
+            {
+                collection.AddFontFile(FontName);
+                Font = new Font(collection.Families[0], FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+            }
+            else
+            {
+                Font = new Font(FontName, FontSize * 2, FontStyle, GraphicsUnit.Pixel);
+            }
+
             GlyphPiece = new Bitmap(PhysicalWidth * 2, PhysicalHeight * 2, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             g = Graphics.FromImage(GlyphPiece);
         }

@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{86706E7C-4D35-0E63-139A-23529DC15E95}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <StartupObject>FontGen.FontGen</StartupObject>
+    <StartupObject>FontGen.FontGenForm</StartupObject>
     <RootNamespace>FontGen</RootNamespace>
     <AssemblyName>FontGen</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -92,10 +92,10 @@
     <Compile Include="FileSelectBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FontGen.Designer.cs">
-      <DependentUpon>FontGen.cs</DependentUpon>
+    <Compile Include="FontGenForm.Designer.cs">
+      <DependentUpon>FontGenForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FontGen.cs">
+    <Compile Include="FontGenForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
@@ -107,8 +107,8 @@
       <DependentUpon>FileSelectBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="FontGen.resx">
-      <DependentUpon>FontGen.cs</DependentUpon>
+    <EmbeddedResource Include="FontGenForm.resx">
+      <DependentUpon>FontGenForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

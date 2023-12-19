@@ -26,7 +26,7 @@ using Microsoft.VisualBasic.CompilerServices;
 namespace FontGen
 {
 
-    public partial class FontGen
+    public partial class FontGenForm
     {
        static string[] TestStrings = [
             "ё1234567890-=/*-\tйцукенгшщзхъ\\789+фывапролджэ456ячсмитьбю",
@@ -34,7 +34,7 @@ namespace FontGen
             "`1234567890-=/*-\tqwertyuiop[]\\789+asdfghjkl;'456zxcvbnm,",
             "./123\\ 0.~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?|ҐґЄєІіЇї"];
 
-        public FontGen()
+        public FontGenForm()
         {
             InitializeComponent();
         }
@@ -47,6 +47,7 @@ namespace FontGen
             ExceptionHandler.PopupException(e.Exception, new StackTrace(4, true));
         }
 
+        [STAThread]
         public static int Main()
         {
             if (Debugger.IsAttached)
@@ -109,7 +110,7 @@ namespace FontGen
         {
             FreeConsole();
             Application.EnableVisualStyles();
-            Application.Run(new FontGen());
+            Application.Run(new FontGenForm());
             return 0;
         }
 
@@ -581,11 +582,37 @@ namespace FontGen
             IGlyphProvider gg;
             if (EnableDoubleSample)
             {
-                gg = new GlyphGeneratorDoubleSample(FontName, FontStyle, FontSize, PhysicalWidth, PhysicalHeight, DrawOffsetX, DrawOffsetY, VirtualOffsetX, VirtualOffsetY, VirtualDeltaWidth, VirtualDeltaHeight, AnchorLeft, ChannelPatterns);
+                gg = new GlyphGeneratorDoubleSample(
+                    FontName, 
+                    FontStyle, 
+                    FontSize, 
+                    PhysicalWidth, 
+                    PhysicalHeight, 
+                    DrawOffsetX, 
+                    DrawOffsetY, 
+                    VirtualOffsetX, 
+                    VirtualOffsetY, 
+                    VirtualDeltaWidth, 
+                    VirtualDeltaHeight, 
+                    AnchorLeft, 
+                    ChannelPatterns);
             }
             else
             {
-                gg = new GlyphGenerator(FontName, FontStyle, FontSize, PhysicalWidth, PhysicalHeight, DrawOffsetX, DrawOffsetY, VirtualOffsetX, VirtualOffsetY, VirtualDeltaWidth, VirtualDeltaHeight, AnchorLeft, ChannelPatterns);
+                gg = new GlyphGenerator(
+                    FontName, 
+                    FontStyle, 
+                    FontSize,
+                    PhysicalWidth, 
+                    PhysicalHeight, 
+                    DrawOffsetX, 
+                    DrawOffsetY,
+                    VirtualOffsetX, 
+                    VirtualOffsetY, 
+                    VirtualDeltaWidth, 
+                    VirtualDeltaHeight, 
+                    AnchorLeft, 
+                    ChannelPatterns);
             }
 
             using (gg)
@@ -672,11 +699,36 @@ namespace FontGen
                     IGlyphProvider gg;
                     if (EnableDoubleSample)
                     {
-                        gg = new GlyphGeneratorDoubleSample(ComboBox_FontName.Text, Style, (int)Math.Round(NumericUpDown_Size.Value), PhysicalWidth, PhysicalHeight, (int)Math.Round(NumericUpDown_DrawOffsetX.Value), (int)Math.Round(NumericUpDown_DrawOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), AnchorLeft, ChannelPatterns);
+                        gg = new GlyphGeneratorDoubleSample(
+                            GetSelectedFont(), 
+                            Style, 
+                            (int)Math.Round(NumericUpDown_Size.Value), 
+                            PhysicalWidth, 
+                            PhysicalHeight, 
+                            (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
+                            (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
+                            AnchorLeft, 
+                            ChannelPatterns);
                     }
                     else
                     {
-                        gg = new GlyphGenerator(ComboBox_FontName.Text, Style, (int)Math.Round(NumericUpDown_Size.Value), PhysicalWidth, PhysicalHeight, (int)Math.Round(NumericUpDown_DrawOffsetX.Value), (int)Math.Round(NumericUpDown_DrawOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), AnchorLeft, ChannelPatterns);
+                        gg = new GlyphGenerator(
+                            GetSelectedFont(), Style, 
+                            (int)Math.Round(NumericUpDown_Size.Value), 
+                            PhysicalWidth, 
+                            PhysicalHeight, 
+                            (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
+                            (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
+                            (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
+                            AnchorLeft, 
+                            ChannelPatterns);
                     }
 
                     using (gg)
@@ -748,15 +800,37 @@ namespace FontGen
             // End Try
         }
 
-        private void FontGen_Shown(object sender, EventArgs e)
+        private string customFontPath;
+
+        private string GetSelectedFont()
+        {
+            if (!string.IsNullOrEmpty(customFontPath)) 
+            {
+                return customFontPath;
+            }
+
+            return ComboBox_FontName.Text;
+        }
+
+        private void FontGen_Load(object sender, EventArgs e)
         {
             Initialized = true;
-            ComboBox_FontName.Items.AddRange((from f in FontFamily.Families
-                                              select f.Name).ToArray());
+            ComboBox_FontName.Items.AddRange((from f in FontFamily.Families select f.Name).ToArray());
+            ComboBox_FontName.SelectedIndex = 0;
             ReDraw();
+
+            ddlBPP.SelectedItem = "8";
+        }
+
+        private void FontGen_Shown(object sender, EventArgs e)
+        {
         }
         private void ComboBox_FontName_TextChanged(object sender, EventArgs e)
         {
+            if (ComboBox_FontName.SelectedIndex >= 0)
+            {
+                customFontPath = string.Empty;
+            }
             ReDraw();
         }
         private void NumericUpDown_Size_ValueChanged(object sender, EventArgs e)
@@ -827,9 +901,20 @@ namespace FontGen
                 Options.Add("/x2");
             if (CheckBox_AnchorLeft.Checked)
                 Options.Add("/left");
-            string[] AddParameters = [FileNameHandling.GetFileName(FileSelectBox_File.Path), ComboBox_FontName.Text, ((int)Style).ToString(), NumericUpDown_Size.Value.ToString(), PhysicalWidth.ToString(), PhysicalHeight.ToString(), NumericUpDown_DrawOffsetX.Value.ToString(), NumericUpDown_DrawOffsetY.Value.ToString(), NumericUpDown_VirtualOffsetX.Value.ToString(), NumericUpDown_VirtualOffsetY.Value.ToString(), NumericUpDown_VirtualDeltaWidth.Value.ToString(), NumericUpDown_VirtualDeltaHeight.Value.ToString()];
-            Options.Add("/add:" + string.Join(",", (from p in AddParameters
-                                                    select Esc(p)).ToArray()));
+            string[] AddParameters = [
+                FileNameHandling.GetFileName(FileSelectBox_File.Path), 
+                GetSelectedFont(), 
+                ((int)Style).ToString(), 
+                NumericUpDown_Size.Value.ToString(), 
+                PhysicalWidth.ToString(), 
+                PhysicalHeight.ToString(), 
+                NumericUpDown_DrawOffsetX.Value.ToString(), 
+                NumericUpDown_DrawOffsetY.Value.ToString(), 
+                NumericUpDown_VirtualOffsetX.Value.ToString(), 
+                NumericUpDown_VirtualOffsetY.Value.ToString(), 
+                NumericUpDown_VirtualDeltaWidth.Value.ToString(), 
+                NumericUpDown_VirtualDeltaHeight.Value.ToString()];
+            Options.Add("/add:" + string.Join(",", (from p in AddParameters select Esc(p)).ToArray()));
             Options.Add("/save:" + Esc(FileNameHandling.ChangeExtension(FileNameHandling.GetFileName(FileSelectBox_File.Path), "fd")));
             string Cmd = FormatEsc("FontGen " + string.Join(" ", Options.ToArray()));
             Clipboard.SetText(Cmd);
@@ -858,14 +943,35 @@ namespace FontGen
 
             int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
 
-            IEnumerable<IGlyph> glyphs = GenerateFont(FileSelectBox_File.Path, ComboBox_FontName.Text, Style, (int)Math.Round(NumericUpDown_Size.Value), PhysicalWidth, PhysicalHeight, (int)Math.Round(NumericUpDown_DrawOffsetX.Value), (int)Math.Round(NumericUpDown_DrawOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), EnableDoubleSample, AnchorLeft, ChannelPatterns);
+            IEnumerable<IGlyph> glyphs = GenerateFont(
+                FileSelectBox_File.Path, 
+                GetSelectedFont(), Style, 
+                (int)Math.Round(NumericUpDown_Size.Value), 
+                PhysicalWidth, 
+                PhysicalHeight, 
+                (int)Math.Round(NumericUpDown_DrawOffsetX.Value), 
+                (int)Math.Round(NumericUpDown_DrawOffsetY.Value), 
+                (int)Math.Round(NumericUpDown_VirtualOffsetX.Value), 
+                (int)Math.Round(NumericUpDown_VirtualOffsetY.Value), 
+                (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value), 
+                (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value), 
+                EnableDoubleSample, 
+                AnchorLeft, 
+                ChannelPatterns);
             SaveFont(glyphs, FileNameHandling.ChangeExtension(FileSelectBox_File.Path, "fd"), -1, -1, bpp, false, false);
             MessageBox.Show("Generation completed!", Text);
         }
 
-        private void FontGen_Load(object sender, EventArgs e)
+        private void btnCustomFont_Click(object sender, EventArgs e)
         {
-            ddlBPP.SelectedItem = "8";
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    customFontPath = fd.FileName;
+                    ComboBox_FontName.SelectedIndex = -1;
+                }
+            }
         }
     }
 }
