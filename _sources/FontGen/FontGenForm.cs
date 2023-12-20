@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Firefly;
 using Firefly.Glyphing;
@@ -305,6 +306,11 @@ namespace FontGen
                         ChannelPatterns);
                 }
 
+                var range = Enumerable
+                    .Range(0, PhysicalHeight)
+                    .SelectMany(y0 => Enumerable.Range(0, PhysicalWidth).Select(x0 => (y0, x0)))
+                    .ToList();
+
                 using (gg)
                 {
                     using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
@@ -326,20 +332,32 @@ namespace FontGen
 
                                 int[,] Block = glyph.Block;
 
-                                for (int y0 = 0, loopTo = PhysicalHeight - 1; y0 <= loopTo; y0++)
+                                Parallel.ForEach(range, pair =>
                                 {
-                                    for (int x0 = 0, loopTo1 = PhysicalWidth - 1; x0 <= loopTo1; x0++)
+                                    var x0 = pair.x0;
+                                    var y0 = pair.y0;
+
+                                    Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
+
+                                    if (!glyph.IsValid)
                                     {
-                                        Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
-
-                                        if (!glyph.IsValid)
-                                        {
-                                            //int ARGB = BitOperations.ConcatBits(GetChannel(ChannelPatterns[0], L), 8, GetChannel(ChannelPatterns[1], L), 8, GetChannel(ChannelPatterns[2], L), 8, GetChannel(ChannelPatterns[3], L), 8);
-
-                                            Block[x0, y0] = Color.Red.ToArgb();
-                                        }
+                                        Block[x0, y0] = Color.Red.ToArgb();
                                     }
-                                }
+                                });
+
+                                //for (int y0 = 0; y0 <= PhysicalHeight - 1; y0++)                                
+                                //for (int x0 = 0; x0 <= PhysicalWidth - 1; x0++)
+                                //{
+                                //    Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
+
+                                //    if (!glyph.IsValid)
+                                //    {
+                                //        //int ARGB = BitOperations.ConcatBits(GetChannel(ChannelPatterns[0], L), 8, GetChannel(ChannelPatterns[1], L), 8, GetChannel(ChannelPatterns[2], L), 8, GetChannel(ChannelPatterns[3], L), 8);
+
+                                //        Block[x0, y0] = Color.Red.ToArgb();
+                                //    }
+                                //}                                
+
                                 b.SetRectangle(0, 0, Block);
                                 using (var bb = b.ToBitmap())
                                 {
@@ -347,16 +365,26 @@ namespace FontGen
                                     g.DrawImage(bb, PhysicalRect);
                                 }
 
-                                for (int y0 = 0, loopTo2 = PhysicalHeight - 1; y0 <= loopTo2; y0++)
+                                Parallel.ForEach(range, pair =>
                                 {
-                                    for (int x0 = 0, loopTo3 = PhysicalWidth - 1; x0 <= loopTo3; x0++)
-                                    {
-                                        Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
-                                        Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
-                                        Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
-                                        Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
-                                    }
-                                }
+                                    var x0 = pair.x0;
+                                    var y0 = pair.y0;
+
+                                    Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
+                                    Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
+                                    Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
+                                    Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
+                                });
+
+                                //for (int y0 = 0; y0 <= PhysicalHeight - 1; y0++)                                
+                                //for (int x0 = 0; x0 <= PhysicalWidth - 1; x0++)
+                                //{
+                                //    Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
+                                //    Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
+                                //    Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
+                                //    Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
+                                //}                                
+
                                 b2x.SetRectangle(0, 0, Block2x);
                                 using (var bb2x = b2x.ToBitmap())
                                 {
