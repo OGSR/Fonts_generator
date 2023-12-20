@@ -306,26 +306,37 @@ namespace FontGen
                         ChannelPatterns);
                 }
 
-                var range = Enumerable
+                List<(int y0, int x0)> range = Enumerable
                     .Range(0, PhysicalHeight)
                     .SelectMany(y0 => Enumerable.Range(0, PhysicalWidth).Select(x0 => (y0, x0)))
                     .ToList();
 
+                IEnumerable<Char32[]> lines = TestStrings
+                    .Select(l => l.ToUTF32());
+
                 using (gg)
                 {
+                    IGlyph[] glyphs = lines
+                    .SelectMany(l => l)
+                    //.AsParallel()
+                    .Select(c => gg.GetGlyph(StringCode.FromUniChar(c)))
+                    .ToArray();
+
                     using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
                     using (var b2x = new Bmp(PhysicalWidth * 2, PhysicalHeight * 2, 32))
                     {
                         int[,] Block2x = new int[(PhysicalWidth * 2), (PhysicalHeight * 2)];
                         //int[,] Block = new int[(PhysicalWidth), (PhysicalHeight)];
 
+                        int g_index = 0;
+
                         int l = 0;
-                        foreach (string t in TestStrings)
+                        foreach (var t in lines)
                         {
                             int k = 0;
-                            foreach (Char32 c in t.ToUTF32())
+                            foreach (Char32 c in t)
                             {
-                                IGlyph glyph = gg.GetGlyph(StringCode.FromUniChar(c));
+                                IGlyph glyph = glyphs[g_index++];
 
                                 int x = k * (PhysicalWidth + 4);
                                 int y = l * (PhysicalHeight + 4);
@@ -636,7 +647,7 @@ namespace FontGen
             string toolDir = AppDomain.CurrentDomain.BaseDirectory + "\\Bins";
 
             string dds_format = bpp == 32 ? "-32" : "-8";
-            dds_format+= cop_mode ? "A8" : "u8888";
+            dds_format += cop_mode ? "A8" : "u8888";
 
             RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
             RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
@@ -671,7 +682,7 @@ namespace FontGen
                     {
                         ComboBox_FontName.SelectedIndex = -1;
                     }
-                    
+
                     ReDraw();
 
                     lblCustomFontName.Text = Path.GetFileName(customFontPath);
