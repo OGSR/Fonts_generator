@@ -1,4 +1,23 @@
 /gamedata
-/Bin
-/_sources/.vs/
+/Bin/
+
+# Всякий ненужный мусор:
 obj/
+*/.vs/
+
+*.VC.*
+*.suo
+*.user
+*.exp
+*.aps
+*.TMP
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
