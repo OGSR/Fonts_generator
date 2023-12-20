@@ -140,7 +140,7 @@ namespace FontGen
             this.ComboBox_FontName.TabIndex = 1;
             this.ComboBox_FontName.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ComboBox_FontName_DrawItem);
             this.ComboBox_FontName.MeasureItem += new System.Windows.Forms.MeasureItemEventHandler(this.ComboBox_FontName_MeasureItem);
-            this.ComboBox_FontName.TextChanged += new System.EventHandler(this.ComboBox_FontName_TextChanged);
+            this.ComboBox_FontName.SelectedValueChanged += new System.EventHandler(this.ComboBox_FontName_SelectedValueChanged);
             // 
             // CheckBox_Bold
             // 
@@ -301,7 +301,7 @@ namespace FontGen
             this.SplitContainer_Main.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SplitContainer_Main.Location = new System.Drawing.Point(221, 88);
+            this.SplitContainer_Main.Location = new System.Drawing.Point(221, 136);
             this.SplitContainer_Main.Name = "SplitContainer_Main";
             this.SplitContainer_Main.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -314,8 +314,8 @@ namespace FontGen
             // 
             this.SplitContainer_Main.Panel2.AutoScroll = true;
             this.SplitContainer_Main.Panel2.Controls.Add(this.panel2);
-            this.SplitContainer_Main.Size = new System.Drawing.Size(827, 583);
-            this.SplitContainer_Main.SplitterDistance = 190;
+            this.SplitContainer_Main.Size = new System.Drawing.Size(827, 535);
+            this.SplitContainer_Main.SplitterDistance = 173;
             this.SplitContainer_Main.TabIndex = 5;
             // 
             // panel1
@@ -326,7 +326,7 @@ namespace FontGen
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(827, 190);
+            this.panel1.Size = new System.Drawing.Size(827, 173);
             this.panel1.TabIndex = 0;
             // 
             // PictureBox_Preview
@@ -347,7 +347,7 @@ namespace FontGen
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(827, 389);
+            this.panel2.Size = new System.Drawing.Size(827, 358);
             this.panel2.TabIndex = 0;
             // 
             // PictureBox_Preview2x
@@ -596,10 +596,11 @@ namespace FontGen
             // lblCustomFontName
             // 
             this.lblCustomFontName.AutoSize = true;
-            this.lblCustomFontName.Location = new System.Drawing.Point(16, 101);
+            this.lblCustomFontName.Location = new System.Drawing.Point(225, 81);
             this.lblCustomFontName.Name = "lblCustomFontName";
-            this.lblCustomFontName.Size = new System.Drawing.Size(0, 13);
+            this.lblCustomFontName.Size = new System.Drawing.Size(101, 13);
             this.lblCustomFontName.TabIndex = 14;
+            this.lblCustomFontName.Text = "lblCustomFontName";
             // 
             // txtTargetPath
             // 

@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -25,6 +26,8 @@ namespace FontGen
 {
     public partial class FontGenForm
     {
+        PrivateFontCollection collection = new PrivateFontCollection();
+
         static string[] TestStrings = [
             "йцукенгшщзхъфывапролджэячсмитьбюё",
             "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ",
@@ -257,15 +260,7 @@ namespace FontGen
                 g.Clear(Color.White);
                 g2x.Clear(Color.LightGray);
 
-                var Style = FontStyle.Regular;
-                if (CheckBox_Bold.Checked)
-                    Style = Style | FontStyle.Bold;
-                if (CheckBox_Italic.Checked)
-                    Style = Style | FontStyle.Italic;
-                if (CheckBox_Underline.Checked)
-                    Style = Style | FontStyle.Underline;
-                if (CheckBox_Strikeout.Checked)
-                    Style = Style | FontStyle.Strikeout;
+                FontStyle Style = GetSelectedStyles();
 
                 bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
                 bool AnchorLeft = CheckBox_AnchorLeft.Checked;
@@ -394,6 +389,20 @@ namespace FontGen
             // End Try
         }
 
+        private FontStyle GetSelectedStyles()
+        {
+            var Style = FontStyle.Regular;
+            if (CheckBox_Bold.Checked)
+                Style = Style | FontStyle.Bold;
+            if (CheckBox_Italic.Checked)
+                Style = Style | FontStyle.Italic;
+            if (CheckBox_Underline.Checked)
+                Style = Style | FontStyle.Underline;
+            if (CheckBox_Strikeout.Checked)
+                Style = Style | FontStyle.Strikeout;
+            return Style;
+        }
+
         private string customFontPath;
 
         private string GetSelectedFont()
@@ -419,15 +428,19 @@ namespace FontGen
         private void FontGen_Shown(object sender, EventArgs e)
         {
         }
-        private void ComboBox_FontName_TextChanged(object sender, EventArgs e)
+        private void ComboBox_FontName_SelectedValueChanged(object sender, EventArgs e)
         {
             if (ComboBox_FontName.SelectedIndex >= 0)
             {
                 customFontPath = string.Empty;
-            }
-            ReDraw();
 
-            lblCustomFontName.Text = GetSelectedFont();
+                ReDraw();
+
+                FontFamily f = (FontFamily)ComboBox_FontName.SelectedItem;
+
+                lblCustomFontName.Text = f.Name;
+                lblCustomFontName.Font = new Font(f, (int)Math.Round(NumericUpDown_Size.Value), GetSelectedStyles(), GraphicsUnit.Pixel);
+            }
         }
         private void NumericUpDown_Size_ValueChanged(object sender, EventArgs e)
         {
@@ -485,15 +498,7 @@ namespace FontGen
 
         private void Button_CmdToClipboard_Click(object sender, EventArgs e)
         {
-            var Style = FontStyle.Regular;
-            if (CheckBox_Bold.Checked)
-                Style = Style | FontStyle.Bold;
-            if (CheckBox_Italic.Checked)
-                Style = Style | FontStyle.Italic;
-            if (CheckBox_Underline.Checked)
-                Style = Style | FontStyle.Underline;
-            if (CheckBox_Strikeout.Checked)
-                Style = Style | FontStyle.Strikeout;
+            FontStyle Style = GetSelectedStyles();
 
             int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
             int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
@@ -541,15 +546,7 @@ namespace FontGen
 
         private void Button_Generate_Click(object sender, EventArgs e)
         {
-            var Style = FontStyle.Regular;
-            if (CheckBox_Bold.Checked)
-                Style = Style | FontStyle.Bold;
-            if (CheckBox_Italic.Checked)
-                Style = Style | FontStyle.Italic;
-            if (CheckBox_Underline.Checked)
-                Style = Style | FontStyle.Underline;
-            if (CheckBox_Strikeout.Checked)
-                Style = Style | FontStyle.Strikeout;
+            FontStyle Style = GetSelectedStyles();
 
             int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
             int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
@@ -646,10 +643,13 @@ namespace FontGen
                     {
                         ComboBox_FontName.SelectedIndex = -1;
                     }
-                    else
-                        ReDraw();
+                    
+                    ReDraw();
 
                     lblCustomFontName.Text = Path.GetFileName(customFontPath);
+
+                    collection.AddFontFile(customFontPath);
+                    lblCustomFontName.Font = new Font(collection.Families[collection.Families.Length - 1], (int)Math.Round(NumericUpDown_Size.Value), GetSelectedStyles(), GraphicsUnit.Pixel);
                 }
             }
         }
