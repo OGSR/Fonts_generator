@@ -108,7 +108,7 @@ namespace FontGen
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(229, 58);
+            label2.Location = new System.Drawing.Point(225, 58);
             label2.Name = "label2";
             label2.Size = new System.Drawing.Size(86, 13);
             label2.TabIndex = 15;
@@ -127,9 +127,9 @@ namespace FontGen
             // 
             this.ComboBox_FontName.DisplayMember = "Name";
             this.ComboBox_FontName.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.ComboBox_FontName.DropDownHeight = 300;
+            this.ComboBox_FontName.DropDownHeight = 600;
             this.ComboBox_FontName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComboBox_FontName.DropDownWidth = 250;
+            this.ComboBox_FontName.DropDownWidth = 400;
             this.ComboBox_FontName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ComboBox_FontName.FormattingEnabled = true;
             this.ComboBox_FontName.IntegralHeight = false;
@@ -575,11 +575,11 @@ namespace FontGen
             this.chkDrawAlpha.AutoSize = true;
             this.chkDrawAlpha.Checked = true;
             this.chkDrawAlpha.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDrawAlpha.Location = new System.Drawing.Point(102, 426);
+            this.chkDrawAlpha.Location = new System.Drawing.Point(14, 541);
             this.chkDrawAlpha.Name = "chkDrawAlpha";
-            this.chkDrawAlpha.Size = new System.Drawing.Size(107, 17);
+            this.chkDrawAlpha.Size = new System.Drawing.Size(134, 17);
             this.chkDrawAlpha.TabIndex = 12;
-            this.chkDrawAlpha.Text = "DrawAlpha (CoP)";
+            this.chkDrawAlpha.Text = "DrawAlpha (NON CoP)";
             this.chkDrawAlpha.UseVisualStyleBackColor = true;
             this.chkDrawAlpha.CheckedChanged += new System.EventHandler(this.chkDrawAlpha_CheckedChanged);
             // 
@@ -603,9 +603,9 @@ namespace FontGen
             // 
             // txtTargetPath
             // 
-            this.txtTargetPath.Location = new System.Drawing.Point(424, 51);
+            this.txtTargetPath.Location = new System.Drawing.Point(425, 51);
             this.txtTargetPath.Name = "txtTargetPath";
-            this.txtTargetPath.Size = new System.Drawing.Size(411, 20);
+            this.txtTargetPath.Size = new System.Drawing.Size(410, 20);
             this.txtTargetPath.TabIndex = 16;
             // 
             // FileSelectBox_File

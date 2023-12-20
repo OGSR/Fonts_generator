@@ -463,7 +463,7 @@ namespace FontGen
         }
         private void chkDrawAlpha_CheckedChanged(object sender, EventArgs e)
         {
-            ReDraw();
+            //ReDraw();
         }
 
         private string Esc(string Parameter)
@@ -558,7 +558,9 @@ namespace FontGen
 
             ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
-            if (!chkDrawAlpha.Checked)
+            bool cop_mode = !chkDrawAlpha.Checked;
+
+            if (cop_mode)
                 ChannelPatterns[0] = ChannelPattern.One;
 
             int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
@@ -608,7 +610,8 @@ namespace FontGen
 
             string toolDir = AppDomain.CurrentDomain.BaseDirectory + "\\Bins";
 
-            string dds_format = bpp == 32 ? "-32 u8888" : "-8 A8";
+            string dds_format = bpp == 32 ? "-32" : "-8";
+            dds_format+= cop_mode ? "A8" : "u8888";
 
             RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
             RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
