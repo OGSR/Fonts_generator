@@ -93,6 +93,12 @@
     <Compile Include="FileSelectBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="FontGenContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FontGenContent.Designer.cs">
+      <DependentUpon>FontGenContent.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontGenForm.Console.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     <EmbeddedResource Include="FileSelectBox.resx">
       <DependentUpon>FileSelectBox.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FontGenContent.resx">
+      <DependentUpon>FontGenContent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FontGenForm.resx">
       <DependentUpon>FontGenForm.cs</DependentUpon>

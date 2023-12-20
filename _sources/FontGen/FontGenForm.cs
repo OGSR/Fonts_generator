@@ -23,7 +23,6 @@ using Firefly.Texting;
 
 namespace FontGen
 {
-
     public partial class FontGenForm
     {
         static string[] TestStrings = [
@@ -414,7 +413,7 @@ namespace FontGen
             ComboBox_FontName.SelectedIndex = 0;
             ReDraw();
 
-            ddlBPP.SelectedItem = "8";
+            ddlBPP.SelectedItem = "32";
         }
 
         private void FontGen_Shown(object sender, EventArgs e)
@@ -615,6 +614,19 @@ namespace FontGen
             RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
             RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmp_filePath)}\" -outdir \"{wortDir}\" -nomipmap {dds_format}");
 
+            if (chkDelTemp.Checked)
+            {
+                string ini_filePath = FileNameHandling.ChangeExtension(path, "ini");
+                string dds_filePath = FileNameHandling.ChangeExtension(path, "dds");
+
+                // if all good
+                if (File.Exists(ini_filePath) && File.Exists(dds_filePath))
+                {
+                    File.Delete(fd_filePath);
+                    File.Delete(bmp_filePath);
+                }
+            }
+
             MessageBox.Show("Generation completed!", Text);
         }
 
@@ -664,6 +676,32 @@ namespace FontGen
 
                 e.ItemHeight = (int)Math.Floor(DrawedRectangle.Height);
             }
+        }
+
+        private FontGenContent FontGenContent = new FontGenContent()
+        {
+        };
+
+        private void btnEditText_Click(object sender, EventArgs e)
+        {
+            FontGenContent.Tag = this;
+
+            if (FontGenContent.Visible)
+            {
+                FontGenContent.Hide();
+            }
+            else
+            {
+                FontGenContent.Show();
+                FontGenContent.SetText(TestStrings);
+            }
+        }
+
+        public void SetContent(string[] lines)
+        {
+            TestStrings = lines;
+
+            ReDraw();
         }
     }
 }

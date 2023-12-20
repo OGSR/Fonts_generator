@@ -73,6 +73,8 @@ namespace FontGen
             this.lblCustomFontName = new System.Windows.Forms.Label();
             this.txtTargetPath = new System.Windows.Forms.TextBox();
             this.FileSelectBox_File = new FontGen.FileSelectBox();
+            this.chkDelTemp = new System.Windows.Forms.CheckBox();
+            this.btnEditText = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
@@ -571,6 +573,8 @@ namespace FontGen
             // chkDrawAlpha
             // 
             this.chkDrawAlpha.AutoSize = true;
+            this.chkDrawAlpha.Checked = true;
+            this.chkDrawAlpha.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDrawAlpha.Location = new System.Drawing.Point(102, 426);
             this.chkDrawAlpha.Name = "chkDrawAlpha";
             this.chkDrawAlpha.Size = new System.Drawing.Size(107, 17);
@@ -617,11 +621,35 @@ namespace FontGen
             this.FileSelectBox_File.SplitterDistance = 200;
             this.FileSelectBox_File.TabIndex = 6;
             // 
+            // chkDelTemp
+            // 
+            this.chkDelTemp.AutoSize = true;
+            this.chkDelTemp.Checked = true;
+            this.chkDelTemp.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDelTemp.Location = new System.Drawing.Point(14, 518);
+            this.chkDelTemp.Name = "chkDelTemp";
+            this.chkDelTemp.Size = new System.Drawing.Size(113, 17);
+            this.chkDelTemp.TabIndex = 17;
+            this.chkDelTemp.Text = "Remove temp files";
+            this.chkDelTemp.UseVisualStyleBackColor = true;
+            // 
+            // btnEditText
+            // 
+            this.btnEditText.Location = new System.Drawing.Point(973, 59);
+            this.btnEditText.Name = "btnEditText";
+            this.btnEditText.Size = new System.Drawing.Size(75, 23);
+            this.btnEditText.TabIndex = 18;
+            this.btnEditText.Text = "Edit content";
+            this.btnEditText.UseVisualStyleBackColor = true;
+            this.btnEditText.Click += new System.EventHandler(this.btnEditText_Click);
+            // 
             // FontGenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1060, 680);
+            this.Controls.Add(this.btnEditText);
+            this.Controls.Add(this.chkDelTemp);
             this.Controls.Add(this.txtTargetPath);
             this.Controls.Add(label2);
             this.Controls.Add(this.lblCustomFontName);
@@ -729,5 +757,7 @@ namespace FontGen
         internal System.Windows.Forms.PictureBox PictureBox_Preview;
         private System.Windows.Forms.Panel panel2;
         internal System.Windows.Forms.PictureBox PictureBox_Preview2x;
+        private System.Windows.Forms.CheckBox chkDelTemp;
+        private System.Windows.Forms.Button btnEditText;
     }
 }
