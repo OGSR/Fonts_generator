@@ -210,7 +210,7 @@ namespace FontGen
             {
                 var Size = ga.GetPreferredSize(gl);
                 PicWidth = Size.Width;
-                PicHeight = Size.Height;
+                PicHeight = ga.GetPreferredHeight(gl, Size.Width);
             }
 
             if (Multiple)
@@ -650,10 +650,10 @@ namespace FontGen
             dds_format += " ";
             dds_format += cop_mode ? "A8" : "u8888";
 
-            //RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
             FbToIni(wortDir, fd_filePath);
 
-            RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
+            //RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
+            //RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
             RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmp_filePath)}\" -outdir \"{wortDir}\" -nomipmap {dds_format}");
 
             if (chkDelTemp.Checked)
