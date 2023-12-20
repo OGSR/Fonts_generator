@@ -650,7 +650,9 @@ namespace FontGen
             dds_format += " ";
             dds_format += cop_mode ? "A8" : "u8888";
 
-            RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
+            //RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
+            FbToIni(wortDir, fd_filePath);
+
             RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
             RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmp_filePath)}\" -outdir \"{wortDir}\" -nomipmap {dds_format}");
 
@@ -668,6 +670,56 @@ namespace FontGen
             }
 
             MessageBox.Show("Generation completed!", Text);
+        }
+
+        private void FbToIni(string wortDir, string fd_filePath)
+        {
+            string ini_filePath = FileNameHandling.ChangeExtension(fd_filePath, "ini");
+
+            if (File.Exists(fd_filePath))
+            {
+                string[] lines = File.ReadAllLines(fd_filePath);
+
+                List<string> result = new List<string>();
+                int height = -1;
+
+                foreach (string l in lines)
+                {
+                    string[] parts = l.Split(',');
+
+                    int charCode = int.Parse(parts[0].Substring(2), System.Globalization.NumberStyles.HexNumber);
+
+                    int x1, y1;
+
+                    x1 = int.Parse(parts[2]);
+                    y1 = int.Parse(parts[3]);
+
+                    int _x1, _y1;
+
+                    _x1 = int.Parse(parts[6]);
+                    _y1 = int.Parse(parts[7]);
+
+                    int _x2, _y2;
+
+                    _x2 = int.Parse(parts[8]);
+                    _y2 = int.Parse(parts[9]);
+
+                    height = _y2;
+
+                    result.Add($"{charCode:D5} = {x1 + _x1}, {y1 + _y1}, {x1 + _x1 + _x2}, {y1 + _y1 + _y2}");
+                }
+
+                result.Insert(0, $"height = {height}");
+                result.Insert(0, "[mb_symbol_coords]");
+
+                if (File.Exists(ini_filePath))
+                {
+                    File.SetAttributes(ini_filePath, FileAttributes.Normal);
+                    File.Delete(ini_filePath);
+                }
+
+                File.WriteAllLines(ini_filePath, result);
+            }
         }
 
         private void btnCustomFont_Click(object sender, EventArgs e)
