@@ -647,6 +647,7 @@ namespace FontGen
             string toolDir = AppDomain.CurrentDomain.BaseDirectory + "\\Bins";
 
             string dds_format = bpp == 32 ? "-32" : "-8";
+            dds_format += " ";
             dds_format += cop_mode ? "A8" : "u8888";
 
             RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
