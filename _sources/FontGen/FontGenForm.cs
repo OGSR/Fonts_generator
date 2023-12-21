@@ -27,9 +27,9 @@ namespace FontGen
 {
     public partial class FontGenForm
     {
-        PrivateFontCollection collection = new PrivateFontCollection();
+        PrivateFontCollection Collection = new PrivateFontCollection();
 
-        static string[] TestStrings = [
+        static string[] _testStrings = [
             "йцукенгшщзхъфывапролджэячсмитьбюё",
             "ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮЁ",
             "qwertyuiop[]asdfghjklzxcvbnm",
@@ -115,25 +115,25 @@ namespace FontGen
             return 0;
         }
 
-        public static IEnumerable<IGlyph> GenerateFont(string SourcePath, string FontName, FontStyle FontStyle, int FontSize, int PhysicalWidth, int PhysicalHeight, int DrawOffsetX, int DrawOffsetY, int VirtualOffsetX, int VirtualOffsetY, int VirtualDeltaWidth, int VirtualDeltaHeight, bool EnableDoubleSample, bool AnchorLeft, ChannelPattern[] ChannelPatterns)
+        public static IEnumerable<IGlyph> GenerateFont(string sourcePath, string fontName, FontStyle fontStyle, int fontSize, int physicalWidth, int physicalHeight, int drawOffsetX, int drawOffsetY, int virtualOffsetX, int virtualOffsetY, int virtualDeltaWidth, int virtualDeltaHeight, bool enableDoubleSample, bool anchorLeft, ChannelPattern[] channelPatterns)
         {
             StringCode[] StringCodes;
 
-            if (!string.IsNullOrWhiteSpace(SourcePath) && File.Exists(SourcePath))
+            if (!string.IsNullOrWhiteSpace(sourcePath) && File.Exists(sourcePath))
             {
-                string Ext = FileNameHandling.GetExtendedFileName(SourcePath);
+                string Ext = FileNameHandling.GetExtendedFileName(sourcePath);
                 if (Ext.Equals("tbl", StringComparison.OrdinalIgnoreCase))
                 {
-                    StringCodes = TblCharMappingFile.ReadFile(SourcePath).ToArray();
+                    StringCodes = TblCharMappingFile.ReadFile(sourcePath).ToArray();
                 }
                 else if (Ext.Equals("fd", StringComparison.OrdinalIgnoreCase))
                 {
-                    StringCodes = (from d in FdGlyphDescriptionFile.ReadFile(SourcePath)
+                    StringCodes = (from d in FdGlyphDescriptionFile.ReadFile(sourcePath)
                                    select d.c).ToArray();
                 }
                 else if (Ext.Equals("txt", StringComparison.OrdinalIgnoreCase))
                 {
-                    StringCodes = (from c in Txt.ReadFile(SourcePath).ToUTF32()
+                    StringCodes = (from c in Txt.ReadFile(sourcePath).ToUTF32()
                                    select StringCode.FromUniChar(c)).ToArray();
                 }
                 else
@@ -143,45 +143,45 @@ namespace FontGen
             }
             else
             {
-                StringCodes = TestStrings.SelectMany(l => l.ToUTF32()).Select(c => StringCode.FromUniChar(c))
+                StringCodes = _testStrings.SelectMany(l => l.ToUTF32()).Select(c => StringCode.FromUniChar(c))
                     .Distinct()
                     .ToArray();
             }
 
             IGlyphProvider gg;
-            if (EnableDoubleSample)
+            if (enableDoubleSample)
             {
                 gg = new GlyphGeneratorDoubleSample(
-                    FontName,
-                    FontStyle,
-                    FontSize,
-                    PhysicalWidth,
-                    PhysicalHeight,
-                    DrawOffsetX,
-                    DrawOffsetY,
-                    VirtualOffsetX,
-                    VirtualOffsetY,
-                    VirtualDeltaWidth,
-                    VirtualDeltaHeight,
-                    AnchorLeft,
-                    ChannelPatterns);
+                    fontName,
+                    fontStyle,
+                    fontSize,
+                    physicalWidth,
+                    physicalHeight,
+                    drawOffsetX,
+                    drawOffsetY,
+                    virtualOffsetX,
+                    virtualOffsetY,
+                    virtualDeltaWidth,
+                    virtualDeltaHeight,
+                    anchorLeft,
+                    channelPatterns);
             }
             else
             {
                 gg = new GlyphGenerator(
-                    FontName,
-                    FontStyle,
-                    FontSize,
-                    PhysicalWidth,
-                    PhysicalHeight,
-                    DrawOffsetX,
-                    DrawOffsetY,
-                    VirtualOffsetX,
-                    VirtualOffsetY,
-                    VirtualDeltaWidth,
-                    VirtualDeltaHeight,
-                    AnchorLeft,
-                    ChannelPatterns);
+                    fontName,
+                    fontStyle,
+                    fontSize,
+                    physicalWidth,
+                    physicalHeight,
+                    drawOffsetX,
+                    drawOffsetY,
+                    virtualOffsetX,
+                    virtualOffsetY,
+                    virtualDeltaWidth,
+                    virtualDeltaHeight,
+                    anchorLeft,
+                    channelPatterns);
             }
 
             using (gg)
@@ -189,15 +189,15 @@ namespace FontGen
                         select gg.GetGlyph(c)).ToArray();
         }
 
-        public static void SaveFont(IEnumerable<IGlyph> Glyphs, string TargetPath, int PicWidth, int PicHeight, int BitPerPixel, bool Multiple, bool Compact)
+        public static void SaveFont(IEnumerable<IGlyph> glyphs, string targetPath, int picWidth, int picHeight, int bitPerPixel, bool multiple, bool compact)
         {
-            IGlyph[] gl = Glyphs.ToArray();
+            IGlyph[] gl = glyphs.ToArray();
             int PhysicalWidth = (from g in gl
                                  select g.PhysicalWidth).Max();
             int PhysicalHeight = (from g in gl
                                   select g.PhysicalHeight).Max();
             IGlyphArranger ga;
-            if (Compact)
+            if (compact)
             {
                 ga = new GlyphArrangerCompact(PhysicalWidth, PhysicalHeight);
             }
@@ -206,42 +206,42 @@ namespace FontGen
                 ga = new GlyphArranger(PhysicalWidth, PhysicalHeight);
             }
 
-            if (PicWidth < 0 || PicHeight < 0)
+            if (picWidth < 0 || picHeight < 0)
             {
                 var Size = ga.GetPreferredSize(gl);
-                PicWidth = Size.Width;
-                PicHeight = ga.GetPreferredHeight(gl, Size.Width);
+                picWidth = Size.Width;
+                picHeight = ga.GetPreferredHeight(gl, Size.Width);
             }
 
-            if (Multiple)
+            if (multiple)
             {
                 int n = 0;
                 int GlyphIndex = 0;
                 while (GlyphIndex < gl.Length)
                 {
-                    string FdPath = FileNameHandling.ChangeExtension(TargetPath, "{0}.{1}".Formats(n, FileNameHandling.GetExtendedFileName(TargetPath)));
-                    var PartGlyphDescriptors = ga.GetGlyphArrangement(gl, PicWidth, PicHeight);
+                    string FdPath = FileNameHandling.ChangeExtension(targetPath, "{0}.{1}".Formats(n, FileNameHandling.GetExtendedFileName(targetPath)));
+                    var PartGlyphDescriptors = ga.GetGlyphArrangement(gl, picWidth, picHeight);
                     GlyphDescriptor[] pgd = PartGlyphDescriptors.ToArray();
                     if (pgd.Length == 0)
                         throw new InvalidDataException("PicSizeTooSmallForGlyphOfChar:{0}".Formats(gl[GlyphIndex].c.ToString()));
                     IGlyph[] pgl = gl.SubArray(GlyphIndex, pgd.Length);
-                    using (BmpFontImageWriter imageWriter = new BmpFontImageWriter(FileNameHandling.ChangeExtension(FdPath, "bmp"), BitPerPixel))
+                    using (BmpFontImageWriter imageWriter = new BmpFontImageWriter(FileNameHandling.ChangeExtension(FdPath, "bmp"), bitPerPixel))
                     {
-                        FdGlyphDescriptionFile.WriteFont(FdPath, TextEncoding.WritingDefault, pgl, pgd, imageWriter, PicWidth, PicHeight);
+                        FdGlyphDescriptionFile.WriteFont(FdPath, TextEncoding.WritingDefault, pgl, pgd, imageWriter, picWidth, picHeight);
                     }
                     GlyphIndex += pgd.Length;
                 }
             }
             else
             {
-                using (BmpFontImageWriter imageWriter = new BmpFontImageWriter(FileNameHandling.ChangeExtension(TargetPath, "bmp"), BitPerPixel))
+                using (BmpFontImageWriter imageWriter = new BmpFontImageWriter(FileNameHandling.ChangeExtension(targetPath, "bmp"), bitPerPixel))
                 {
-                    FdGlyphDescriptionFile.WriteFont(TargetPath, TextEncoding.WritingDefault, gl, imageWriter, ga, PicWidth, PicHeight);
+                    FdGlyphDescriptionFile.WriteFont(targetPath, TextEncoding.WritingDefault, gl, imageWriter, ga, picWidth, picHeight);
                 }
             }
         }
 
-        private bool Initialized = false;
+        private bool Initialized;
 
         private void ReDraw()
         {
@@ -253,179 +253,189 @@ namespace FontGen
 
             // Try
             var Image = new Bitmap(PhysicalWidth * 64 + 32 * 8, PhysicalHeight * 32 + 32 * 8, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-            var Image2x = new Bitmap(PhysicalWidth * 64 * 2 + 32 * 8 * 2, PhysicalHeight * 32 * 2 + 32 * 8 * 2, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+            var image2X = new Bitmap(PhysicalWidth * 64 * 2 + 32 * 8 * 2, PhysicalHeight * 32 * 2 + 32 * 8 * 2, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             // Try
             using (var g = Graphics.FromImage(Image))
-            using (var g2x = Graphics.FromImage(Image2x))
+            using (var g2X = Graphics.FromImage(image2X))
             {
                 g.Clear(Color.White);
-                g2x.Clear(Color.LightGray);
+                g2X.Clear(Color.LightGray);
 
-                FontStyle Style = GetSelectedStyles();
-
-                bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
-                bool AnchorLeft = CheckBox_AnchorLeft.Checked;
-
-                ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
-
-                if (!chkDrawAlpha.Checked)
-                    ChannelPatterns[0] = ChannelPattern.One;
-
-                IGlyphProvider gg;
-                if (EnableDoubleSample)
-                {
-                    gg = new GlyphGeneratorDoubleSample(
-                        GetSelectedFont(),
-                        Style,
-                        (int)Math.Round(NumericUpDown_Size.Value),
-                        PhysicalWidth,
-                        PhysicalHeight,
-                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
-                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
-                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
-                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
-                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
-                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
-                        AnchorLeft,
-                        ChannelPatterns);
-                }
-                else
-                {
-                    gg = new GlyphGenerator(
-                        GetSelectedFont(), Style,
-                        (int)Math.Round(NumericUpDown_Size.Value),
-                        PhysicalWidth,
-                        PhysicalHeight,
-                        (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
-                        (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
-                        (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
-                        (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
-                        (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
-                        (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
-                        AnchorLeft,
-                        ChannelPatterns);
-                }
+                var (lines, glyphs) = GetChars(PhysicalWidth, PhysicalHeight);
 
                 List<(int y0, int x0)> range = Enumerable
                     .Range(0, PhysicalHeight)
                     .SelectMany(y0 => Enumerable.Range(0, PhysicalWidth).Select(x0 => (y0, x0)))
                     .ToList();
 
-                IEnumerable<Char32[]> lines = TestStrings
-                    .Select(l => l.ToUTF32());
-
-                using (gg)
+                using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
+                using (var b2X = new Bmp(PhysicalWidth * 2, PhysicalHeight * 2, 32))
                 {
-                    IGlyph[] glyphs = lines
-                    .SelectMany(l => l)
-                    //.AsParallel()
-                    .Select(c => gg.GetGlyph(StringCode.FromUniChar(c)))
-                    .ToArray();
+                    int[,] block2X = new int[(PhysicalWidth * 2), (PhysicalHeight * 2)];
+                    //int[,] Block = new int[(PhysicalWidth), (PhysicalHeight)];
 
-                    using (var b = new Bmp(PhysicalWidth, PhysicalHeight, 32))
-                    using (var b2x = new Bmp(PhysicalWidth * 2, PhysicalHeight * 2, 32))
+                    int gIndex = 0;
+
+                    int l = 0;
+                    foreach (var t in lines)
                     {
-                        int[,] Block2x = new int[(PhysicalWidth * 2), (PhysicalHeight * 2)];
-                        //int[,] Block = new int[(PhysicalWidth), (PhysicalHeight)];
-
-                        int g_index = 0;
-
-                        int l = 0;
-                        foreach (var t in lines)
+                        int k = 0;
+                        foreach (Char32 c in t)
                         {
-                            int k = 0;
-                            foreach (Char32 c in t)
+                            IGlyph glyph = glyphs[gIndex++];
+
+                            int x = k * (PhysicalWidth + 4);
+                            int y = l * (PhysicalHeight + 4);
+
+                            int[,] Block = glyph.Block;
+
+                            Parallel.ForEach(range, pair =>
                             {
-                                IGlyph glyph = glyphs[g_index++];
+                                var x0 = pair.x0;
+                                var y0 = pair.y0;
 
-                                int x = k * (PhysicalWidth + 4);
-                                int y = l * (PhysicalHeight + 4);
+                                Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
 
-                                int[,] Block = glyph.Block;
-
-                                Parallel.ForEach(range, pair =>
+                                if (!glyph.IsValid)
                                 {
-                                    var x0 = pair.x0;
-                                    var y0 = pair.y0;
-
-                                    Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
-
-                                    if (!glyph.IsValid)
-                                    {
-                                        Block[x0, y0] = Color.Red.ToArgb();
-                                    }
-                                });
-
-                                //for (int y0 = 0; y0 <= PhysicalHeight - 1; y0++)                                
-                                //for (int x0 = 0; x0 <= PhysicalWidth - 1; x0++)
-                                //{
-                                //    Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
-
-                                //    if (!glyph.IsValid)
-                                //    {
-                                //        //int ARGB = BitOperations.ConcatBits(GetChannel(ChannelPatterns[0], L), 8, GetChannel(ChannelPatterns[1], L), 8, GetChannel(ChannelPatterns[2], L), 8, GetChannel(ChannelPatterns[3], L), 8);
-
-                                //        Block[x0, y0] = Color.Red.ToArgb();
-                                //    }
-                                //}                                
-
-                                b.SetRectangle(0, 0, Block);
-                                using (var bb = b.ToBitmap())
-                                {
-                                    var PhysicalRect = new Rectangle(x, y, PhysicalWidth, PhysicalHeight);
-                                    g.DrawImage(bb, PhysicalRect);
+                                    Block[x0, y0] = Color.Red.ToArgb();
                                 }
+                            });
 
-                                Parallel.ForEach(range, pair =>
-                                {
-                                    var x0 = pair.x0;
-                                    var y0 = pair.y0;
+                            //for (int y0 = 0; y0 <= PhysicalHeight - 1; y0++)                                
+                            //for (int x0 = 0; x0 <= PhysicalWidth - 1; x0++)
+                            //{
+                            //    Block[x0, y0] = Block[x0, y0] ^ 0xFFFFFF;
 
-                                    Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
-                                    Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
-                                    Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
-                                    Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
-                                });
+                            //    if (!glyph.IsValid)
+                            //    {
+                            //        //int ARGB = BitOperations.ConcatBits(GetChannel(ChannelPatterns[0], L), 8, GetChannel(ChannelPatterns[1], L), 8, GetChannel(ChannelPatterns[2], L), 8, GetChannel(ChannelPatterns[3], L), 8);
 
-                                //for (int y0 = 0; y0 <= PhysicalHeight - 1; y0++)                                
-                                //for (int x0 = 0; x0 <= PhysicalWidth - 1; x0++)
-                                //{
-                                //    Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
-                                //    Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
-                                //    Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
-                                //    Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
-                                //}                                
+                            //        Block[x0, y0] = Color.Red.ToArgb();
+                            //    }
+                            //}                                
 
-                                b2x.SetRectangle(0, 0, Block2x);
-                                using (var bb2x = b2x.ToBitmap())
-                                {
-                                    var PhysicalRect2x = new Rectangle(x * 2, y * 2, PhysicalWidth * 2, PhysicalHeight * 2);
-                                    g2x.DrawImage(bb2x, PhysicalRect2x);
-                                }
-
-                                var VirtualRect = glyph.VirtualBox;
-                                g2x.DrawRectangle(Pens.Red, new Rectangle(x * 2 + VirtualRect.X * 2, y * 2 + VirtualRect.Y * 2, VirtualRect.Width * 2 - 1, VirtualRect.Height * 2 - 1));
-
-                                k += 1;
+                            b.SetRectangle(0, 0, Block);
+                            using (var bb = b.ToBitmap())
+                            {
+                                var PhysicalRect = new Rectangle(x, y, PhysicalWidth, PhysicalHeight);
+                                g.DrawImage(bb, PhysicalRect);
                             }
 
-                            l += 1;
-                        }
-                    }
+                            Parallel.ForEach(range, pair =>
+                            {
+                                var x0 = pair.x0;
+                                var y0 = pair.y0;
 
+                                block2X[x0 * 2, y0 * 2] = Block[x0, y0];
+                                block2X[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
+                                block2X[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
+                                block2X[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
+                            });
+
+                            //for (int y0 = 0; y0 <= PhysicalHeight - 1; y0++)                                
+                            //for (int x0 = 0; x0 <= PhysicalWidth - 1; x0++)
+                            //{
+                            //    Block2x[x0 * 2, y0 * 2] = Block[x0, y0];
+                            //    Block2x[x0 * 2 + 1, y0 * 2] = Block[x0, y0];
+                            //    Block2x[x0 * 2, y0 * 2 + 1] = Block[x0, y0];
+                            //    Block2x[x0 * 2 + 1, y0 * 2 + 1] = Block[x0, y0];
+                            //}                                
+
+                            b2X.SetRectangle(0, 0, block2X);
+                            using (var bb2X = b2X.ToBitmap())
+                            {
+                                var physicalRect2X = new Rectangle(x * 2, y * 2, PhysicalWidth * 2, PhysicalHeight * 2);
+                                g2X.DrawImage(bb2X, physicalRect2X);
+                            }
+
+                            var VirtualRect = glyph.VirtualBox;
+                            g2X.DrawRectangle(Pens.Red, new Rectangle(x * 2 + VirtualRect.X * 2, y * 2 + VirtualRect.Y * 2, VirtualRect.Width * 2 - 1, VirtualRect.Height * 2 - 1));
+
+                            k += 1;
+                        }
+
+                        l += 1;
+                    }
                 }
+
+
             }
 
             // Catch
             // End Try
             PictureBox_Preview.Image = Image;
             PictureBox_Preview.ClientSize = Image.Size;
-            PictureBox_Preview2x.Image = Image2x;
-            PictureBox_Preview2x.ClientSize = Image2x.Size;
+            PictureBox_Preview2x.Image = image2X;
+            PictureBox_Preview2x.ClientSize = image2X.Size;
             PictureBox_Preview.Invalidate();
             PictureBox_Preview2x.Invalidate();
             // Catch
             // End Try
+        }
+
+        private (IEnumerable<Char32[]> lines, IGlyph[] glyphs) GetChars(int physicalWidth, int physicalHeight)
+        {
+            FontStyle Style = GetSelectedStyles();
+
+            bool EnableDoubleSample = CheckBox_DoubleSample.Checked;
+            bool AnchorLeft = CheckBox_AnchorLeft.Checked;
+
+            ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
+
+            if (!chkDrawAlpha.Checked)
+                ChannelPatterns[0] = ChannelPattern.One;
+
+            IGlyphProvider gg;
+            if (EnableDoubleSample)
+            {
+                gg = new GlyphGeneratorDoubleSample(
+                    GetSelectedFont(),
+                    Style,
+                    (int)Math.Round(NumericUpDown_Size.Value),
+                    physicalWidth,
+                    physicalHeight,
+                    (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
+                    (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
+                    (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
+                    (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
+                    (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
+                    (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
+                    AnchorLeft,
+                    ChannelPatterns);
+            }
+            else
+            {
+                gg = new GlyphGenerator(
+                    GetSelectedFont(), Style,
+                    (int)Math.Round(NumericUpDown_Size.Value),
+                    physicalWidth,
+                    physicalHeight,
+                    (int)Math.Round(NumericUpDown_DrawOffsetX.Value),
+                    (int)Math.Round(NumericUpDown_DrawOffsetY.Value),
+                    (int)Math.Round(NumericUpDown_VirtualOffsetX.Value),
+                    (int)Math.Round(NumericUpDown_VirtualOffsetY.Value),
+                    (int)Math.Round(NumericUpDown_VirtualDeltaWidth.Value),
+                    (int)Math.Round(NumericUpDown_VirtualDeltaHeight.Value),
+                    AnchorLeft,
+                    ChannelPatterns);
+            }
+
+            IEnumerable<Char32[]> lines = _testStrings
+                .Select(l => l.ToUTF32()).ToArray();
+
+            IGlyph[] glyphs;
+
+            using (gg)
+            {
+                glyphs = lines
+                    .SelectMany(l => l)
+                    //.AsParallel()
+                    .Select(c => gg.GetGlyph(StringCode.FromUniChar(c)))
+                    .ToArray();
+            }
+
+            return (lines, glyphs);
         }
 
         private FontStyle GetSelectedStyles()
@@ -442,13 +452,13 @@ namespace FontGen
             return Style;
         }
 
-        private string customFontPath;
+        private string CustomFontPath;
 
         private string GetSelectedFont()
         {
-            if (!string.IsNullOrEmpty(customFontPath))
+            if (!string.IsNullOrEmpty(CustomFontPath))
             {
-                return customFontPath;
+                return CustomFontPath;
             }
 
             return ((FontFamily)ComboBox_FontName.SelectedItem).Name;
@@ -471,7 +481,7 @@ namespace FontGen
         {
             if (ComboBox_FontName.SelectedIndex >= 0)
             {
-                customFontPath = string.Empty;
+                CustomFontPath = string.Empty;
 
                 ReDraw();
 
@@ -518,21 +528,20 @@ namespace FontGen
             //ReDraw();
         }
 
-        private string Esc(string Parameter)
+        private string Esc(string parameter)
         {
-            if (string.IsNullOrEmpty(Parameter))
+            if (string.IsNullOrEmpty(parameter))
                 return "\"\"";
-            if (Parameter.Contains(" "))
-                return "\"" + Parameter + "\"";
-            if (Parameter.Contains("　"))
-                return "\"" + Parameter + "\"";
-            return Parameter;
+            if (parameter.Contains(" "))
+                return "\"" + parameter + "\"";
+            if (parameter.Contains("　"))
+                return "\"" + parameter + "\"";
+            return parameter;
         }
 
-        private string FormatEsc(string Format, params object[] args)
+        private string FormatEsc(string format, params object[] args)
         {
-            return Format.Formats((from arg in args
-                                   select Esc(arg.ToString())).ToArray());
+            return format.Formats(args.Select(arg => Esc(arg.ToString())).ToArray());
         }
 
         private void Button_CmdToClipboard_Click(object sender, EventArgs e)
@@ -594,9 +603,9 @@ namespace FontGen
 
             ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
-            bool cop_mode = !chkDrawAlpha.Checked;
+            bool copMode = !chkDrawAlpha.Checked;
 
-            if (cop_mode)
+            if (copMode)
                 ChannelPatterns[0] = ChannelPattern.One;
 
             int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
@@ -639,46 +648,46 @@ namespace FontGen
 
             string path = Path.Combine(wortDir, Path.GetFileName(GetSelectedFont()));
 
-            string fd_filePath = FileNameHandling.ChangeExtension(path, "fd");
-            string bmp_filePath = FileNameHandling.ChangeExtension(path, "bmp");
+            string fdFilePath = FileNameHandling.ChangeExtension(path, "fd");
+            string bmpFilePath = FileNameHandling.ChangeExtension(path, "bmp");
 
-            SaveFont(glyphs, fd_filePath, -1, -1, bpp, false, false);
+            SaveFont(glyphs, fdFilePath, -1, -1, bpp, false, false);
 
             string toolDir = AppDomain.CurrentDomain.BaseDirectory + "\\Bins";
 
-            string dds_format = bpp == 32 ? "-32" : "-8";
-            dds_format += " ";
-            dds_format += cop_mode ? "A8" : "u8888";
+            string ddsFormat = bpp == 32 ? "-32" : "-8";
+            ddsFormat += " ";
+            ddsFormat += copMode ? "A8" : "u8888";
 
-            FbToIni(wortDir, fd_filePath);
+            FbToIni(fdFilePath);
 
             //RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
             //RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
-            RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmp_filePath)}\" -outdir \"{wortDir}\" -nomipmap {dds_format}");
+            RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmpFilePath)}\" -outdir \"{wortDir}\" -nomipmap {ddsFormat}");
 
             if (chkDelTemp.Checked)
             {
-                string ini_filePath = FileNameHandling.ChangeExtension(path, "ini");
-                string dds_filePath = FileNameHandling.ChangeExtension(path, "dds");
+                string iniFilePath = FileNameHandling.ChangeExtension(path, "ini");
+                string ddsFilePath = FileNameHandling.ChangeExtension(path, "dds");
 
                 // if all good
-                if (File.Exists(ini_filePath) && File.Exists(dds_filePath))
+                if (File.Exists(iniFilePath) && File.Exists(ddsFilePath))
                 {
-                    File.Delete(fd_filePath);
-                    File.Delete(bmp_filePath);
+                    File.Delete(fdFilePath);
+                    File.Delete(bmpFilePath);
                 }
             }
 
             MessageBox.Show("Generation completed!", Text);
         }
 
-        private void FbToIni(string wortDir, string fd_filePath)
+        private void FbToIni(string fdFilePath)
         {
-            string ini_filePath = FileNameHandling.ChangeExtension(fd_filePath, "ini");
+            string iniFilePath = FileNameHandling.ChangeExtension(fdFilePath, "ini");
 
-            if (File.Exists(fd_filePath))
+            if (File.Exists(fdFilePath))
             {
-                string[] lines = File.ReadAllLines(fd_filePath);
+                string[] lines = File.ReadAllLines(fdFilePath);
 
                 List<string> result = new List<string>();
                 int height = -1;
@@ -694,31 +703,31 @@ namespace FontGen
                     x1 = int.Parse(parts[2]);
                     y1 = int.Parse(parts[3]);
 
-                    int _x1, _y1;
+                    int i_x1, i_y1;
 
-                    _x1 = int.Parse(parts[6]);
-                    _y1 = int.Parse(parts[7]);
+                    i_x1 = int.Parse(parts[6]);
+                    i_y1 = int.Parse(parts[7]);
 
-                    int _x2, _y2;
+                    int i_x2, i_y2;
 
-                    _x2 = int.Parse(parts[8]);
-                    _y2 = int.Parse(parts[9]);
+                    i_x2 = int.Parse(parts[8]);
+                    i_y2 = int.Parse(parts[9]);
 
-                    height = _y2;
+                    height = i_y2;
 
-                    result.Add($"{charCode:D5} = {x1 + _x1}, {y1 + _y1}, {x1 + _x1 + _x2}, {y1 + _y1 + _y2}");
+                    result.Add($"{charCode:D5} = {x1 + i_x1}, {y1 + i_y1}, {x1 + i_x1 + i_x2}, {y1 + i_y1 + i_y2}");
                 }
 
                 result.Insert(0, $"height = {height}");
                 result.Insert(0, "[mb_symbol_coords]");
 
-                if (File.Exists(ini_filePath))
+                if (File.Exists(iniFilePath))
                 {
-                    File.SetAttributes(ini_filePath, FileAttributes.Normal);
-                    File.Delete(ini_filePath);
+                    File.SetAttributes(iniFilePath, FileAttributes.Normal);
+                    File.Delete(iniFilePath);
                 }
 
-                File.WriteAllLines(ini_filePath, result);
+                File.WriteAllLines(iniFilePath, result);
             }
         }
 
@@ -730,7 +739,7 @@ namespace FontGen
 
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
-                    customFontPath = fd.FileName;
+                    CustomFontPath = fd.FileName;
                     if (ComboBox_FontName.SelectedIndex != -1)
                     {
                         ComboBox_FontName.SelectedIndex = -1;
@@ -738,10 +747,10 @@ namespace FontGen
 
                     ReDraw();
 
-                    lblCustomFontName.Text = Path.GetFileName(customFontPath);
+                    lblCustomFontName.Text = Path.GetFileName(CustomFontPath);
 
-                    collection.AddFontFile(customFontPath);
-                    lblCustomFontName.Font = new Font(collection.Families[collection.Families.Length - 1], (int)Math.Round(NumericUpDown_Size.Value), GetSelectedStyles(), GraphicsUnit.Pixel);
+                    Collection.AddFontFile(CustomFontPath);
+                    lblCustomFontName.Font = new Font(Collection.Families[Collection.Families.Length - 1], (int)Math.Round(NumericUpDown_Size.Value), GetSelectedStyles(), GraphicsUnit.Pixel);
                 }
             }
         }
@@ -788,15 +797,31 @@ namespace FontGen
             else
             {
                 FontGenContent.Show();
-                FontGenContent.SetText(TestStrings);
+                FontGenContent.SetText(_testStrings);
             }
         }
 
         public void SetContent(string[] lines)
         {
-            TestStrings = lines;
+            _testStrings = lines;
 
             ReDraw();
+        }
+
+        private void btnAutosize_Click(object sender, EventArgs e)
+        {
+            int PhysicalWidth = (int)Math.Round(NumericUpDown_PhysicalWidth.Value);
+            int PhysicalHeight = (int)Math.Round(NumericUpDown_PhysicalHeight.Value);
+
+            var (_, gl) = GetChars(PhysicalWidth, PhysicalHeight);
+
+            PhysicalWidth = (from g in gl
+                             select g.VirtualBox.Width + 4).Max();
+            PhysicalHeight = (from g in gl
+                              select g.VirtualBox.Height + 4).Max();
+
+            NumericUpDown_PhysicalWidth.Value = PhysicalWidth;
+            NumericUpDown_PhysicalHeight.Value = PhysicalHeight;
         }
     }
 }

@@ -153,7 +153,7 @@ namespace Firefly
             return string.Format(This, arg0, arg1, arg2);
         }
         /// <summary>将指定 String 中的格式项替换为指定数组中相应 Object 实例的值的文本等效项。</summary>
-        public static string Formats(this string This, params object[] args)
+        public static string Formats(this string This, params string[][] args)
         {
             return string.Format(This, args);
         }
