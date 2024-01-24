@@ -134,12 +134,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bins\BmpCuter.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Bins\FD2INI.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Bins\nvdxt.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -661,8 +661,6 @@ namespace FontGen
 
             FbToIni(fdFilePath);
 
-            //RunAndWait(wortDir, Path.Combine(toolDir, "FD2INI.exe"), $"\"{Path.GetFileName(fd_filePath)}\"");
-            //RunAndWait(wortDir, Path.Combine(toolDir, "BmpCuter.exe"), Path.GetFileName(bmp_filePath));
             RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmpFilePath)}\" -outdir \"{wortDir}\" -nomipmap {ddsFormat}");
 
             if (chkDelTemp.Checked)
