@@ -62,6 +62,10 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>manifest.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -126,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="manifest.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FireflyCore\FireflyCore_VS2010.csproj">
