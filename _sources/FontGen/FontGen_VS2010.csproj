@@ -77,26 +77,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileDialogEx.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileDialogInterop.cs" />
-    <Compile Include="FileDialogNative.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FilePicker.Designer.cs">
-      <DependentUpon>FilePicker.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FilePicker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FilePickerInterop.cs" />
-    <Compile Include="FilePickerView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FileSelectBox.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="FontGenContent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,13 +94,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FilePicker.resx">
-      <DependentUpon>FilePicker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FileSelectBox.resx">
-      <DependentUpon>FileSelectBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FontGenContent.resx">
       <DependentUpon>FontGenContent.cs</DependentUpon>
     </EmbeddedResource>
