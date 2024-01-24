@@ -486,9 +486,6 @@ namespace FontGen
                 ReDraw();
 
                 FontFamily f = (FontFamily)ComboBox_FontName.SelectedItem;
-
-                lblCustomFontName.Text = f.Name;
-                lblCustomFontName.Font = new Font(f, (int)Math.Round(NumericUpDown_Size.Value), GetSelectedStyles(), GraphicsUnit.Pixel);
             }
         }
         private void NumericUpDown_Size_ValueChanged(object sender, EventArgs e)
@@ -557,7 +554,7 @@ namespace FontGen
             if (CheckBox_AnchorLeft.Checked)
                 Options.Add("/left");
 
-            string path = FileSelectBox_File.Path;
+            string path = "";
 
             string[] AddParameters = [
                 FileNameHandling.GetFileName(path),
@@ -611,7 +608,7 @@ namespace FontGen
             int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
 
             IEnumerable<IGlyph> glyphs = GenerateFont(
-            FileSelectBox_File.Path,
+            "",
             GetSelectedFont(), Style,
             (int)Math.Round(NumericUpDown_Size.Value),
             PhysicalWidth,
@@ -745,10 +742,7 @@ namespace FontGen
 
                     ReDraw();
 
-                    lblCustomFontName.Text = Path.GetFileName(CustomFontPath);
-
                     Collection.AddFontFile(CustomFontPath);
-                    lblCustomFontName.Font = new Font(Collection.Families[Collection.Families.Length - 1], (int)Math.Round(NumericUpDown_Size.Value), GetSelectedStyles(), GraphicsUnit.Pixel);
                 }
             }
         }
