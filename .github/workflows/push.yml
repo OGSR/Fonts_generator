@@ -25,7 +25,7 @@ jobs:
     - name: MSBuild
       shell: cmd
       run: |        
-        msbuild _sources\Firefly_VS2010.sln /t:Rebuild /p:Configuration=${{ matrix.Configuration }}
+        msbuild _sources\FontGen.sln /t:Rebuild /p:Configuration=${{ matrix.Configuration }}
     - name: Prepare artifacts
       shell: cmd
       run: |
