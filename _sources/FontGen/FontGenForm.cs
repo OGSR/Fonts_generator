@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Firefly;
@@ -22,6 +23,13 @@ using Firefly.Glyphing;
 using Firefly.Imaging;
 using Firefly.TextEncoding;
 using Firefly.Texting;
+
+[assembly: AssemblyTitle("Fonts generator for the X-Ray Engine")]
+[assembly: AssemblyDescription("Fonts generator for the X-Ray Engine")]
+[assembly: AssemblyCompany("OGSR")]
+[assembly: AssemblyProduct("Fonts Generator")]
+[assembly: AssemblyCopyright("OGSR © 2024")]
+[assembly: AssemblyVersion("1.0")]
 
 namespace FontGen
 {
@@ -383,7 +391,7 @@ namespace FontGen
 
             ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
-            if (!chkDrawAlpha.Checked)
+            if (chkCopMode.Checked)
                 ChannelPatterns[0] = ChannelPattern.One;
 
             IGlyphProvider gg;
@@ -470,8 +478,6 @@ namespace FontGen
             ComboBox_FontName.DataSource = FontFamily.Families.ToList();
             ComboBox_FontName.SelectedIndex = 0;
             ReDraw();
-
-            ddlBPP.SelectedItem = "32";
         }
 
         private void FontGen_Shown(object sender, EventArgs e)
@@ -600,12 +606,8 @@ namespace FontGen
 
             ChannelPattern[] ChannelPatterns = [ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw, ChannelPattern.Draw];
 
-            bool copMode = !chkDrawAlpha.Checked;
-
-            if (copMode)
+            if (chkCopMode.Checked)
                 ChannelPatterns[0] = ChannelPattern.One;
-
-            int bpp = int.Parse(ddlBPP.SelectedItem.ToString());
 
             IEnumerable<IGlyph> glyphs = GenerateFont(
             "",
@@ -648,19 +650,21 @@ namespace FontGen
             string fdFilePath = FileNameHandling.ChangeExtension(path, "fd");
             string bmpFilePath = FileNameHandling.ChangeExtension(path, "bmp");
 
+            int bpp = chkCopMode.Checked ? 8 : 32;
+
             SaveFont(glyphs, fdFilePath, -1, -1, bpp, false, false);
 
             string toolDir = AppDomain.CurrentDomain.BaseDirectory + "\\Bins";
 
             string ddsFormat = bpp == 32 ? "-32" : "-8";
             ddsFormat += " ";
-            ddsFormat += copMode ? "A8" : "u8888";
+            ddsFormat += chkCopMode.Checked ? "A8" : "u8888";
 
             FbToIni(fdFilePath);
 
             RunAndWait(wortDir, Path.Combine(toolDir, "nvdxt.exe"), $"-file \"{Path.GetFileName(bmpFilePath)}\" -outdir \"{wortDir}\" -nomipmap {ddsFormat}");
 
-            if (chkDelTemp.Checked)
+            //if (chkDelTemp.Checked)
             {
                 string iniFilePath = FileNameHandling.ChangeExtension(path, "ini");
                 string ddsFilePath = FileNameHandling.ChangeExtension(path, "dds");
@@ -683,7 +687,7 @@ namespace FontGen
             if (File.Exists(fdFilePath))
             {
                 string[] lines = File.ReadAllLines(fdFilePath);
-
+                Dictionary<int, bool> chars_map = new Dictionary<int, bool>();
                 List<string> result = new List<string>();
                 int height = -1;
 
@@ -692,6 +696,81 @@ namespace FontGen
                     string[] parts = l.Split(',');
 
                     int charCode = int.Parse(parts[0].Substring(2), System.Globalization.NumberStyles.HexNumber);
+
+                    if (!chkUTF8.Checked)
+                    {
+                        switch (charCode)
+                        {
+                            case 0x401: // Ё
+                                {
+                                    charCode = 0xA8;
+                                    break;
+                                }
+                            case 0x451: // ё
+                                {
+                                    charCode = 0xB8;
+                                    break;
+                                }
+                            case 0x2116: // №
+                                {
+                                    charCode = 0xB9;
+                                    break;
+                                }
+                            case 0x2014: // —
+                                {
+                                    charCode = 0x97;
+                                    break;
+                                }
+                            case 0x490: // Ґ
+                                {
+                                    charCode = 0xA5;
+                                    break;
+                                }
+                            case 0x491: // ґ
+                                {
+                                    charCode = 0xB4;
+                                    break;
+                                }
+                            case 0x404: // Є
+                                {
+                                    charCode = 0xAA;
+                                    break;
+                                }
+                            case 0x454: // є
+                                {
+                                    charCode = 0xBA;
+                                    break;
+                                }
+                            case 0x406: // І
+                                {
+                                    charCode = 0xB2;
+                                    break;
+                                }
+                            case 0x456: // і
+                                {
+                                    charCode = 0xB3;
+                                    break;
+                                }
+                            case 0x407: // Ї
+                                {
+                                    charCode = 0xAF;
+                                    break;
+                                }
+                            case 0x457: // ї
+                                {
+                                    charCode = 0xBF;
+                                    break;
+                                }
+                            default:
+                                {
+                                    if (charCode >= 0x410 && charCode < (0x410 + 256))
+                                    {
+                                        charCode -= 848;
+                                    }
+                                    break;
+                                }
+                        }
+                    }
 
                     int x1, y1;
 
@@ -710,11 +789,27 @@ namespace FontGen
 
                     height = i_y2;
 
-                    result.Add($"{charCode:D5} = {x1 + i_x1}, {y1 + i_y1}, {x1 + i_x1 + i_x2}, {y1 + i_y1 + i_y2}");
+                    if (chkUTF8.Checked || charCode <= 0xff)
+                    {
+                        if (chkUTF8.Checked)
+                            result.Add($"{charCode:D5} = {x1 + i_x1}, {y1 + i_y1}, {x1 + i_x1 + i_x2}, {y1 + i_y1 + i_y2}");
+                        else
+                            result.Add($"{charCode:D3} = {x1 + i_x1}, {y1 + i_y1}, {x1 + i_x1 + i_x2}, {y1 + i_y1 + i_y2}");
+                        chars_map[charCode] = true;
+                    }
+                }
+
+                if (!chkUTF8.Checked)
+                {
+                    for (int i = 0; i <= 0xff; i++)
+                    {
+                        if (!chars_map.ContainsKey(i))
+                            result.Add($"{i:D3} = {0}, {0}, {0}, {0}");
+                    }
                 }
 
                 result.Insert(0, $"height = {height}");
-                result.Insert(0, "[mb_symbol_coords]");
+                result.Insert(0, chkUTF8.Checked ? "[mb_symbol_coords]" : "[symbol_coords]");
 
                 if (File.Exists(iniFilePath))
                 {

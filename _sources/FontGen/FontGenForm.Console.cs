@@ -143,24 +143,24 @@ namespace FontGen
                                         {
                                             case 1:
                                                 {
-                                                    Char32[] s = argv[0].ToLower().ToUTF32();
+                                                    string s = argv[0].ToLower();
                                                     if (s.Length != 4)
                                                         throw new ArgumentException(string.Join(",", opt.Arguments));
                                                     for (int n = 0; n <= 3; n++)
                                                     {
-                                                        switch (n.ToString())
+                                                        switch (s[n])
                                                         {
-                                                            case "0":
+                                                            case '0':
                                                                 {
                                                                     ChannelPatterns[n] = ChannelPattern.Zero;
                                                                     break;
                                                                 }
-                                                            case "x":
+                                                            case 'x':
                                                                 {
                                                                     ChannelPatterns[n] = ChannelPattern.Draw;
                                                                     break;
                                                                 }
-                                                            case "1":
+                                                            case '1':
                                                                 {
                                                                     ChannelPatterns[n] = ChannelPattern.One;
                                                                     break;
@@ -168,7 +168,7 @@ namespace FontGen
 
                                                             default:
                                                                 {
-                                                                    throw new ArgumentException(string.Join(",", opt.Arguments));
+                                                                    throw new ArgumentException(n.ToString());
                                                                 }
                                                         }
                                                     }

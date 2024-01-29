@@ -31,7 +31,6 @@ namespace FontGen
         [System.Diagnostics.DebuggerStepThrough()]
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FontGenForm));
             this.Label_FontName = new System.Windows.Forms.Label();
@@ -65,16 +64,13 @@ namespace FontGen
             this.NumericUpDown_VirtualDeltaWidth = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDown_VirtualDeltaHeight = new System.Windows.Forms.NumericUpDown();
             this.Button_Generate = new System.Windows.Forms.Button();
-            this.Button_CmdToClipboard = new System.Windows.Forms.Button();
             this.CheckBox_AnchorLeft = new System.Windows.Forms.CheckBox();
-            this.ddlBPP = new System.Windows.Forms.ComboBox();
-            this.chkDrawAlpha = new System.Windows.Forms.CheckBox();
+            this.chkCopMode = new System.Windows.Forms.CheckBox();
             this.btnCustomFont = new System.Windows.Forms.Button();
             this.txtTargetPath = new System.Windows.Forms.TextBox();
-            this.chkDelTemp = new System.Windows.Forms.CheckBox();
+            this.chkUTF8 = new System.Windows.Forms.CheckBox();
             this.btnEditText = new System.Windows.Forms.Button();
             this.btnAutosize = new System.Windows.Forms.Button();
-            label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_Size)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_PhysicalWidth)).BeginInit();
@@ -94,17 +90,6 @@ namespace FontGen
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDown_VirtualDeltaHeight)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            label1.Location = new System.Drawing.Point(8, 559);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(113, 31);
-            label1.TabIndex = 10;
-            label1.Text = "BitPerPixel";
-            label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -340,8 +325,8 @@ namespace FontGen
             // 
             this.SplitContainer_Main.Panel2.AutoScroll = true;
             this.SplitContainer_Main.Panel2.Controls.Add(this.panel2);
-            this.SplitContainer_Main.Size = new System.Drawing.Size(1103, 787);
-            this.SplitContainer_Main.SplitterDistance = 253;
+            this.SplitContainer_Main.Size = new System.Drawing.Size(1103, 819);
+            this.SplitContainer_Main.SplitterDistance = 262;
             this.SplitContainer_Main.SplitterWidth = 5;
             this.SplitContainer_Main.TabIndex = 5;
             // 
@@ -354,7 +339,7 @@ namespace FontGen
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1103, 253);
+            this.panel1.Size = new System.Drawing.Size(1103, 262);
             this.panel1.TabIndex = 0;
             // 
             // PictureBox_Preview
@@ -363,8 +348,7 @@ namespace FontGen
             this.PictureBox_Preview.Location = new System.Drawing.Point(0, 0);
             this.PictureBox_Preview.Margin = new System.Windows.Forms.Padding(4);
             this.PictureBox_Preview.Name = "PictureBox_Preview";
-            this.PictureBox_Preview.Size = new System.Drawing.Size(827, 190);
-            this.PictureBox_Preview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.PictureBox_Preview.Size = new System.Drawing.Size(1103, 259);
             this.PictureBox_Preview.TabIndex = 5;
             this.PictureBox_Preview.TabStop = false;
             // 
@@ -377,7 +361,7 @@ namespace FontGen
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1103, 529);
+            this.panel2.Size = new System.Drawing.Size(1103, 552);
             this.panel2.TabIndex = 0;
             // 
             // PictureBox_Preview2x
@@ -386,7 +370,7 @@ namespace FontGen
             this.PictureBox_Preview2x.Location = new System.Drawing.Point(0, 0);
             this.PictureBox_Preview2x.Margin = new System.Windows.Forms.Padding(4);
             this.PictureBox_Preview2x.Name = "PictureBox_Preview2x";
-            this.PictureBox_Preview2x.Size = new System.Drawing.Size(1103, 525);
+            this.PictureBox_Preview2x.Size = new System.Drawing.Size(1103, 552);
             this.PictureBox_Preview2x.TabIndex = 5;
             this.PictureBox_Preview2x.TabStop = false;
             // 
@@ -585,7 +569,7 @@ namespace FontGen
             // Button_Generate
             // 
             this.Button_Generate.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Button_Generate.Location = new System.Drawing.Point(8, 684);
+            this.Button_Generate.Location = new System.Drawing.Point(8, 815);
             this.Button_Generate.Margin = new System.Windows.Forms.Padding(4);
             this.Button_Generate.Name = "Button_Generate";
             this.Button_Generate.Size = new System.Drawing.Size(269, 41);
@@ -593,18 +577,6 @@ namespace FontGen
             this.Button_Generate.Text = "Generate";
             this.Button_Generate.UseVisualStyleBackColor = true;
             this.Button_Generate.Click += new System.EventHandler(this.Button_Generate_Click);
-            // 
-            // Button_CmdToClipboard
-            // 
-            this.Button_CmdToClipboard.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Button_CmdToClipboard.Location = new System.Drawing.Point(8, 635);
-            this.Button_CmdToClipboard.Margin = new System.Windows.Forms.Padding(4);
-            this.Button_CmdToClipboard.Name = "Button_CmdToClipboard";
-            this.Button_CmdToClipboard.Size = new System.Drawing.Size(269, 41);
-            this.Button_CmdToClipboard.TabIndex = 8;
-            this.Button_CmdToClipboard.Text = "Commandline to the clipboard";
-            this.Button_CmdToClipboard.UseVisualStyleBackColor = true;
-            this.Button_CmdToClipboard.Click += new System.EventHandler(this.Button_CmdToClipboard_Click);
             // 
             // CheckBox_AnchorLeft
             // 
@@ -618,33 +590,19 @@ namespace FontGen
             this.CheckBox_AnchorLeft.UseVisualStyleBackColor = true;
             this.CheckBox_AnchorLeft.CheckedChanged += new System.EventHandler(this.CheckBox_DoubleSample_CheckedChanged);
             // 
-            // ddlBPP
+            // chkCopMode
             // 
-            this.ddlBPP.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ddlBPP.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ddlBPP.FormattingEnabled = true;
-            this.ddlBPP.Items.AddRange(new object[] {
-            "8",
-            "32"});
-            this.ddlBPP.Location = new System.Drawing.Point(8, 594);
-            this.ddlBPP.Margin = new System.Windows.Forms.Padding(4);
-            this.ddlBPP.Name = "ddlBPP";
-            this.ddlBPP.Size = new System.Drawing.Size(113, 27);
-            this.ddlBPP.TabIndex = 11;
-            // 
-            // chkDrawAlpha
-            // 
-            this.chkDrawAlpha.Checked = true;
-            this.chkDrawAlpha.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDrawAlpha.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chkDrawAlpha.Location = new System.Drawing.Point(8, 784);
-            this.chkDrawAlpha.Margin = new System.Windows.Forms.Padding(4);
-            this.chkDrawAlpha.Name = "chkDrawAlpha";
-            this.chkDrawAlpha.Size = new System.Drawing.Size(269, 40);
-            this.chkDrawAlpha.TabIndex = 12;
-            this.chkDrawAlpha.Text = "DrawAlpha (NON CoP)";
-            this.chkDrawAlpha.UseVisualStyleBackColor = true;
-            this.chkDrawAlpha.CheckedChanged += new System.EventHandler(this.chkDrawAlpha_CheckedChanged);
+            this.chkCopMode.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkCopMode.Location = new System.Drawing.Point(8, 629);
+            this.chkCopMode.Margin = new System.Windows.Forms.Padding(4);
+            this.chkCopMode.Name = "chkCopMode";
+            this.chkCopMode.Size = new System.Drawing.Size(269, 111);
+            this.chkCopMode.TabIndex = 12;
+            this.chkCopMode.Text = "COP-style font texture (not recommended, SHOC-style has better quality, but needs" +
+    " use \'font\' shader in \'fonts.ltx\')";
+            this.chkCopMode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkCopMode.UseVisualStyleBackColor = true;
+            this.chkCopMode.CheckedChanged += new System.EventHandler(this.chkDrawAlpha_CheckedChanged);
             // 
             // btnCustomFont
             // 
@@ -652,7 +610,7 @@ namespace FontGen
             this.btnCustomFont.Location = new System.Drawing.Point(8, 87);
             this.btnCustomFont.Margin = new System.Windows.Forms.Padding(4);
             this.btnCustomFont.Name = "btnCustomFont";
-            this.btnCustomFont.Size = new System.Drawing.Size(269, 33);
+            this.btnCustomFont.Size = new System.Drawing.Size(269, 41);
             this.btnCustomFont.TabIndex = 13;
             this.btnCustomFont.Text = "CustomFont";
             this.btnCustomFont.UseVisualStyleBackColor = true;
@@ -667,28 +625,29 @@ namespace FontGen
             this.txtTargetPath.Size = new System.Drawing.Size(896, 27);
             this.txtTargetPath.TabIndex = 16;
             // 
-            // chkDelTemp
+            // chkUTF8
             // 
-            this.chkDelTemp.Checked = true;
-            this.chkDelTemp.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDelTemp.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.chkDelTemp.Location = new System.Drawing.Point(8, 736);
-            this.chkDelTemp.Margin = new System.Windows.Forms.Padding(4);
-            this.chkDelTemp.Name = "chkDelTemp";
-            this.chkDelTemp.Size = new System.Drawing.Size(269, 40);
-            this.chkDelTemp.TabIndex = 17;
-            this.chkDelTemp.Text = "Remove temp files";
-            this.chkDelTemp.UseVisualStyleBackColor = true;
+            this.chkUTF8.Checked = true;
+            this.chkUTF8.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkUTF8.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chkUTF8.Location = new System.Drawing.Point(8, 748);
+            this.chkUTF8.Margin = new System.Windows.Forms.Padding(4);
+            this.chkUTF8.Name = "chkUTF8";
+            this.chkUTF8.Size = new System.Drawing.Size(269, 59);
+            this.chkUTF8.TabIndex = 17;
+            this.chkUTF8.Text = "UTF-8 font (full support only in OGSR Engine)";
+            this.chkUTF8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.chkUTF8.UseVisualStyleBackColor = true;
             // 
             // btnEditText
             // 
             this.btnEditText.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEditText.Location = new System.Drawing.Point(157, 580);
+            this.btnEditText.Location = new System.Drawing.Point(8, 580);
             this.btnEditText.Margin = new System.Windows.Forms.Padding(4);
             this.btnEditText.Name = "btnEditText";
-            this.btnEditText.Size = new System.Drawing.Size(120, 41);
+            this.btnEditText.Size = new System.Drawing.Size(269, 41);
             this.btnEditText.TabIndex = 18;
-            this.btnEditText.Text = "Edit content";
+            this.btnEditText.Text = "Edit symbols";
             this.btnEditText.UseVisualStyleBackColor = true;
             this.btnEditText.Click += new System.EventHandler(this.btnEditText_Click);
             // 
@@ -708,17 +667,14 @@ namespace FontGen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1413, 837);
+            this.ClientSize = new System.Drawing.Size(1413, 869);
             this.Controls.Add(this.btnAutosize);
+            this.Controls.Add(this.chkUTF8);
             this.Controls.Add(this.btnEditText);
-            this.Controls.Add(this.chkDelTemp);
             this.Controls.Add(this.txtTargetPath);
             this.Controls.Add(label2);
             this.Controls.Add(this.btnCustomFont);
-            this.Controls.Add(this.chkDrawAlpha);
-            this.Controls.Add(this.ddlBPP);
-            this.Controls.Add(label1);
-            this.Controls.Add(this.Button_CmdToClipboard);
+            this.Controls.Add(this.chkCopMode);
             this.Controls.Add(this.Button_Generate);
             this.Controls.Add(this.SplitContainer_Main);
             this.Controls.Add(this.NumericUpDown_VirtualDeltaHeight);
@@ -766,7 +722,6 @@ namespace FontGen
             ((System.ComponentModel.ISupportInitialize)(this.SplitContainer_Main)).EndInit();
             this.SplitContainer_Main.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview)).EndInit();
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox_Preview2x)).EndInit();
@@ -807,17 +762,15 @@ namespace FontGen
         internal System.Windows.Forms.NumericUpDown NumericUpDown_VirtualDeltaWidth;
         internal System.Windows.Forms.NumericUpDown NumericUpDown_VirtualDeltaHeight;
         internal System.Windows.Forms.Button Button_Generate;
-        internal System.Windows.Forms.Button Button_CmdToClipboard;
         internal System.Windows.Forms.CheckBox CheckBox_AnchorLeft;
-        private System.Windows.Forms.ComboBox ddlBPP;
-        private System.Windows.Forms.CheckBox chkDrawAlpha;
+        private System.Windows.Forms.CheckBox chkCopMode;
         private System.Windows.Forms.Button btnCustomFont;
         private System.Windows.Forms.TextBox txtTargetPath;
         private System.Windows.Forms.Panel panel1;
         internal System.Windows.Forms.PictureBox PictureBox_Preview;
         private System.Windows.Forms.Panel panel2;
         internal System.Windows.Forms.PictureBox PictureBox_Preview2x;
-        private System.Windows.Forms.CheckBox chkDelTemp;
+        private System.Windows.Forms.CheckBox chkUTF8;
         private System.Windows.Forms.Button btnEditText;
         private System.Windows.Forms.Button btnAutosize;
     }
