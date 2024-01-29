@@ -1,13 +1,19 @@
-# Как использовать генератор шрифтов? #
+# Fonts generator [![](https://img.shields.io/github/release/OGSR/Fonts_generator.svg?style=for-the-badge)](https://github.com/OGSR/Fonts_generator/releases/latest) #
 
-* Взять все файлы локализации, сконвертировать их в **UTF-8**, и положить в папку **`xmlfiles\`**
-* Версия игры (**`OGSR`**/**`SoC`**/**`STCS`**/**`CoP`**) и имя шрифта указывается в **`config.ini`**. **Если использовать кастомный шрифт, его сначала обязательно надо установить в винду!**
-* Запустить **`Generator.bat`** либо **`Generator_size_larger.bat`** если нужен шрифт большего размера.
-* Получившиеся после генерации файлы из папки **`gamedata\`** адаптировать к своим конфигам игры.
-* Таким образом можно генерировать разные шрифты для разных языков. Изначально этот генератор был создан для китайского языка.
-* Если генератор выдал ошибку **`На данном компьютере отключен доступ к серверу сценариев Windows`**, то нужно выполнить в командной строке винды:
-```cmd
-Reg.exe add "HKLM\SOFTWARE\Microsoft\Windows Script Host\Settings" /v "Enabled" /t REG_DWORD /d "1" /f
-Reg.exe add "HKCU\SOFTWARE\Microsoft\Windows Script Host\Settings" /v "Enabled" /t REG_DWORD /d "1" /f
-Pause
+**RU**: Утилита для создания шрифтов для **X-Ray Engine** ( `.dds` текстура и `.ini` конфиг ).
+После создания шрифта его нужно добавить в `fonts.ltx`:
+```ini
+[new_font]
+; Шейдер для ТЧ - формата текстуры шрифтов (рекомендуется выбирать в генераторе именно его, т.к. ЗП-формат текстур шрифтов менее качественный). В ЗП используется шейдер `hud\font`.
+shader = font
+texture = ui\new_font_texture
+```
+
+**EN**: Utility for creating fonts for **X-Ray Engine** ( `.dds` texture and `.ini` config).
+After creating the font, you need to add it to `fonts.ltx`:
+```ini
+[new_font]
+; Shader for SHOC - font texture format (it is recommended to select this one in the generator, since the CoP format of font textures is of lower quality). The CoP uses `hud\font` shader.
+shader = font
+texture = ui\new_font_texture
 ```
