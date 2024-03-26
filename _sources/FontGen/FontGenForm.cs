@@ -825,7 +825,7 @@ namespace FontGen
         {
             using (OpenFileDialog fd = new OpenFileDialog())
             {
-                fd.Filter = "(*.ttf)|*.ttf";
+                fd.Filter = "Fonts (*.ttf;*.otf)|*.ttf;*.otf" + "|All files (*.*)|*.*";
 
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
